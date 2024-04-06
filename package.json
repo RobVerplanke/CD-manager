@@ -1,0 +1,17 @@
+{
+  "name": "cd-manager",
+  "version": "1.0.0",
+  "description": "This is a personal project primarily aimed at learning JavaScript programming. The main focus is to gain hands-on experience with importing and utilizing data within a web application. As the project evolves, additional features and functionalities will be implemented, reflecting the growing knowledge and skills acquired during the learning process.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1"
+  }
+}
