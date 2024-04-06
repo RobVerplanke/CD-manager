@@ -1,10 +1,24 @@
 class Controller {
   constructor() {
 
-    // Store all items
-    this.albums = null;
-    this.cds = null;
-    this.tracks = null;
+    this.albums = []; // Store album when applicable which can contain multiple cd's
+    this.cds = []; // Store each individual cd so they can be linked to albums as well as to tracks
+    this.tracks = []; // Store tracks individually because they can occur in multiple cd's or albums
+  }
+
+  // Add a album to the list of owned albums
+  addAlbum(album) {
+    this.albums.push(album);
+  }
+
+  // Add a cd to the list of owned cds
+  addCD(cd) {
+    this.cds.push(cd);
+  }
+
+  // Add a track to the list of owned tracks
+  addTrack(track) {
+    this.tracks.push(track);
   }
 }
 
