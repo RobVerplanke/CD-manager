@@ -8,38 +8,27 @@ class Track {
     this.length = null; // Total length of track
   }
 
-  // Let the user be able to edit the title of this track
-  setTitle(title) {
+  // Let the user be able to edit the properties of this track
+  setProperties(title, artist, label, year, length) {
     this.title = title;
-  }
-
-  // Let the user be able to edit the artist name
-  setArtist(artist) {
     this.artist = artist;
-  }
-
-  // Let the user be able to edit the label when applicable
-  setLabel(label) {
     this.label = label;
-  }
-
-  // Let the user be able to edit the release year
-  setYear(year) {
     this.year = year;
-  }
-
-  // Let the user be able to edit the length of this track
-  setLength(length) {
     this.length = length;
   }
 
   // Add a cd, on which this track occurs, to the cds list
-  addCDToTrack(cd) {
+  addCD(cd) {
     this.cds.push(cd);
   }
 
+  // A list of all CD's this track occurs in
+  getCDs() {
+    return this.cds;
+  }
+
   // Remove a cd, on which this track occurs, from the cds list
-  removeCDFromTrack(cd) {
+  removeCD(cd) {
     const index = this.cds.indexOf(cd);
     if (index !== -1) {
       this.cds.splice(index, 1);

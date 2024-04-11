@@ -4,39 +4,32 @@ class Album {
     this.artist = ''; // Artist who released the album
     this.label = ''; // Album-label when applicable
     this.year = null; // Release year
-    this.items = []; // CD's in the album
+    this.cds = []; // CD's in the album
   }
 
-  // Let the user be able to edit the title of this album
-  setTitle(title) {
+  // Let the user be able to edit the properties of this album
+  setProperties(title, artist, label, year) {
     this.title = title;
-  }
-
-  // Let the user be able to edit the artist name
-  setArtist(artist) {
     this.artist = artist;
-  }
-
-  // Let the user be able to edit the label name
-  setLabel(label) {
     this.label = label;
-  }
-
-  // Let the user be able to edit the release year
-  setYear(year) {
     this.year = year;
   }
 
   // Add a CD to current album
-  addItem(cd) {
-    this.items.push(cd);
+  addCD(cd) {
+    this.cds.push(cd);
+  }
+
+  // A list of all the CD's in this album
+  getCDs() {
+    return this.cds;
   }
 
   // Remove a CD from the current album
-  removeItem(cd) {
-    const index = this.items.indexOf(cd);
+  removeCD(cd) {
+    const index = this.cds.indexOf(cd);
     if (index !== -1) {
-      this.items.splice(index, 1);
+      this.cds.splice(index, 1);
     }
   }
 
