@@ -1,3 +1,4 @@
+const Album = require('../src/modules/Album.js');
 const CD = require('../src/modules/CD.js');
 
 describe('CD', () => {
