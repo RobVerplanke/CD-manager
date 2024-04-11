@@ -1,92 +1,174 @@
 const Controller = require('../src/controller/Controller.js');
-// const Album = require('../src/modules/Album.js');
+const Track = require('../src/modules/Track.js');
+const CD = require('../src/modules/CD.js');
+const Album = require('../src/modules/Album.js');
 
+afterEach(() => {
+    jest.clearAllMocks();
+});
 
 describe('Controller', () => {
-
+    
     it('should exist', () => {
-        const newController = new Controller();
+        expect(new Controller()).toBeTruthy();
+    });
+    
+    describe('Add items', () => {
 
-        expect(newController).toBeTruthy();
+        it('should be able to add a album', () => {
+            const controller = new Controller();
+            
+            // Mock the album
+            jest.mock('../src/modules/Album.js');
+            const mockAlbum = new Album();
+            
+            // Add mocked album to controllers albums storage
+            controller.addAlbumToCollection(mockAlbum);
+
+            expect(controller.albums[0]).toBe(mockAlbum);
+        });
+
+        it('should be able to add a CD', () => {
+            const controller = new Controller();
+            
+            // Mock the cd
+            jest.mock('../src/modules/CD.js');
+            const mockCD = new CD();
+            
+            // Add mocked cd to controllers cd's storage
+            controller.addCDToCollection(mockCD);
+
+            expect(controller.cds[0]).toBe(mockCD);
+        });
+
+        it('should be able to add a track to a specific cd', () => {
+            
+            // Mock the Track and CD class
+            jest.mock('../src/modules/CD.js');
+            jest.mock('../src/modules/Track.js');
+            
+            const controller = new Controller();
+            const mockCD = new CD();
+            const mockTrack = new Track();
+
+            // Add mocked track to the mocked cd
+            controller.addTrackToCD(mockCD, mockTrack);
+
+            // CD has the track stored as first item
+            expect(mockCD.items[0]).toBe(mockTrack);
+        });
+
+        it('should be able to add a cd to a specific album', () => {
+            
+            // Mock the Album and CD class
+            jest.mock('../src/modules/CD.js');
+            jest.mock('../src/modules/Track.js');
+            
+            const controller = new Controller();
+            const mockAlbum = new Album();
+            const mockCD = new CD();
+
+            // Add mocked cd to the mocked album
+            controller.addCDToAlbum(mockAlbum, mockCD);
+
+            // CD has the track stored as first item
+            expect(mockAlbum.items[0]).toBe(mockCD);
+        });
     });
 
-    it('should be able to add a album', () => {
-        const newController = new Controller();
+    describe('Remove items', () => {
+       
+        it('should be able to remove a album in the collection', () => {
+            const controller = new Controller();
+
+            // Mock the album
+            jest.mock('../src/modules/Album.js');
+            const mockAlbum = new Album();
+
+            // First add the album to the collection
+            controller.addAlbumToCollection(mockAlbum);
+
+            // Call the remove method with the album
+            controller.removeAlbumFromCollection(mockAlbum);
+
+            // List with albums is empty again
+            expect(controller.albums.length).toBe(0);
+        });
+
+        it('should be able to remove a cd in the collection', () => {
+            const controller = new Controller();
+
+            // Mock the cd
+            jest.mock('../src/modules/CD.js');
+            const mockCD = new CD();
+
+            // First add the cd to the collection
+            controller.addCDToCollection(mockCD);
+
+            // Call the remove method with the CD
+            controller.removeCDFromCollection(mockCD);
+
+            // List with cds is empty again
+            expect(controller.cds.length).toBe(0);
+        });
+
+        it('should be able to remove a cd from a album', () => {
+            
+            // Mock the Track and CD class
+            jest.mock('../src/modules/Album.js');
+            jest.mock('../src/modules/CD.js');
         
-        const album = { 
-            title: 'New title',
-            artist: 'New artist',
-            label: 'New label',
-            year: 1999,
-            items: [{ cd: 'cd 1' }]  
-        };
+            const controller = new Controller();
+            const mockCD = new CD();
+            const mockAlbum = new Album();
+
+            // Add a cd to the album
+            controller.addCDToAlbum(mockAlbum, mockCD);
+
+            // Remove the cd from the album
+            controller.removeCDFromAlbum(mockAlbum, mockCD);
+
+            // List with cds is empty again
+            expect(mockAlbum.items.length).toBe(0);
+        });
+
+        it('should be able to remove a track from a cd', () => {
+            
+            // Mock the Track and CD class
+            jest.mock('../src/modules/CD.js');
+            jest.mock('../src/modules/Track.js');
         
-        const iterator = newController.albums.values();
+            const controller = new Controller();
+            const mockCD = new CD();
+            const mockTrack = new Track();
 
-        // Add dummy album to controllers albums storage
-        newController.addAlbum(album);
+            // Add a track to the cd
+            controller.addTrackToCD(mockCD, mockTrack);
 
-        const firstAlbum = iterator.next().value;
-        expect(firstAlbum).toEqual(album);
+            // Remove the track from the cd
+            controller.removeTrackFromCD(mockCD, mockTrack);
+
+            // List with tracks is empty again
+            expect(mockCD.items.length).toBe(0);
+        });
     });
 
-    it('should be able to add a CD', () => {
-        const newController = new Controller();
+    describe('Edit items', () => {
 
-        const cd = { 
-            title: 'New title',
-            artist: 'New artist',
-            album: [{ album: 'Album one' }],
-            label: 'New label',
-            year: 2002,
-            items: [{ tracks: 'track 1' }]  
-        };
+        it('should be able to edit album properties', () => {
+            
+            // Mock the album
+            jest.mock('../src/modules/Album.js');
+        
+            const controller = new Controller();
+            const mockAlbum = new Album();
 
-        const iterator = newController.cds.values();
+            // Add a album to the collection
+            controller.addAlbumToCollection(mockAlbum);
 
-        // Add dummy cd to controllers cds storage
-        newController.addCD(cd);
+            // Edit properties
 
-        const firstCD = iterator.next().value;
-        expect(firstCD).toEqual(cd);
+
+        });
     });
-
-    it('should be able to add a track', () => {
-        const newController = new Controller();
-
-        const track = { 
-            title: 'New title',
-            artist: 'New artist',
-            cd: [{ cd: 'CD one' }],
-            label: 'New label',
-            year: 2004,
-            length: 5.3
-        };
-
-        const iterator = newController.tracks.values();
-
-        // Add dummy track to controllers tracks storage
-        newController.addTrack(track);
-
-        const firstTrack = iterator.next().value;
-        expect(firstTrack).toEqual(track);
-    });
-
-    // it('should be able to remove a album', () => {
-    //     const newController = new Controller();
-
-    //     const album = { 
-    //         title: 'New title',
-    //         artist: 'New artist',
-    //         label: 'New label',
-    //         year: 1999,
-    //         items: [{ cd: 'cd 1' }]  
-    //     };
-
-    //     // Add dummy album to controllers albums storage
-    //     newController.addAlbum(album);
-
-    //     // Send message to remove the album
-    //     newController.removeItem(album);
-    // });
 });
