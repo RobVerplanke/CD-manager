@@ -92,12 +92,7 @@ class Controller {
     track.setProperties(title, artist, label, year, length);
   }
 
-  // Removes a specific CD from a album
-  removeCDFromAlbum(album, cd) {
-    album.removeCD(cd);
-  }
-
-  // Removes a specific album from the albums collection,
+  // Removes a specific album from the albums collection
   removeAlbumFromCollection(album) {
     const index = this.albums.indexOf(album);
     if (index !== -1) {
@@ -105,7 +100,7 @@ class Controller {
     }
   }
 
-  // Removes a specific CD from the CD's collection,
+  // Removes a specific CD from the CD's collection
   removeCDFromCollection(cd) {
     const index = this.cds.indexOf(cd);
     if (index !== -1) {
@@ -113,17 +108,30 @@ class Controller {
     }
   }
 
-  // Removes a specific CD from the CD's collection,
+  // Removes a specific track from the tracks collection
+  removeTrackFromCollection(track) {
+    const index = this.tracks.indexOf(track);
+    if (index !== -1) {
+      this.tracks.splice(index, 1);
+    }
+  }
+
+  // Removes a specific CD from a album
+  removeCDFromAlbum(album, cd) {
+    album.removeCD(cd);
+  }
+
+  // Removes a specific CD from the CD's collection
   removeAlbumFromCD(cd, album) {
     cd.removeAlbum(album);
   }
 
-  // Removes a specific track from a CD,
+  // Removes a specific track from a CD
   removeTrackFromCD(cd, track) {
     cd.removeTrack(track);
   }
 
-  // Removes a specific track from a CD,
+  // Removes a specific CD from a track
   removeCDFromTrack(track, cd) {
     track.removeCD(cd);
   }
