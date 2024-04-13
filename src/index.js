@@ -8,3 +8,4 @@ const _USERNAME = 'admin';
 const controller = new Controller();
 const user = new User(controller, _USERNAME);
 
+console.log('test webpack', user);
