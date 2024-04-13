@@ -33,6 +33,10 @@ function valueOfArtist(artist) {
 
 }
 
+function valueOfCollaborators(collabs) {
+
+}
+
 function valueOfLabel(label) {
 
 }
@@ -51,6 +55,7 @@ module.exports = {
   instanceOfTrack,
   valueOfTitle,
   valueOfArtist,
+  valueOfCollaborators,
   valueOfLabel,
   valueOfYear,
   valueOfLength,

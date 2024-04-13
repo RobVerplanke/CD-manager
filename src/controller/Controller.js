@@ -146,18 +146,47 @@ class Controller {
 
   // Set properties of the selected album
   setAlbumProperties(album, title, artist, collaborators, label, year) {
-    validations.valueOfTitle(title);
 
+    // Validate arguments
+    validations.instanceOfAlbum(album);
+    validations.valueOfTitle(title);
+    validations.valueOfArtist(artist);
+    validations.valueOfCollaborators(collaborators);
+    validations.valueOfLabel(label);
+    validations.valueOfYear(year);
+
+    // Send changes to the corresponding album
     album.setProperties(title, artist, collaborators, label, year);
   }
 
   // Set properties of the selected CD
   setCDProperties(cd, title, artist, collaborators, label, year) {
+
+    // Validate arguments
+    validations.instanceOfCD(cd);
+    validations.valueOfTitle(title);
+    validations.valueOfArtist(artist);
+    validations.valueOfCollaborators(collaborators);
+    validations.valueOfLabel(label);
+    validations.valueOfYear(year);
+
+    // Send changes to the corresponding CD
     cd.setProperties(title, artist, collaborators, label, year);
   }
 
   // Set properties of the selected track
   setTrackProperties(track, title, artist, collaborators, label, year, length) {
+
+    // Validate arguments
+    validations.instanceOfTrack(track);
+    validations.valueOfTitle(title);
+    validations.valueOfArtist(artist);
+    validations.valueOfCollaborators(collaborators);
+    validations.valueOfLabel(label);
+    validations.valueOfYear(year);
+    validations.valueOfLength(length);
+
+    // Set properties of the selected track
     track.setProperties(title, artist, collaborators, label, year, length);
   }
 
