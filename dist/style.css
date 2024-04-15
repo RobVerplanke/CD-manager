@@ -1,0 +1,43 @@
+/* Reset styles */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Custom properties */
+
+:root{
+    --header-heigth: 140px;
+
+} 
+
+
+/* Overall layout */
+
+html, body {
+    min-height: 100vh;
+}
+
+header{
+    height: var(--header-heigth);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+main{
+    height: calc(100vh - var(--header-heigth));
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+/* Components */
