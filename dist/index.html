@@ -1,20 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>CD-manager</title>
-</head>
-<header></header>
-
-<body>
-    <script defer type="text/javascript" src="main.js"></script>
-    
-    <main>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-    </main>
-    
-</body>
+        <link rel="stylesheet" href="style.css">
+        
+        <!-- Font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+       
+        <!-- Icon -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
+        <title>CD-manager</title>
+    </head>
+
+    <body>
+        <script defer type="text/javascript" src="main.js"></script>
+
+        <header><p>CD-manager</p></header>
+        
+        <main>
+            <nav>
+                <ul>
+                    <li id="menu-button-home"><a href="#">Home</a></li>
+                    <li id="menu-button-search"><a href="#">Search</a></li>
+                    <li><a href="#" class="link-drop-menu">Albums</a>
+                        <ul class ="drop-menu">
+                            <li id="drop-menu-albums-all"><a href="#">View all</a></li>
+                            <li id="drop-menu-albums-add"><a href="#">Add</a></li>
+                            <li id="drop-menu-albums-edit"><a href="#">Edit</a></li>
+                            <li id="drop-menu-albums-delete"><a href="#">Delete</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="link-drop-menu">CDs</a>
+                        <ul class ="drop-menu">
+                            <li id="drop-menu-cds-all"><a href="#">View all</a></li>
+                            <li id="drop-menu-cds-add"><a href="#">Add</a></li>
+                            <li id="drop-menu-cds-edit"><a href="#">Edit</a></li>
+                            <li id="drop-menu-cds-delete"><a href="#">Delete</a></li>
+                        </ul>
+                    </li><li><a href="#" class="link-drop-menu">Tracks</a>
+                        <ul class ="drop-menu">
+                            <li id="drop-menu-tracks-all"><a href="#">View all</a></li>
+                            <li id="drop-menu-tracks-add"><a href="#">Add</a></li>
+                            <li id="drop-menu-tracks-edit"><a href="#">Edit</a></li>
+                            <li id="drop-menu-tracks-delete"><a href="#">Delete</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-button-stats"><a href="#">Statistics</a></li>
+                    <li><br></li>
+                    
+                    <li id="menu-button-profile"><a href="#">Profile</a></li>
+                    <li><a href="#">Log-out</a></li>
+                </ul>
+            </nav>
+
+            <div id ="content-holder">
+                <!-- <h5>Lorem ipsum dolor</h5>
+                <h6>sit amet, consectetur adipiscing</h6> -->
+            </div>
+            
+        </main>
+        
+        <footer>Made by Rob Verplanke jr.&nbsp;&nbsp;|&nbsp;&nbsp;<span class="material-symbols-outlined">
+            mail
+            </span>&nbsp;rverplanke@gmail.com</footer>
+    </body>
 </html>
