@@ -10,34 +10,221 @@
 /* Custom properties */
 
 :root{
-    --header-heigth: 140px;
+    --global-font: "Open Sans", sans-serif;
+
+    --header-heigth: 50px;
+    --header-background-color: #1a1b1b;
+    --header-text-color: #d6dbde;
+
+    --nav-width: 120px;
+    --nav-background-color: #1a1b1b;
+    --nav-font-size: .9em;
+    --nav-text-color: #d6dbde;
+    --nav-accent-color: #3d4141;
+
+    --main-background-color: #202222;
+    --main-title-color: #d6dbde;
+
+    --footer-heigth: 50px;
+    --footer-background-color: #1a1b1b;
+
+    --text-color-item-artist: #d6dbde;
+    --text-color-item-title: #aeb8be;
+    --text-color-footer: #d6dbde;
 
 } 
 
 
-/* Overall layout */
+/* Global layout */
+
 
 html, body {
     min-height: 100vh;
+
+    font-family: var(--global-font);
 }
 
 header{
+    display: flex;
+    align-items: center;
+
+    padding: 10px;
+    width: 100vw;
     height: var(--header-heigth);
+
+    color: var(--header-text-color);
+    background-color: var(--header-background-color);
     
+    cursor: default;
+    text-decoration: underline;
+}
+
+
+
+main{
+    display: flex;
+    flex-direction: row;
+    
+    width: 100vw;
+    height: calc(100vh - (var(--header-heigth) + var(--footer-heigth)));
+    
+    background-color: var(--main-background-color);
+}
+
+footer{
     display: flex;
     justify-content: center;
     align-items: center;
 
-}
-
-main{
-    height: calc(100vh - var(--header-heigth));
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
+    width: 100vw;
+    height: var(--footer-heigth);
+    
+    font-size: .6em;
+    color: var(--text-color-footer);
+    background-color: var(--footer-background-color);
+    cursor: default;
 }
 
 
 /* Components */
+
+a{
+    text-decoration: none;
+    cursor: default;
+    color: var(--nav-text-color);
+}
+
+h5{
+    color: var(--text-color-item-artist);
+}
+
+h6{
+    color: var(--text-color-item-title);
+}
+
+ul{
+    list-style-type: none;
+}
+
+li{
+    margin-bottom: 10px;
+}
+
+#content-holder{
+    padding: 30px 0 0 100px;
+}
+
+/* Mail icon */
+.material-symbols-outlined{
+    position: relative;
+    top: 1px;
+    font-size: 1.2em !important;
+}
+
+/* Navigation bar */
+nav{
+    cursor: default;
+    height: 100%;
+    width: var(--nav-width);
+    padding-top: 20px;
+
+    font-size: var(--nav-font-size);
+    background-color: var(--nav-background-color);
+}
+
+nav > ul {
+    display: inline-block;
+    list-style: none;
+
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: var(--nav-background-color);
+}
+
+nav > ul > li {
+    display: flex;
+    align-items: center;
+    position: relative;
+    float: left;
+    cursor: default;
+
+    width: 100%;
+    height: 35px;
+    padding-left: 10px;
+    margin: 0;
+    
+    font-size: var(--nav-font-size);
+    color: var(--nav-text-color);
+}
+
+nav > ul > li:hover {
+    background: var(--main-background-color);
+}
+
+ul.drop-menu {   
+    position: absolute;
+    cursor: default;
+
+    top: 0%;
+    left: 100%;
+    width: 60%;
+    background: var(--nav-background-color);
+}
+
+ul.drop-menu li {
+    height: 35px;
+    padding: 0;
+    margin: 0;
+
+    font-size: var(--nav-font-size);
+    background: var(--nav-background-color);
+    color: var(--nav-text-color);
+}
+
+ul.drop-menu li:hover {
+    border-right: solid 1px var(--nav-accent-color);
+    background: var(--main-background-color);
+}
+
+ul.drop-menu li {
+    display: none;
+}
+
+li:hover > ul.drop-menu li {
+    display: block;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.link-drop-menu {
+    display: flex;
+    justify-content: space-between;
+
+    padding-right: 10px;
+    width: 100%;
+}
+
+.link-drop-menu::after {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+    content: '▶';
+    color: var(--nav-accent-color);
+}
+
+/* .link-drop-menu:hover::after{
+    color: var(--nav-text-color);
+} */
+
+#content-holder{
+    width: 100%;
+    height: 100%;
+}
+
+.title-holder{
+    height: 30px;
+    color: var(--main-title-color);
+}
