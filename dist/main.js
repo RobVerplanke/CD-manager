@@ -35,7 +35,7 @@ eval("const {\n  contentHolder,\n  buttonHome,\n  buttonSearch,\n  buttonStats,\
   \**********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const {\n  buttonHome,\n  buttonSearch,\n  buttonStats,\n  buttonProfile,\n  // Albums\n  buttonAlbumsAll,\n  buttonAlbumsAdd,\n  buttonAlbumsEdit,\n  buttonAlbumsDelete,\n  // CDs\n  buttonCDsAll,\n  buttonCDsAdd,\n  buttonCDsEdit,\n  buttonCDsDelete,\n  // Tracks\n  buttonTracksAll,\n  buttonTracksAdd,\n  buttonTracksEdit,\n  buttonTracksDelete,\n} = __webpack_require__(/*! ./index.js */ \"./src/components/index.js\");\n\n// Functions that build all the pages\nconst buildHomePage = __webpack_require__(/*! ../pages/home.js */ \"./src/pages/home.js\");\nconst buildSearchPage = __webpack_require__(/*! ../pages/search.js */ \"./src/pages/search.js\");\nconst buildStatsPage = __webpack_require__(/*! ../pages/statistics.js */ \"./src/pages/statistics.js\");\nconst buildProfilePage = __webpack_require__(/*! ../pages/profile.js */ \"./src/pages/profile.js\");\n\n// Albums\nconst buildAlbumsAllPage = __webpack_require__(/*! ../pages/albums/viewAll.js */ \"./src/pages/albums/viewAll.js\");\nconst buildAlbumsAddPage = __webpack_require__(/*! ../pages/albums/add.js */ \"./src/pages/albums/add.js\");\nconst buildAlbumsEditPage = __webpack_require__(/*! ../pages/albums/edit.js */ \"./src/pages/albums/edit.js\");\nconst buildAlbumsDeletePage = __webpack_require__(/*! ../pages/albums/delete.js */ \"./src/pages/albums/delete.js\");\n\n// CDs\nconst buildCDsAllPage = __webpack_require__(/*! ../pages/cds/viewAll.js */ \"./src/pages/cds/viewAll.js\");\nconst buildCDsAddPage = __webpack_require__(/*! ../pages/cds/add.js */ \"./src/pages/cds/add.js\");\nconst buildCDsEditPage = __webpack_require__(/*! ../pages/cds/edit.js */ \"./src/pages/cds/edit.js\");\nconst buildCDsDeletePage = __webpack_require__(/*! ../pages/cds/delete.js */ \"./src/pages/cds/delete.js\");\n\n// Tracks\nconst buildTracksAllPage = __webpack_require__(/*! ../pages/tracks/viewAll.js */ \"./src/pages/tracks/viewAll.js\");\nconst buildTracksAddPage = __webpack_require__(/*! ../pages/tracks/add.js */ \"./src/pages/tracks/add.js\");\nconst buildTracksEditPage = __webpack_require__(/*! ../pages/tracks/edit.js */ \"./src/pages/tracks/edit.js\");\nconst buildTracksDeletePage = __webpack_require__(/*! ../pages/tracks/delete.js */ \"./src/pages/tracks/delete.js\");\n\n// When clicked on a navigation button, build the corresponding page in the content holder\nfunction setNavEventListeners() {\n\n  buttonHome.addEventListener('click', () => buildHomePage()); // Home\n  buttonSearch.addEventListener('click', () => buildSearchPage()); // Search\n  buttonStats.addEventListener('click', () => buildStatsPage()); // Statistics\n  buttonProfile.addEventListener('click', () => buildProfilePage()); // Profile\n\n  // Albums\n  buttonAlbumsAll.addEventListener('click', () => buildAlbumsAllPage());\n  buttonAlbumsAdd.addEventListener('click', () => buildAlbumsAddPage());\n  buttonAlbumsEdit.addEventListener('click', () => buildAlbumsEditPage());\n  buttonAlbumsDelete.addEventListener('click', () => buildAlbumsDeletePage());\n\n  // CDs\n  buttonCDsAll.addEventListener('click', () => buildCDsAllPage());\n  buttonCDsAdd.addEventListener('click', () => buildCDsAddPage());\n  buttonCDsEdit.addEventListener('click', () => buildCDsEditPage());\n  buttonCDsDelete.addEventListener('click', () => buildCDsDeletePage());\n\n  // Tracks\n  buttonTracksAll.addEventListener('click', () => buildTracksAllPage());\n  buttonTracksAdd.addEventListener('click', () => buildTracksAddPage());\n  buttonTracksEdit.addEventListener('click', () => buildTracksEditPage());\n  buttonTracksDelete.addEventListener('click', () => buildTracksDeletePage());\n}\n\nmodule.exports = setNavEventListeners;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/navBar.js?");
+eval("const {\n  buttonHome,\n  buttonSearch,\n  buttonStats,\n  buttonProfile,\n  // Albums\n  buttonAlbumsAll,\n  buttonAlbumsAdd,\n  buttonAlbumsEdit,\n  buttonAlbumsDelete,\n  // CDs\n  buttonCDsAll,\n  buttonCDsAdd,\n  buttonCDsEdit,\n  buttonCDsDelete,\n  // Tracks\n  buttonTracksAll,\n  buttonTracksAdd,\n  buttonTracksEdit,\n  buttonTracksDelete,\n} = __webpack_require__(/*! ./index.js */ \"./src/components/index.js\");\n\n// Functions that build all the pages\nconst buildHomePage = __webpack_require__(/*! ../pages/home.js */ \"./src/pages/home.js\");\nconst buildSearchPage = __webpack_require__(/*! ../pages/search.js */ \"./src/pages/search.js\");\nconst buildStatsPage = __webpack_require__(/*! ../pages/statistics.js */ \"./src/pages/statistics.js\");\nconst buildProfilePage = __webpack_require__(/*! ../pages/profile.js */ \"./src/pages/profile.js\");\n\n// Albums\nconst {\n  buildAlbumsAllPage,\n  buildAlbumsAddPage,\n  buildAlbumsEditPage,\n  buildAlbumsDeletePage,\n} = __webpack_require__(/*! ../pages/albums/index.js */ \"./src/pages/albums/index.js\");\n\n// CDs\nconst {\n  buildCDsAllPage,\n  buildCDsAddPage,\n  buildCDsEditPage,\n  buildCDsDeletePage,\n} = __webpack_require__(/*! ../pages/cds/index.js */ \"./src/pages/cds/index.js\");\n\n// Tracks\nconst {\n  buildTracksAllPage,\n  buildTracksAddPage,\n  buildTracksEditPage,\n  buildTracksDeletePage,\n} = __webpack_require__(/*! ../pages/tracks/index.js */ \"./src/pages/tracks/index.js\");\n\n// Iterate through each button in the navigation menu and link them to the corresponding build-function\nfunction addButtonEventListeners(buttons, buildFunctions) {\n  buttons.forEach((button, index) => {\n    button.addEventListener('click', buildFunctions[index]);\n  });\n}\n\n// Collect all buttons and build-functions to add eventlisteners on\nfunction setNavEventListeners() {\n\n  // All buttons in the navigation menu\n  const homeButtons = [\n    buttonHome, buttonSearch, buttonStats, buttonProfile,\n    buttonAlbumsAll, buttonAlbumsAdd, buttonAlbumsEdit, buttonAlbumsDelete,\n    buttonCDsAll, buttonCDsAdd, buttonCDsEdit, buttonCDsDelete,\n    buttonTracksAll, buttonTracksAdd, buttonTracksEdit, buttonTracksDelete,\n  ];\n\n  // All corresponding build-page functions in order\n  const buildFunctions = [\n    buildHomePage, buildSearchPage, buildStatsPage, buildProfilePage,\n    buildAlbumsAllPage, buildAlbumsAddPage, buildAlbumsEditPage, buildAlbumsDeletePage,\n    buildCDsAllPage, buildCDsAddPage, buildCDsEditPage, buildCDsDeletePage,\n    buildTracksAllPage, buildTracksAddPage, buildTracksEditPage, buildTracksDeletePage,\n  ];\n\n  // Use both lists to add the event listeners\n  addButtonEventListeners(homeButtons, buildFunctions);\n}\n\nmodule.exports = setNavEventListeners;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/navBar.js?");
 
 /***/ }),
 
@@ -89,6 +89,16 @@ eval("const { setTitle } = __webpack_require__(/*! ../../components/index.js */ 
 
 /***/ }),
 
+/***/ "./src/pages/albums/index.js":
+/*!***********************************!*\
+  !*** ./src/pages/albums/index.js ***!
+  \***********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const buildAlbumsAllPage = __webpack_require__(/*! ./viewAll.js */ \"./src/pages/albums/viewAll.js\");\nconst buildAlbumsAddPage = __webpack_require__(/*! ./add.js */ \"./src/pages/albums/add.js\");\nconst buildAlbumsEditPage = __webpack_require__(/*! ./edit.js */ \"./src/pages/albums/edit.js\");\nconst buildAlbumsDeletePage = __webpack_require__(/*! ./delete.js */ \"./src/pages/albums/delete.js\");\n\nmodule.exports = {\n  buildAlbumsAllPage,\n  buildAlbumsAddPage,\n  buildAlbumsEditPage,\n  buildAlbumsDeletePage,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/albums/index.js?");
+
+/***/ }),
+
 /***/ "./src/pages/albums/viewAll.js":
 /*!*************************************!*\
   !*** ./src/pages/albums/viewAll.js ***!
@@ -126,6 +136,16 @@ eval("const { setTitle } = __webpack_require__(/*! ../../components/index.js */ 
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 eval("const { setTitle } = __webpack_require__(/*! ../../components/index.js */ \"./src/components/index.js\");\n\nfunction buildCDsEditPage() {\n  setTitle('Edit a CD');\n}\n\nmodule.exports = buildCDsEditPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cds/edit.js?");
+
+/***/ }),
+
+/***/ "./src/pages/cds/index.js":
+/*!********************************!*\
+  !*** ./src/pages/cds/index.js ***!
+  \********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const buildCDsAllPage = __webpack_require__(/*! ./viewAll.js */ \"./src/pages/cds/viewAll.js\");\nconst buildCDsAddPage = __webpack_require__(/*! ./add.js */ \"./src/pages/cds/add.js\");\nconst buildCDsEditPage = __webpack_require__(/*! ./edit.js */ \"./src/pages/cds/edit.js\");\nconst buildCDsDeletePage = __webpack_require__(/*! ./delete.js */ \"./src/pages/cds/delete.js\");\n\nmodule.exports = {\n  buildCDsAllPage,\n  buildCDsAddPage,\n  buildCDsEditPage,\n  buildCDsDeletePage,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cds/index.js?");
 
 /***/ }),
 
@@ -206,6 +226,16 @@ eval("const { setTitle } = __webpack_require__(/*! ../../components/index.js */ 
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 eval("const { setTitle } = __webpack_require__(/*! ../../components/index.js */ \"./src/components/index.js\");\n\nfunction buildTracksEditPage() {\n  setTitle('Edit a track');\n}\n\nmodule.exports = buildTracksEditPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/tracks/edit.js?");
+
+/***/ }),
+
+/***/ "./src/pages/tracks/index.js":
+/*!***********************************!*\
+  !*** ./src/pages/tracks/index.js ***!
+  \***********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const buildTracksAllPage = __webpack_require__(/*! ./viewAll.js */ \"./src/pages/tracks/viewAll.js\");\nconst buildTracksAddPage = __webpack_require__(/*! ./add.js */ \"./src/pages/tracks/add.js\");\nconst buildTracksEditPage = __webpack_require__(/*! ./edit.js */ \"./src/pages/tracks/edit.js\");\nconst buildTracksDeletePage = __webpack_require__(/*! ./delete.js */ \"./src/pages/tracks/delete.js\");\n\nmodule.exports = {\n  buildTracksAllPage,\n  buildTracksAddPage,\n  buildTracksEditPage,\n  buildTracksDeletePage,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/tracks/index.js?");
 
 /***/ }),
 
