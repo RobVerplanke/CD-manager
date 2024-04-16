@@ -20,31 +20,29 @@ const {
   buttonTracksDelete,
 } = require('./index.js');
 
+// Functions that build all the pages
 const buildHomePage = require('../pages/home.js');
 const buildSearchPage = require('../pages/search.js');
 const buildStatsPage = require('../pages/statistics.js');
 const buildProfilePage = require('../pages/profile.js');
 
-const {
-  buildAlbumsAllPage,
-  buildAlbumsAddPage,
-  buildAlbumsEditPage,
-  buildAlbumsDeletePage,
-} = require('../pages/albums.js');
+// Albums
+const buildAlbumsAllPage = require('../pages/albums/viewAll.js');
+const buildAlbumsAddPage = require('../pages/albums/add.js');
+const buildAlbumsEditPage = require('../pages/albums/edit.js');
+const buildAlbumsDeletePage = require('../pages/albums/delete.js');
 
-const {
-  buildCDsAllPage,
-  buildCDsAddPage,
-  buildCDsEditPage,
-  buildCDsDeletePage,
-} = require('../pages/cds.js');
+// CDs
+const buildCDsAllPage = require('../pages/cds/viewAll.js');
+const buildCDsAddPage = require('../pages/cds/add.js');
+const buildCDsEditPage = require('../pages/cds/edit.js');
+const buildCDsDeletePage = require('../pages/cds/delete.js');
 
-const {
-  buildTracksAllPage,
-  buildTracksAddPage,
-  buildTracksEditPage,
-  buildTracksDeletePage,
-} = require('../pages/tracks.js');
+// Tracks
+const buildTracksAllPage = require('../pages/tracks/viewAll.js');
+const buildTracksAddPage = require('../pages/tracks/add.js');
+const buildTracksEditPage = require('../pages/tracks/edit.js');
+const buildTracksDeletePage = require('../pages/tracks/delete.js');
 
 // When clicked on a navigation button, build the corresponding page in the content holder
 function setNavEventListeners() {
@@ -52,7 +50,7 @@ function setNavEventListeners() {
   buttonHome.addEventListener('click', () => buildHomePage()); // Home
   buttonSearch.addEventListener('click', () => buildSearchPage()); // Search
   buttonStats.addEventListener('click', () => buildStatsPage()); // Statistics
-  buttonProfile.addEventListener('click', () => buildProfilePage()); // Statistics
+  buttonProfile.addEventListener('click', () => buildProfilePage()); // Profile
 
   // Albums
   buttonAlbumsAll.addEventListener('click', () => buildAlbumsAllPage());
