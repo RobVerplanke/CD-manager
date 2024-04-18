@@ -62,18 +62,48 @@ function setNavEventListeners() {
 
   // All buttons in the navigation menu
   const homeButtons = [
-    buttonHome, buttonSearch, buttonStats, buttonProfile,
-    buttonAlbumsAll, buttonAlbumsAdd, buttonAlbumsEdit, buttonAlbumsDelete,
-    buttonCDsAll, buttonCDsAdd, buttonCDsEdit, buttonCDsDelete,
-    buttonTracksAll, buttonTracksAdd, buttonTracksEdit, buttonTracksDelete,
+    buttonHome,
+    buttonSearch,
+    buttonStats,
+    buttonProfile,
+    // Albums
+    buttonAlbumsAll,
+    buttonAlbumsAdd,
+    buttonAlbumsEdit,
+    buttonAlbumsDelete,
+    // CDs
+    buttonCDsAll,
+    buttonCDsAdd,
+    buttonCDsEdit,
+    buttonCDsDelete,
+    // Tracks
+    buttonTracksAll,
+    buttonTracksAdd,
+    buttonTracksEdit,
+    buttonTracksDelete,
   ];
 
   // All corresponding build-page functions in order
   const buildFunctions = [
-    buildHomePage, buildSearchPage, buildStatsPage, buildProfilePage,
-    buildAlbumsAllPage, buildAlbumsAddPage, buildAlbumsEditPage, buildAlbumsDeletePage,
-    buildCDsAllPage, buildCDsAddPage, buildCDsEditPage, buildCDsDeletePage,
-    buildTracksAllPage, buildTracksAddPage, buildTracksEditPage, buildTracksDeletePage,
+    buildHomePage,
+    buildSearchPage,
+    buildStatsPage,
+    buildProfilePage,
+    // Albums
+    buildAlbumsAllPage,
+    buildAlbumsAddPage,
+    buildAlbumsEditPage,
+    buildAlbumsDeletePage,
+    // CDs
+    buildCDsAllPage,
+    buildCDsAddPage,
+    buildCDsEditPage,
+    buildCDsDeletePage,
+    // Tracks
+    buildTracksAllPage,
+    buildTracksAddPage,
+    buildTracksEditPage,
+    buildTracksDeletePage,
   ];
 
   // Use both lists to add the event listeners

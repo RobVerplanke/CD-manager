@@ -1,4 +1,10 @@
+const setTitle = require('./titleHolder.js');
+const buildAddAlbumForm = require('./forms/addAlbum.js');
+
+
 const {
+  pageHolder,
+  titleHolder,
   contentHolder,
   buttonHome,
   buttonSearch,
@@ -21,9 +27,10 @@ const {
   buttonTracksDelete,
 } = require('./commonElements.js');
 
-const setTitle = require('./titleHolder.js');
 
 module.exports = {
+  pageHolder,
+  titleHolder,
   contentHolder,
   buttonHome,
   buttonSearch,
@@ -45,4 +52,5 @@ module.exports = {
   buttonTracksEdit,
   buttonTracksDelete,
   setTitle,
+  buildAddAlbumForm,
 };

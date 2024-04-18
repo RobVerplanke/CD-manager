@@ -1,6 +1,8 @@
 // const Controller = require('./controller/Controller.js');
 // const User = require('./modules/User.js');
 const setNavEventListeners = require('./components/navBar.js');
+const buildHomePage = require('./pages/home.js');
+
 
 // // Test account
 // const _USERNAME = 'admin';
@@ -9,5 +11,8 @@ const setNavEventListeners = require('./components/navBar.js');
 // const controller = new Controller();
 // const user = new User(controller, _USERNAME);
 
+// Activate navigation buttons
 setNavEventListeners();
 
+// Start on default page
+buildHomePage();

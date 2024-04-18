@@ -1,7 +1,13 @@
-const { setTitle } = require('../../components/index.js');
+const { setTitle, buildAddAlbumForm } = require('../../components/index.js');
+const clearContentHolder = require('../../utils/dom.js');
 
 function buildAddAllPage() {
-  setTitle('Add a new album');
+
+  clearContentHolder();
+
+  setTitle('Add a new album to your collection');
+
+  buildAddAlbumForm();
 }
 
 module.exports = buildAddAllPage;
