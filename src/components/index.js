@@ -1,6 +1,7 @@
 const setTitle = require('./titleHolder.js');
 const buildAddAlbumForm = require('./forms/addAlbum.js');
-
+const buildAddCDForm = require('./forms/addCD.js');
+const buildAddTrackForm = require('./forms/addTrack.js');
 
 const {
   pageHolder,
@@ -53,4 +54,6 @@ module.exports = {
   buttonTracksDelete,
   setTitle,
   buildAddAlbumForm,
+  buildAddCDForm,
+  buildAddTrackForm,
 };

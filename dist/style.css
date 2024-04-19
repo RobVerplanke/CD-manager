@@ -38,6 +38,10 @@
     --text-color-item-title-dark: #1a1b1b;
     --text-color-footer: #d6dbde;
 
+    --form-field-background-color: #d6dbde;
+    --form-confirm-button-color: #bebebe;
+    --form-confirm-button-text-color: #202222;
+
 } 
 
 
@@ -115,8 +119,11 @@ li{
 }
 
 #page-holder{
-    padding: 30px 0 0 100px;
     overflow-y: scroll;
+
+    height: 100%;
+    width: 100%;
+    padding: 30px 0 0 100px;
 }
 
 /* Mail icon */
@@ -223,11 +230,6 @@ li:hover > ul.drop-menu li {
 
 /* Content */
 
-#page-holder{
-    height: 100%;
-    width: 100%;
-}
-
 #title-holder{
     font-size: 1.6em;
     height: 30px;
@@ -235,7 +237,7 @@ li:hover > ul.drop-menu li {
 }
 
 #content-holder{
-    margin-top: 30px;
+    margin-top: 40px;
     color: var(--content-items-list-color);
 }
 
@@ -307,4 +309,82 @@ li:hover > ul.drop-menu li {
     font-size: .9em;
     font-style: italic;
     color: var(--text-color-item-artist-dark);
+}
+
+/* Form */
+
+.add-form{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 400px;
+}
+
+.form-label{
+    font-size: .9em;
+}
+
+.form-input-holder{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items:baseline;
+}
+
+input{
+    font-size: .7em;
+    padding: 2px;
+    margin-bottom: 8px;
+    height: 18px;
+    width: 70%;
+    border-radius: 5px;
+    background-color: var(--form-field-background-color);
+
+}
+
+textarea{
+    resize: vertical;
+    font-size: .7em;
+    padding: 2px;
+    margin-bottom: 8px;
+    height: 36px;
+    width: 70%;
+    border-radius: 5px;
+    background-color: var(--form-field-background-color);
+
+}
+
+#add-button{
+    border: none;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    color: var(--form-confirm-button-text-color);
+    background-color: var(--form-confirm-button-color);
+}
+
+#year{
+    margin-right: 56%;
+    width: 14%;
+    height: 20px;
+    padding: 2px;
+    border-radius: 5px;
+    font-size: .7em;
+    background-color: var(--form-field-background-color);
+}
+
+#length{
+    margin-right: 60%;
+    padding: 2px;
+    width: 10%;
+}
+
+#cover{
+    height: 24px;
+    background-color: var(--main-background-color);
+}
+
+#cover{
+    height: 24px;
+    background-color: var(--main-background-color);
 }

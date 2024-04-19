@@ -55,7 +55,37 @@ eval("const pageHolder = document.querySelector('#page-holder');\nconst titleHol
   \******************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { pageHolder, contentHolder } = __webpack_require__(/*! ../commonElements.js */ \"./src/components/commonElements.js\");\n\nfunction buildAddAlbumForm() {\n  const template = 'form';\n\n  contentHolder.innerHTML += template;\n\n  pageHolder.append(contentHolder);\n}\n\nmodule.exports = buildAddAlbumForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/addAlbum.js?");
+eval("const { pageHolder, contentHolder } = __webpack_require__(/*! ../commonElements.js */ \"./src/components/commonElements.js\");\nconst createFormInput = __webpack_require__(/*! ./utils.js */ \"./src/components/forms/utils.js\");\n\nfunction buildAddAlbumForm() {\n  const form = document.createElement('form');\n  form.classList.add('add-form');\n\n  form.append(createFormInput('Title', 'text', 'input', 'Title of album...'));\n  form.append(createFormInput('Artist', 'text', 'input', 'Name of artist...'));\n  form.append(createFormInput('Collaborators', 'text', 'input', 'Artist 2, Artist 3, ...'));\n  form.append(createFormInput('Label', 'text', 'input', 'Enter label here...'));\n  form.append(createFormInput('Genre', 'text', 'input', 'Rock, Classical, Electronic, ...'));\n  form.append(createFormInput('Year', 'number', 'select', 'Date of release'));\n  form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...'));\n  form.append(createFormInput('Cover', 'file', 'input'));\n\n  // Voeg een verzendknop toe\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'add-button');\n  submitButton.textContent = 'Add';\n\n  form.appendChild(submitButton);\n  contentHolder.append(form);\n\n  pageHolder.append(contentHolder);\n}\n\nmodule.exports = buildAddAlbumForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/addAlbum.js?");
+
+/***/ }),
+
+/***/ "./src/components/forms/addCD.js":
+/*!***************************************!*\
+  !*** ./src/components/forms/addCD.js ***!
+  \***************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const { pageHolder, contentHolder } = __webpack_require__(/*! ../commonElements.js */ \"./src/components/commonElements.js\");\nconst createFormInput = __webpack_require__(/*! ./utils.js */ \"./src/components/forms/utils.js\");\n\nfunction buildAddCDForm() {\n  const form = document.createElement('form');\n  form.classList.add('add-form');\n\n  form.append(createFormInput('Title', 'text', 'input', 'Title of CD...'));\n  form.append(createFormInput('Artist', 'text', 'input', 'Name of artist...'));\n  form.append(createFormInput('Collaborators', 'text', 'input', 'Artist 2, Artist 3, ...'));\n  form.append(createFormInput('Label', 'text', 'input', 'Enter label here...'));\n  form.append(createFormInput('Genre', 'text', 'input', 'Rock, Classical, Electronic, ...'));\n  form.append(createFormInput('Year', 'number', 'select', 'Date of release'));\n  form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...'));\n  form.append(createFormInput('Cover', 'file', 'input'));\n\n  // Voeg een verzendknop toe\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'add-button');\n  submitButton.textContent = 'Add';\n\n  form.appendChild(submitButton);\n  contentHolder.append(form);\n\n  pageHolder.append(contentHolder);\n}\n\nmodule.exports = buildAddCDForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/addCD.js?");
+
+/***/ }),
+
+/***/ "./src/components/forms/addTrack.js":
+/*!******************************************!*\
+  !*** ./src/components/forms/addTrack.js ***!
+  \******************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const { pageHolder, contentHolder } = __webpack_require__(/*! ../commonElements.js */ \"./src/components/commonElements.js\");\nconst createFormInput = __webpack_require__(/*! ./utils.js */ \"./src/components/forms/utils.js\");\n\nfunction buildAddTrackForm() {\n  const form = document.createElement('form');\n  form.classList.add('add-form');\n\n  form.append(createFormInput('Title', 'text', 'input', 'Title of track...'));\n  form.append(createFormInput('Artist', 'text', 'input', 'Name of artist...'));\n  form.append(createFormInput('Collaborators', 'text', 'input', 'Artist 2, Artist 3, ...'));\n  form.append(createFormInput('Genre', 'text', 'input', 'Rock, Classical, Electronic, ...'));\n  form.append(createFormInput('Length', 'text', 'input', '3:45...'));\n  form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...'));\n\n  // Voeg een verzendknop toe\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'add-button');\n  submitButton.textContent = 'Add';\n\n  form.appendChild(submitButton);\n  contentHolder.append(form);\n\n  pageHolder.append(contentHolder);\n}\n\nmodule.exports = buildAddTrackForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/addTrack.js?");
+
+/***/ }),
+
+/***/ "./src/components/forms/utils.js":
+/*!***************************************!*\
+  !*** ./src/components/forms/utils.js ***!
+  \***************************************/
+/***/ ((module) => {
+
+eval("function buildYearOptions(element) {\n  const selectElement = element;\n  const currentYear = new Date().getFullYear();\n\n  for (let i = currentYear; i > 1900; i--) {\n    const newOption = document.createElement('option');\n    newOption.setAttribute('value', i);\n    newOption.textContent = i;\n    selectElement.append(newOption);\n  }\n}\n\nfunction createFormInput(labelText, type, element, placeholder) {\n  const holder = document.createElement('div');\n  holder.classList.add('form-input-holder');\n\n  const label = document.createElement('label');\n  label.textContent = `${labelText}:`;\n  label.classList.add('form-label');\n  label.setAttribute('for', labelText.toLowerCase());\n\n  const input = document.createElement(element);\n  input.setAttribute('type', type);\n  input.setAttribute('id', labelText.toLowerCase());\n  input.setAttribute('name', labelText.toLowerCase());\n  input.setAttribute('placeholder', placeholder);\n\n  if (type === 'file') input.setAttribute('accept', 'image/png, image/jpeg');\n  if (labelText === 'Year') buildYearOptions(input);\n\n\n  holder.append(label, input);\n\n  return holder;\n}\n\nmodule.exports = createFormInput;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/utils.js?");
 
 /***/ }),
 
@@ -65,7 +95,7 @@ eval("const { pageHolder, contentHolder } = __webpack_require__(/*! ../commonEle
   \*********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const setTitle = __webpack_require__(/*! ./titleHolder.js */ \"./src/components/titleHolder.js\");\nconst buildAddAlbumForm = __webpack_require__(/*! ./forms/addAlbum.js */ \"./src/components/forms/addAlbum.js\");\n\n\nconst {\n  pageHolder,\n  titleHolder,\n  contentHolder,\n  buttonHome,\n  buttonSearch,\n  buttonStats,\n  buttonProfile,\n  // Albums\n  buttonAlbumsAll,\n  buttonAlbumsAdd,\n  buttonAlbumsEdit,\n  buttonAlbumsDelete,\n  // CDs\n  buttonCDsAll,\n  buttonCDsAdd,\n  buttonCDsEdit,\n  buttonCDsDelete,\n  // Tracks\n  buttonTracksAll,\n  buttonTracksAdd,\n  buttonTracksEdit,\n  buttonTracksDelete,\n} = __webpack_require__(/*! ./commonElements.js */ \"./src/components/commonElements.js\");\n\n\nmodule.exports = {\n  pageHolder,\n  titleHolder,\n  contentHolder,\n  buttonHome,\n  buttonSearch,\n  buttonStats,\n  buttonProfile,\n  // Albums\n  buttonAlbumsAll,\n  buttonAlbumsAdd,\n  buttonAlbumsEdit,\n  buttonAlbumsDelete,\n  // CDs\n  buttonCDsAll,\n  buttonCDsAdd,\n  buttonCDsEdit,\n  buttonCDsDelete,\n  // Tracks\n  buttonTracksAll,\n  buttonTracksAdd,\n  buttonTracksEdit,\n  buttonTracksDelete,\n  setTitle,\n  buildAddAlbumForm,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/components/index.js?");
+eval("const setTitle = __webpack_require__(/*! ./titleHolder.js */ \"./src/components/titleHolder.js\");\nconst buildAddAlbumForm = __webpack_require__(/*! ./forms/addAlbum.js */ \"./src/components/forms/addAlbum.js\");\nconst buildAddCDForm = __webpack_require__(/*! ./forms/addCD.js */ \"./src/components/forms/addCD.js\");\nconst buildAddTrackForm = __webpack_require__(/*! ./forms/addTrack.js */ \"./src/components/forms/addTrack.js\");\n\nconst {\n  pageHolder,\n  titleHolder,\n  contentHolder,\n  buttonHome,\n  buttonSearch,\n  buttonStats,\n  buttonProfile,\n  // Albums\n  buttonAlbumsAll,\n  buttonAlbumsAdd,\n  buttonAlbumsEdit,\n  buttonAlbumsDelete,\n  // CDs\n  buttonCDsAll,\n  buttonCDsAdd,\n  buttonCDsEdit,\n  buttonCDsDelete,\n  // Tracks\n  buttonTracksAll,\n  buttonTracksAdd,\n  buttonTracksEdit,\n  buttonTracksDelete,\n} = __webpack_require__(/*! ./commonElements.js */ \"./src/components/commonElements.js\");\n\n\nmodule.exports = {\n  pageHolder,\n  titleHolder,\n  contentHolder,\n  buttonHome,\n  buttonSearch,\n  buttonStats,\n  buttonProfile,\n  // Albums\n  buttonAlbumsAll,\n  buttonAlbumsAdd,\n  buttonAlbumsEdit,\n  buttonAlbumsDelete,\n  // CDs\n  buttonCDsAll,\n  buttonCDsAdd,\n  buttonCDsEdit,\n  buttonCDsDelete,\n  // Tracks\n  buttonTracksAll,\n  buttonTracksAdd,\n  buttonTracksEdit,\n  buttonTracksDelete,\n  setTitle,\n  buildAddAlbumForm,\n  buildAddCDForm,\n  buildAddTrackForm,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/components/index.js?");
 
 /***/ }),
 
@@ -155,7 +185,7 @@ eval("const { setTitle } = __webpack_require__(/*! ../../components/index.js */ 
   \******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { setTitle } = __webpack_require__(/*! ../../components/index.js */ \"./src/components/index.js\");\nconst clearContentHolder = __webpack_require__(/*! ../../utils/dom.js */ \"./src/utils/dom.js\");\n\nfunction buildCDsAddPage() {\n\n  clearContentHolder();\n\n  setTitle('Add a new CD to your collection');\n}\n\nmodule.exports = buildCDsAddPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cds/add.js?");
+eval("const { setTitle, buildAddCDForm } = __webpack_require__(/*! ../../components/index.js */ \"./src/components/index.js\");\nconst clearContentHolder = __webpack_require__(/*! ../../utils/dom.js */ \"./src/utils/dom.js\");\n\nfunction buildCDsAddPage() {\n\n  clearContentHolder();\n\n  setTitle('Add a new CD to your collection');\n\n  buildAddCDForm();\n}\n\nmodule.exports = buildCDsAddPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cds/add.js?");
 
 /***/ }),
 
@@ -245,7 +275,7 @@ eval("const { setTitle } = __webpack_require__(/*! ../components/index.js */ \".
   \*********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { setTitle } = __webpack_require__(/*! ../../components/index.js */ \"./src/components/index.js\");\nconst clearContentHolder = __webpack_require__(/*! ../../utils/dom.js */ \"./src/utils/dom.js\");\n\nfunction buildTracksAddPage() {\n\n  clearContentHolder();\n\n  setTitle('Add a new track to your collection');\n}\n\nmodule.exports = buildTracksAddPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/tracks/add.js?");
+eval("const { setTitle, buildAddTrackForm } = __webpack_require__(/*! ../../components/index.js */ \"./src/components/index.js\");\nconst clearContentHolder = __webpack_require__(/*! ../../utils/dom.js */ \"./src/utils/dom.js\");\n\nfunction buildTracksAddPage() {\n\n  clearContentHolder();\n\n  setTitle('Add a new track to your collection');\n\n  buildAddTrackForm();\n}\n\nmodule.exports = buildTracksAddPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/tracks/add.js?");
 
 /***/ }),
 
