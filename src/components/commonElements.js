@@ -1,3 +1,5 @@
+const pageHolder = document.querySelector('#page-holder');
+const titleHolder = document.querySelector('#title-holder');
 const contentHolder = document.querySelector('#content-holder');
 const buttonHome = document.querySelector('#menu-button-home');
 const buttonSearch = document.querySelector('#menu-button-search');
@@ -23,6 +25,8 @@ const buttonTracksEdit = document.querySelector('#drop-menu-tracks-edit');
 const buttonTracksDelete = document.querySelector('#drop-menu-tracks-delete');
 
 module.exports = {
+  pageHolder,
+  titleHolder,
   contentHolder,
   buttonHome,
   buttonSearch,

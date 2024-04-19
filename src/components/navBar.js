@@ -27,48 +27,87 @@ const buildStatsPage = require('../pages/statistics.js');
 const buildProfilePage = require('../pages/profile.js');
 
 // Albums
-const buildAlbumsAllPage = require('../pages/albums/viewAll.js');
-const buildAlbumsAddPage = require('../pages/albums/add.js');
-const buildAlbumsEditPage = require('../pages/albums/edit.js');
-const buildAlbumsDeletePage = require('../pages/albums/delete.js');
+const {
+  buildAlbumsAllPage,
+  buildAlbumsAddPage,
+  buildAlbumsEditPage,
+  buildAlbumsDeletePage,
+} = require('../pages/albums/index.js');
 
 // CDs
-const buildCDsAllPage = require('../pages/cds/viewAll.js');
-const buildCDsAddPage = require('../pages/cds/add.js');
-const buildCDsEditPage = require('../pages/cds/edit.js');
-const buildCDsDeletePage = require('../pages/cds/delete.js');
+const {
+  buildCDsAllPage,
+  buildCDsAddPage,
+  buildCDsEditPage,
+  buildCDsDeletePage,
+} = require('../pages/cds/index.js');
 
 // Tracks
-const buildTracksAllPage = require('../pages/tracks/viewAll.js');
-const buildTracksAddPage = require('../pages/tracks/add.js');
-const buildTracksEditPage = require('../pages/tracks/edit.js');
-const buildTracksDeletePage = require('../pages/tracks/delete.js');
+const {
+  buildTracksAllPage,
+  buildTracksAddPage,
+  buildTracksEditPage,
+  buildTracksDeletePage,
+} = require('../pages/tracks/index.js');
 
-// When clicked on a navigation button, build the corresponding page in the content holder
+// Iterate through each button in the navigation menu and link them to the corresponding build-function
+function addButtonEventListeners(buttons, buildFunctions) {
+  buttons.forEach((button, index) => {
+    button.addEventListener('click', buildFunctions[index]);
+  });
+}
+
+// Collect all buttons and build-functions to add eventlisteners on
 function setNavEventListeners() {
 
-  buttonHome.addEventListener('click', () => buildHomePage()); // Home
-  buttonSearch.addEventListener('click', () => buildSearchPage()); // Search
-  buttonStats.addEventListener('click', () => buildStatsPage()); // Statistics
-  buttonProfile.addEventListener('click', () => buildProfilePage()); // Profile
+  // All buttons in the navigation menu
+  const homeButtons = [
+    buttonHome,
+    buttonSearch,
+    buttonStats,
+    buttonProfile,
+    // Albums
+    buttonAlbumsAll,
+    buttonAlbumsAdd,
+    buttonAlbumsEdit,
+    buttonAlbumsDelete,
+    // CDs
+    buttonCDsAll,
+    buttonCDsAdd,
+    buttonCDsEdit,
+    buttonCDsDelete,
+    // Tracks
+    buttonTracksAll,
+    buttonTracksAdd,
+    buttonTracksEdit,
+    buttonTracksDelete,
+  ];
 
-  // Albums
-  buttonAlbumsAll.addEventListener('click', () => buildAlbumsAllPage());
-  buttonAlbumsAdd.addEventListener('click', () => buildAlbumsAddPage());
-  buttonAlbumsEdit.addEventListener('click', () => buildAlbumsEditPage());
-  buttonAlbumsDelete.addEventListener('click', () => buildAlbumsDeletePage());
+  // All corresponding build-page functions in order
+  const buildFunctions = [
+    buildHomePage,
+    buildSearchPage,
+    buildStatsPage,
+    buildProfilePage,
+    // Albums
+    buildAlbumsAllPage,
+    buildAlbumsAddPage,
+    buildAlbumsEditPage,
+    buildAlbumsDeletePage,
+    // CDs
+    buildCDsAllPage,
+    buildCDsAddPage,
+    buildCDsEditPage,
+    buildCDsDeletePage,
+    // Tracks
+    buildTracksAllPage,
+    buildTracksAddPage,
+    buildTracksEditPage,
+    buildTracksDeletePage,
+  ];
 
-  // CDs
-  buttonCDsAll.addEventListener('click', () => buildCDsAllPage());
-  buttonCDsAdd.addEventListener('click', () => buildCDsAddPage());
-  buttonCDsEdit.addEventListener('click', () => buildCDsEditPage());
-  buttonCDsDelete.addEventListener('click', () => buildCDsDeletePage());
-
-  // Tracks
-  buttonTracksAll.addEventListener('click', () => buildTracksAllPage());
-  buttonTracksAdd.addEventListener('click', () => buildTracksAddPage());
-  buttonTracksEdit.addEventListener('click', () => buildTracksEditPage());
-  buttonTracksDelete.addEventListener('click', () => buildTracksDeletePage());
+  // Use both lists to add the event listeners
+  addButtonEventListeners(homeButtons, buildFunctions);
 }
 
 module.exports = setNavEventListeners;

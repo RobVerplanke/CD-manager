@@ -1,7 +1,12 @@
 const { setTitle } = require('../components/index.js');
+const clearContentHolder = require('../utils/dom.js');
 
+// Create the search page with individual components
 function buildSearchPage() {
-  setTitle('Search for items');
+
+  clearContentHolder();
+
+  setTitle('Search for Albums, CDs or tracks');
 }
 
 module.exports = buildSearchPage;
