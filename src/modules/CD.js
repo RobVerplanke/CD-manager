@@ -5,6 +5,7 @@ class CD {
     this.collaborators = []; // Other artists
     this.albums = []; // Album(s) that contain this CD
     this.label = ''; // CD-label when applicable
+    this.genre = ''; // Type of music
     this.year = null; // Release year
     this.tracks = []; // Tracks on the CD
   }
@@ -17,17 +18,19 @@ class CD {
       collaborators: this.collaborators,
       albums: this.albums,
       label: this.label,
+      genre: this.genre,
       year: this.year,
       tracks: this.tracks,
     };
   }
 
   // Let the user be able to edit the properties of this CD
-  setProperties(title, artist, collaborators, label, year) {
+  setProperties(title, artist, collaborators, label, genre, year) {
     this.title = title;
     this.artist = artist;
     this.collaborators = collaborators;
     this.label = label;
+    this.genre = genre;
     this.year = year;
   }
 

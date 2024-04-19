@@ -4,6 +4,7 @@ class Album {
     this.artist = ''; // Artist who released the album
     this.collaborators = []; // Other artists
     this.label = ''; // Album-label when applicable
+    this.genre = ''; // Type of music
     this.year = null; // Release year
     this.cds = []; // CD's in the album
   }
@@ -15,17 +16,19 @@ class Album {
       artist: this.artist,
       collaborators: this.collaborators,
       label: this.label,
+      genre: this.genre,
       year: this.year,
       cds: this.cds,
     };
   }
 
   // Let the user be able to edit the properties of this album
-  setProperties(title, artist, collaborators, label, year) {
+  setProperties(title, artist, collaborators, label, genre, year) {
     this.title = title;
     this.artist = artist;
     this.collaborators = collaborators;
     this.label = label;
+    this.genre = genre;
     this.year = year;
   }
 
