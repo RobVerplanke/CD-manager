@@ -333,10 +333,11 @@ li:hover > ul.drop-menu li {
 
 input{
     font-size: .7em;
-    padding: 2px;
+    padding-left: 5px;
     margin-bottom: 8px;
     height: 18px;
     width: 70%;
+    border: none;
     border-radius: 5px;
     background-color: var(--form-field-background-color);
 
@@ -345,10 +346,11 @@ input{
 textarea{
     resize: vertical;
     font-size: .7em;
-    padding: 2px;
+    padding: 4px 4px 4px 5px;
     margin-bottom: 8px;
     height: 36px;
     width: 70%;
+    border: none;
     border-radius: 5px;
     background-color: var(--form-field-background-color);
 
@@ -356,6 +358,7 @@ textarea{
 
 #add-button{
     border: none;
+    margin-top: 10px;
     width: 80px;
     height: 30px;
     border-radius: 5px;
@@ -366,25 +369,55 @@ textarea{
 #year{
     margin-right: 56%;
     width: 14%;
-    height: 20px;
-    padding: 2px;
+    height: 18px;
+    padding: 2px 2px 2px 5px;
+    margin-bottom: 8px;
     border-radius: 5px;
+    border: none;
     font-size: .7em;
     background-color: var(--form-field-background-color);
 }
 
 #length{
     margin-right: 60%;
-    padding: 2px;
+    padding: 2px 2px 2px 5px;
     width: 10%;
 }
 
 #cover{
+    padding: 0;
     height: 24px;
     background-color: var(--main-background-color);
 }
 
-#cover{
-    height: 24px;
-    background-color: var(--main-background-color);
+#rating{
+    margin-right: 50%;
+    padding: 2px 2px 2px 5px;
+    margin-bottom: 8px;
+    width: 20%;
+    border: none;
+    border-radius: 5px;
+    font-size: .7em;
+    background-color: var(--form-field-background-color);
+}
+
+#cd{
+    padding: 2px 2px 2px 5px;
+    width: 70%;
+    margin-bottom: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: .7em;
+    background-color: var(--form-field-background-color);
+}
+
+#album{
+    padding: 2px 2px 2px 5px;
+    width: 70%;
+    height: 18px;
+    margin-bottom: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: .7em;
+    background-color: var(--form-field-background-color);
 }

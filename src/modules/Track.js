@@ -5,6 +5,7 @@ class Track {
     this.collaborators = []; // Other artists
     this.cds = []; // CD(s) on which the track occurs
     this.label = ''; // Single-label when applicable
+    this.style = ''; // Style of music
     this.year = null; // Release year
     this.length = null; // Total length of track
   }
@@ -17,17 +18,19 @@ class Track {
       collaborators: this.collaborators,
       cds: this.cds,
       label: this.label,
+      style: this.style,
       year: this.year,
       length: this.length,
     };
   }
 
   // Let the user be able to edit the properties of this track
-  setProperties(title, artist, collaborators, label, year, length) {
+  setProperties(title, artist, collaborators, label, style, year, length) {
     this.title = title;
     this.artist = artist;
     this.collaborators = collaborators;
     this.label = label;
+    this.style = style;
     this.year = year;
     this.length = length;
   }
