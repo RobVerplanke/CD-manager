@@ -1,7 +1,7 @@
-const buildTracksAllPage = require('./viewAll.js');
-const buildTracksAddPage = require('./add.js');
-const buildTracksEditPage = require('./edit.js');
-const buildTracksDeletePage = require('./delete.js');
+const buildTracksAllPage = require('./viewAllTracks.js');
+const buildTracksAddPage = require('./addTrack.js');
+const buildTracksEditPage = require('./editTrack.js');
+const buildTracksDeletePage = require('./deleteTrack.js');
 
 module.exports = {
   buildTracksAllPage,

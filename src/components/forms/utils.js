@@ -1,5 +1,5 @@
-const renderCDsList = require('../../../api/getAllCDsList.js');
-const renderAlbumsList = require('../../../api/getAllAlbumsList.js');
+const { getCDTitles } = require('../../../api/index.js');
+const { getAlbumTitles } = require('../../../api/index.js');
 
 function buildYearOptions(element) {
   const selectElement = element;
@@ -20,7 +20,7 @@ async function buildCDOptions(element) {
   defaultOption.setAttribute('selected', 'selected');
   selectElement.append(defaultOption);
 
-  const CDsList = await renderCDsList();
+  const CDsList = await getCDTitles();
 
   CDsList.forEach(([title]) => {
     const newOption = document.createElement('option');
@@ -39,7 +39,7 @@ async function buildAlbumOptions(element) {
 
   selectElement.append(defaultOption);
 
-  const albumsList = await renderAlbumsList();
+  const albumsList = await getAlbumTitles();
 
   albumsList.forEach(([title]) => {
     const newOption = document.createElement('option');

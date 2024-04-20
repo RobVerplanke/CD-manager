@@ -1,7 +1,7 @@
 // const Controller = require('./controller/Controller.js');
 // const User = require('./modules/User.js');
-const setNavEventListeners = require('./components/navBar.js');
-const buildHomePage = require('./pages/home.js');
+const setNavEventListeners = require('./components/nav/navBar.js');
+const buildHomePage = require('./pages/homePage.js');
 
 
 // // Test account
@@ -12,7 +12,10 @@ const buildHomePage = require('./pages/home.js');
 // const user = new User(controller, _USERNAME);
 
 // Activate navigation buttons
-setNavEventListeners();
+document.addEventListener('DOMContentLoaded', () => {
+  setNavEventListeners();
+});
+
 
 // Start on default page
 buildHomePage();
