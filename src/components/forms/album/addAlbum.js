@@ -1,8 +1,8 @@
-const { pageHolder, contentHolder } = require('../../utils/commonElements.js');
 const createFormInput = require('../utils.js');
+const addAlbumToCollection = require('../../../../api/album/addAlbum.js');
 
 function buildAddAlbumForm() {
-  const form = document.createElement('form');
+  const form = document.querySelector('#form');
   form.classList.add('add-form');
 
   form.append(createFormInput('Title', 'text', 'input', 'Title of album...'));
@@ -13,7 +13,8 @@ function buildAddAlbumForm() {
   form.append(createFormInput('Year', 'number', 'select'));
   form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...'));
   form.append(createFormInput('Rating', 'text', 'select'));
-  form.append(createFormInput('Cover', 'file', 'input'));
+  // form.append(createFormInput('Cover', 'file', 'input'));
+  form.append(createFormInput('Cover', 'text', 'input', 'http://image.jpg...'));
 
   // Voeg een verzendknop toe
   const submitButton = document.createElement('button');
@@ -21,10 +22,9 @@ function buildAddAlbumForm() {
   submitButton.setAttribute('id', 'add-button');
   submitButton.textContent = 'Add';
 
-  form.appendChild(submitButton);
-  contentHolder.append(form);
+  submitButton.addEventListener('click', addAlbumToCollection);
 
-  pageHolder.append(contentHolder);
+  form.appendChild(submitButton);
 }
 
 module.exports = buildAddAlbumForm;

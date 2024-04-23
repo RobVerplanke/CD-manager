@@ -1,8 +1,8 @@
-const { pageHolder, contentHolder } = require('../../utils/commonElements.js');
 const createFormInput = require('../utils.js');
+const addCDToCollection = require('../../../../api/cd/addCD.js');
 
 function buildAddCDForm() {
-  const form = document.createElement('form');
+  const form = document.querySelector('#form');
   form.classList.add('add-form');
 
   form.append(createFormInput('Album', 'text', 'select'));
@@ -14,7 +14,8 @@ function buildAddCDForm() {
   form.append(createFormInput('Year', 'number', 'select'));
   form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...'));
   form.append(createFormInput('Rating', 'text', 'select'));
-  form.append(createFormInput('Cover', 'file', 'input'));
+  // form.append(createFormInput('Cover', 'file', 'input'));
+  form.append(createFormInput('Cover', 'text', 'input', 'http://image.jpg...'));
 
   // Voeg een verzendknop toe
   const submitButton = document.createElement('button');
@@ -22,10 +23,9 @@ function buildAddCDForm() {
   submitButton.setAttribute('id', 'add-button');
   submitButton.textContent = 'Add';
 
-  form.appendChild(submitButton);
-  contentHolder.append(form);
+  submitButton.addEventListener('click', addCDToCollection);
 
-  pageHolder.append(contentHolder);
+  form.appendChild(submitButton);
 }
 
 module.exports = buildAddCDForm;

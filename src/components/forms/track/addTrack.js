@@ -1,8 +1,8 @@
-const { pageHolder, contentHolder } = require('../../utils/commonElements.js');
 const createFormInput = require('../utils.js');
+const addTrackToCollection = require('../../../../api/track/addTrack.js');
 
 function buildAddTrackForm() {
-  const form = document.createElement('form');
+  const form = document.querySelector('#form');
   form.classList.add('add-form');
 
   form.append(createFormInput('Cd', 'text', 'select'));
@@ -22,10 +22,9 @@ function buildAddTrackForm() {
   submitButton.setAttribute('id', 'add-button');
   submitButton.textContent = 'Add';
 
-  form.appendChild(submitButton);
-  contentHolder.append(form);
+  submitButton.addEventListener('click', addTrackToCollection);
 
-  pageHolder.append(contentHolder);
+  form.appendChild(submitButton);
 }
 
 module.exports = buildAddTrackForm;

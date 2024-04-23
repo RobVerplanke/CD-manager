@@ -1,6 +1,7 @@
 const pageHolder = document.querySelector('#page-holder');
 const titleHolder = document.querySelector('#title-holder');
 const contentHolder = document.querySelector('#content-holder');
+const form = document.querySelector('#form');
 const buttonHome = document.querySelector('#menu-button-home');
 const buttonSearch = document.querySelector('#menu-button-search');
 const buttonStats = document.querySelector('#menu-button-stats');
@@ -28,6 +29,7 @@ module.exports = {
   pageHolder,
   titleHolder,
   contentHolder,
+  form,
   buttonHome,
   buttonSearch,
   buttonStats,

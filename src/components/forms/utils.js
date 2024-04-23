@@ -53,7 +53,9 @@ function buildRatingStars(amount) {
   let starsList = '';
 
   for (let i = 0; i < amount; i++) {
-    starsList += '⭐';
+    // starsList += '⭐';
+    starsList = i;
+
   }
   return starsList;
 }
@@ -88,7 +90,7 @@ function createFormInput(labelText, type, element, placeholder) {
   input.setAttribute('name', labelText.toLowerCase());
   input.setAttribute('placeholder', placeholder);
 
-  if (labelText === 'Cover') input.setAttribute('accept', 'image/png, image/jpeg');
+  // if (labelText === 'Cover') input.setAttribute('accept', 'image/png, image/jpeg');
   if (labelText === 'Year') buildYearOptions(input);
   if (labelText === 'Cd') buildCDOptions(input);
   if (labelText === 'Album') buildAlbumOptions(input);
