@@ -1,12 +1,15 @@
-const setTitle = require('./titleHolder.js');
-const buildAddAlbumForm = require('./forms/addAlbum.js');
-const buildAddCDForm = require('./forms/addCD.js');
-const buildAddTrackForm = require('./forms/addTrack.js');
+const setTitle = require('./utils/setTitleText.js');
+const clearContentHolders = require('./utils/clearHolders.js');
+const buildAddAlbumForm = require('./forms/album/addAlbum.js');
+const buildAddCDForm = require('./forms/cd/addCD.js');
+const buildAddTrackForm = require('./forms/track/addTrack.js');
 
 const {
+  // Holders
   pageHolder,
   titleHolder,
   contentHolder,
+  // Buttons
   buttonHome,
   buttonSearch,
   buttonStats,
@@ -26,13 +29,14 @@ const {
   buttonTracksAdd,
   buttonTracksEdit,
   buttonTracksDelete,
-} = require('./commonElements.js');
-
+} = require('./utils/commonElements.js');
 
 module.exports = {
+  // Holders
   pageHolder,
   titleHolder,
   contentHolder,
+  // Buttons
   buttonHome,
   buttonSearch,
   buttonStats,
@@ -53,6 +57,7 @@ module.exports = {
   buttonTracksEdit,
   buttonTracksDelete,
   setTitle,
+  clearContentHolders,
   buildAddAlbumForm,
   buildAddCDForm,
   buildAddTrackForm,

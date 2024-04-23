@@ -387,7 +387,7 @@ textarea{
 #cover{
     padding: 0;
     height: 24px;
-    background-color: var(--main-background-color);
+    background-color: var(--form-field-background-color);
 }
 
 #rating{

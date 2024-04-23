@@ -1,7 +1,7 @@
-const buildAlbumsAllPage = require('./viewAll.js');
-const buildAlbumsAddPage = require('./add.js');
-const buildAlbumsEditPage = require('./edit.js');
-const buildAlbumsDeletePage = require('./delete.js');
+const buildAlbumsAllPage = require('./viewAllAlbums.js');
+const buildAlbumsAddPage = require('./addAlbum.js');
+const buildAlbumsEditPage = require('./editAlbum.js');
+const buildAlbumsDeletePage = require('./deleteAlbum.js');
 
 module.exports = {
   buildAlbumsAllPage,
