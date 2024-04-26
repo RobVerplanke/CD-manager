@@ -12,6 +12,8 @@
 :root{
     --global-font: "Open Sans", sans-serif;
 
+    --border-radius: 3px;
+
     --header-heigth: 50px;
     --header-background-color: #1a1b1b;
     --header-text-color: #d6dbde;
@@ -41,6 +43,10 @@
     --form-field-background-color: #d6dbde;
     --form-confirm-button-color: #bebebe;
     --form-confirm-button-text-color: #202222;
+
+    --table-head-background-color: #d6dbde;
+    --table-head-text-color: #202222;
+    --table-body-odd-background-color: #333333;
 
 } 
 
@@ -102,6 +108,12 @@ a{
     color: var(--nav-text-color);
 }
 
+.edit-link{
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--nav-text-color);
+}
+
 h5{
     color: var(--text-color-item-artist);
 }
@@ -124,6 +136,108 @@ li{
     height: 100%;
     width: 100%;
     padding: 30px 0 0 100px;
+}
+
+.albums-table{
+    margin-top: 10px;
+    width: 80%;
+}
+
+.albums-table thead{
+    height: 10px;
+    line-height: 10px;
+    padding: 0;
+    font-size: .9em;
+    font-style: italic;
+    color: var(--table-head-text-color);
+    background-color: var(--table-head-background-color);
+}
+
+.albums-table thead th{
+    padding: 5px;
+}
+
+.albums-table tbody td:last-child{
+    display:flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.albums-table tbody tr:nth-child(odd){
+    background-color: var(--table-body-odd-background-color);
+}
+
+.albums-table tbody td{
+    font-size: .9em;
+    padding: 5px 5px 5px 5px;
+}
+
+.cds-table{
+    margin-top: 10px;
+    width: 80%;
+}
+
+.cds-table thead{
+    height: 10px;
+    line-height: 10px;
+    padding: 0;
+    font-size: .9em;
+    font-style: italic;
+    color: var(--table-head-text-color);
+    background-color: var(--table-head-background-color);
+}
+
+.cds-table thead th{
+    padding: 5px;
+}
+
+.cds-table tbody td:last-child{
+    display:flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.cds-table tbody tr:nth-child(odd){
+    background-color: var(--table-body-odd-background-color);
+}
+
+.cds-table tbody td{
+    font-size: .9em;
+    padding: 5px 5px 5px 5px;
+}
+
+.tracks-table{
+    margin-top: 10px;
+    width: 80%;
+}
+
+.tracks-table thead{
+    height: 10px;
+    line-height: 10px;
+    padding: 0;
+    font-size: .9em;
+    font-style: italic;
+    color: var(--table-head-text-color);
+    background-color: var(--table-head-background-color);
+}
+
+.tracks-table thead th{
+    padding: 5px;
+}
+
+.tracks-table tbody td:last-child{
+    display:flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.tracks-table tbody tr:nth-child(odd){
+    background-color: var(--table-body-odd-background-color);
+}
+
+.tracks-table tbody td{
+    font-size: .9em;
+    padding: 5px 5px 5px 5px;
 }
 
 /* Mail icon */
@@ -260,7 +374,7 @@ li:hover > ul.drop-menu li {
     padding: 0;
     font-size: .8em;
     width: 200px;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
 }
 
 .items-list-no-img{
@@ -269,8 +383,8 @@ li:hover > ul.drop-menu li {
     padding: 5px;
     font-size: .8em;
     width: 50vw;
-    height: 62px;
-    border-radius: 4px;
+    height: 65px;
+    border-radius: var(--border-radius);
 }
 
 .list-item{
@@ -306,8 +420,16 @@ li:hover > ul.drop-menu li {
 }
 
 .text-artist-dark{
-    font-size: .9em;
+    font-size: 1em;
     font-style: italic;
+    font-weight: bold;
+    color: var(--text-color-item-artist-dark);
+}
+
+.text-length-dark{
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 100;
     color: var(--text-color-item-artist-dark);
 }
 
@@ -318,6 +440,16 @@ li:hover > ul.drop-menu li {
     flex-direction: column;
     align-items: end;
     width: 400px;
+}
+
+.edit-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    width: 80%;
+    height: 40px;
 }
 
 .form-label{
@@ -338,7 +470,7 @@ input{
     height: 18px;
     width: 70%;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     background-color: var(--form-field-background-color);
 
 }
@@ -351,7 +483,7 @@ textarea{
     height: 36px;
     width: 70%;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     background-color: var(--form-field-background-color);
 
 }
@@ -359,9 +491,39 @@ textarea{
 #add-button{
     border: none;
     margin-top: 10px;
-    width: 80px;
-    height: 30px;
-    border-radius: 5px;
+    width: 60px;
+    height: 20px;
+    border-radius: var(--border-radius);
+    color: var(--form-confirm-button-text-color);
+    background-color: var(--form-confirm-button-color);
+}
+
+#search-button{
+    border: none;
+    margin-top: 2px;
+    width: 60px;
+    height: 20px;
+    border-radius: var(--border-radius);
+    color: var(--form-confirm-button-text-color);
+    background-color: var(--form-confirm-button-color);
+}
+
+#edit-confirm-button{
+    border: none;
+    margin: 10px 0 20px 0;
+    width: 60px;
+    height: 20px;
+    border-radius: var(--border-radius);
+    color: var(--form-confirm-button-text-color);
+    background-color: var(--form-confirm-button-color);
+}
+
+#edit-button{
+    border: none;
+    margin: 10px 0 20px 0;
+    width: 60px;
+    height: 20px;
+    border-radius: var(--border-radius);
     color: var(--form-confirm-button-text-color);
     background-color: var(--form-confirm-button-color);
 }
@@ -372,7 +534,7 @@ textarea{
     height: 18px;
     padding: 2px 2px 2px 5px;
     margin-bottom: 8px;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     border: none;
     font-size: .7em;
     background-color: var(--form-field-background-color);
@@ -380,13 +542,14 @@ textarea{
 
 #length{
     margin-right: 60%;
+    margin-top: 3px;
     padding: 2px 2px 2px 5px;
     width: 10%;
 }
 
 #cover{
-    padding: 0;
-    height: 24px;
+    height: 18px;
+    padding: 2px 2px 2px 5px;
     background-color: var(--form-field-background-color);
 }
 
@@ -396,7 +559,7 @@ textarea{
     margin-bottom: 8px;
     width: 20%;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     font-size: .7em;
     background-color: var(--form-field-background-color);
 }
@@ -406,7 +569,7 @@ textarea{
     width: 70%;
     margin-bottom: 8px;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     font-size: .7em;
     background-color: var(--form-field-background-color);
 }
@@ -417,7 +580,24 @@ textarea{
     height: 18px;
     margin-bottom: 8px;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     font-size: .7em;
     background-color: var(--form-field-background-color);
+}
+
+#search{
+    margin: 0 12px 0 0;
+    padding: 4px;
+    width: 85%;
+    height: 18px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: .7em;
+    background-color: var(--form-field-background-color);
+}
+
+.checkbox{
+    outline: none;
+    margin: 0;
+    padding: 0;
 }
