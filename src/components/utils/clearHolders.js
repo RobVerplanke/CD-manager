@@ -1,8 +1,14 @@
 const { pageHolder, contentHolder } = require('./commonElements.js');
 
-// Clear all content before adding new content
 function clearContentHolders() {
-  contentHolder.innerHTML = '<form id ="form"></form>';
+  while (contentHolder.firstChild) {
+    contentHolder.removeChild(contentHolder.firstChild);
+  }
+
+  const formElement = document.createElement('form');
+
+  formElement.setAttribute('id', 'form');
+  contentHolder.appendChild(formElement);
   pageHolder.append(contentHolder);
 }
 

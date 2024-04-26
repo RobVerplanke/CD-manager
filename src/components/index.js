@@ -3,6 +3,7 @@ const clearContentHolders = require('./utils/clearHolders.js');
 const buildAddAlbumForm = require('./forms/album/addAlbum.js');
 const buildAddCDForm = require('./forms/cd/addCD.js');
 const buildAddTrackForm = require('./forms/track/addTrack.js');
+const getInputValue = require('./utils/getInputValue.js');
 
 const {
   // Holders
@@ -61,4 +62,5 @@ module.exports = {
   buildAddAlbumForm,
   buildAddCDForm,
   buildAddTrackForm,
+  getInputValue,
 };

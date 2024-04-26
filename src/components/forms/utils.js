@@ -7,17 +7,16 @@ function buildYearOptions(element) {
 
   for (let i = currentYear; i > 1900; i--) {
     const newOption = document.createElement('option');
-    newOption.setAttribute('value', i);
     newOption.textContent = i;
     selectElement.append(newOption);
   }
 }
 
-async function buildCDOptions(element) {
+async function buildCDOptions(element, callback) {
   const selectElement = element;
   const defaultOption = document.createElement('option');
+
   defaultOption.textContent = '-';
-  defaultOption.setAttribute('selected', 'selected');
   selectElement.append(defaultOption);
 
   const CDsList = await getCDTitles();
@@ -28,15 +27,18 @@ async function buildCDOptions(element) {
     newOption.textContent = title;
     selectElement.append(newOption);
   });
+
+  // After all options are loaded, set the corresponding option as value
+  if (callback) callback();
 }
 
+// Merge these two functions
 
-async function buildAlbumOptions(element) {
+async function buildAlbumOptions(element, callback) {
   const selectElement = element;
   const defaultOption = document.createElement('option');
-  defaultOption.textContent = '-';
-  defaultOption.setAttribute('selected', 'selected');
 
+  defaultOption.textContent = '-';
   selectElement.append(defaultOption);
 
   const albumsList = await getAlbumTitles();
@@ -47,6 +49,9 @@ async function buildAlbumOptions(element) {
     newOption.textContent = title;
     selectElement.append(newOption);
   });
+
+  // After all options are loaded, set the corresponding option as value
+  if (callback) callback();
 }
 
 function buildRatingStars(amount) {
@@ -63,9 +68,8 @@ function buildRatingStars(amount) {
 function buildRatingOptions(element) {
   const selectElement = element;
   const defaultOption = document.createElement('option');
-  defaultOption.textContent = '-';
-  defaultOption.setAttribute('selected', 'selected');
 
+  defaultOption.textContent = '-';
   selectElement.append(defaultOption);
 
   for (let i = 1; i <= 5; i++) {
@@ -75,7 +79,8 @@ function buildRatingOptions(element) {
   }
 }
 
-function createFormInput(labelText, type, element, placeholder) {
+function createFormInput(labelText, type, element, placeholder, value) {
+
   const holder = document.createElement('div');
   holder.classList.add('form-input-holder');
 
@@ -90,15 +95,41 @@ function createFormInput(labelText, type, element, placeholder) {
   input.setAttribute('name', labelText.toLowerCase());
   input.setAttribute('placeholder', placeholder);
 
-  // if (labelText === 'Cover') input.setAttribute('accept', 'image/png, image/jpeg');
-  if (labelText === 'Year') buildYearOptions(input);
-  if (labelText === 'Cd') buildCDOptions(input);
-  if (labelText === 'Album') buildAlbumOptions(input);
   if (labelText === 'Rating') buildRatingOptions(input);
+
+  if (labelText === 'Album') {
+    buildAlbumOptions(input, () => {
+      input.value = value;
+    });
+  }
+
+  if (labelText === 'Cd') {
+    buildCDOptions(input, () => {
+      input.value = value;
+    });
+  }
+
+  if (labelText === 'Year') {
+    buildYearOptions(input);
+    input.value = value;
+  }
+
+  if (value) {
+    if (element === 'textarea') {
+      input.textContent = value;
+    } else if (element === 'select' && labelText === 'Rating') {
+      input.value = value;
+    } else {
+      input.setAttribute('value', value);
+    }
+  }
 
   holder.append(label, input);
 
   return holder;
 }
 
-module.exports = createFormInput;
+
+module.exports = {
+  createFormInput,
+};

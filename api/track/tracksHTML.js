@@ -1,23 +1,35 @@
 // Don't import from the index file, as it may cause asynchronous issues
 const { pageHolder, contentHolder } = require('../../src/components/utils/commonElements.js');
+// const { buildCheckbox } = require('../../src/components/forms/utils.js');
+
 
 async function getTracksHTML() {
-  const url = 'http://localhost:3000/tracks';
 
+  const url = 'http://localhost:3000/tracks';
   const result = await fetch(url);
   const data = await result.json();
 
-  let template = '';
+  let template = `<table class="tracks-table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Artist</th>
+      <th>Length</th>
+    </tr>
+  </thead>
+  <tbody>`;
 
   data.forEach((track) => {
     template += `
-    <ul class="items-list-no-img">
-      <li class="list-item text-title-dark"><p>${track.title}</p></li>
-      <li class="list-item text-artist-dark"><p>${track.artist}</p></li>
-      <li class="list-item text-artist-dark"><p>length: <strong>${track.length}</strong></p></li>
-    </ul>
+        <tr>
+          <td>${track.title}</td>
+          <td>${track.artist}</td>
+          <td>${track.length}</td>
+        </tr>
     `;
+
   });
+  template += '</tbody></table>';
 
   contentHolder.innerHTML += template;
 

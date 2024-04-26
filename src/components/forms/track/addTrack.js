@@ -1,4 +1,4 @@
-const createFormInput = require('../utils.js');
+const { createFormInput } = require('../utils.js');
 const addTrackToCollection = require('../../../../api/track/addTrack.js');
 
 function buildAddTrackForm() {

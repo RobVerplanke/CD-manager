@@ -12,7 +12,7 @@ async function getCDsHTML() {
   data.forEach((cd) => {
     template += `
     <ul class="items-list">
-      <li class="list-img"><img width="150px" height="auto" src="${cd.img}"></li>
+      <li class="list-img"><img width="150px" height="auto" src="${cd.image}"></li>
       <li class="list-item text-album"><p>${cd.album}</p></li>
       <li class="list-item text-title-light"><p>${cd.title}</p></li>
       <li class="list-item text-artist-light"><p>${cd.artist}</p></li>

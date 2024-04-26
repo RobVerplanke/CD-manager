@@ -1,4 +1,4 @@
-const createFormInput = require('../utils.js');
+const { createFormInput } = require('../utils.js');
 const addAlbumToCollection = require('../../../../api/album/addAlbum.js');
 
 function buildAddAlbumForm() {

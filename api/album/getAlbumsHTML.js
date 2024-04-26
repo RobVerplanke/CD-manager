@@ -12,7 +12,7 @@ async function getAlbumsHTML() {
   data.forEach((album) => {
     template += `
     <ul class="items-list">
-      <li class="list-img"><img width="150px" height="auto" src="${album.img}"></li>
+      <li class="list-img"><img width="150px" height="auto" src="${album.image}"></li>
       <li class="list-item text-title-light"><p>${album.title}</p></li>
       <li class="list-item text-artist-light"><p>${album.artist}</p></li>
     </ul>

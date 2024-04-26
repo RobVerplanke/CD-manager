@@ -1,4 +1,4 @@
-const createFormInput = require('../utils.js');
+const { createFormInput } = require('../utils.js');
 const addCDToCollection = require('../../../../api/cd/addCD.js');
 
 function buildAddCDForm() {
@@ -14,8 +14,7 @@ function buildAddCDForm() {
   form.append(createFormInput('Year', 'number', 'select'));
   form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...'));
   form.append(createFormInput('Rating', 'text', 'select'));
-  // form.append(createFormInput('Cover', 'file', 'input'));
-  form.append(createFormInput('Cover', 'text', 'input', 'http://image.jpg...'));
+  form.append(createFormInput('Image', 'text', 'input', 'http://image.jpg...'));
 
   // Voeg een verzendknop toe
   const submitButton = document.createElement('button');
