@@ -1,5 +1,5 @@
 const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
-const { getTracksHTML } = require('../../../api/track/index.js');
+const getTracksHTML = require('../../../api/track/getTracksHTML.js');
 
 function buildTracksAllPage() {
 

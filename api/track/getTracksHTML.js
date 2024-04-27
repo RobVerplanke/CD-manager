@@ -1,5 +1,5 @@
 // Don't import from the index file, as it may cause asynchronous issues
-const { commonElements } = require('../../src/components/utils/commonElements.js');
+const commonElements = require('../../src/components/utils/commonElements.js');
 
 async function getTracksHTML() {
 

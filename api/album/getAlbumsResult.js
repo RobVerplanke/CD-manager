@@ -1,6 +1,6 @@
 // Don't import from the index file, as it may cause asynchronous issues
-const { commonElements } = require('../../src/components/utils/commonElements.js');
-const { buildEditAlbumForm } = require('../../src/components/forms/album/index.js');
+const commonElements = require('../../src/components/utils/commonElements.js');
+const buildEditAlbumForm = require('../../src/components/forms/album/editAlbum.js');
 
 async function getAlbumsResult(searchKeyword) {
 

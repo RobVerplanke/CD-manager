@@ -1,5 +1,5 @@
 const { createFormInput } = require('../../utils/index.js');
-const { getTracksHTML } = require('../../../../api/track/index.js');
+const getTracksResult = require('../../../../api/track/getTracksResult.js');
 
 function searchTrackForm() {
   const form = document.querySelector('#form');
@@ -16,7 +16,7 @@ function searchTrackForm() {
 
   submitButton.addEventListener('click', (e) => {
     e.preventDefault();
-    getTracksHTML(form.search.value);
+    getTracksResult(form.search.value);
   });
 
   form.appendChild(submitButton);

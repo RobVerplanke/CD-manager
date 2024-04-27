@@ -5,7 +5,7 @@ const createFormInput = require('./createFormInput.js');
 const getCurrentDate = require('./getCurrentDate.js');
 
 // Get all needed elements in the DOM, no functions
-const commonElements = require('./commonElements.js');
+const { commonElements } = require('./commonElements.js');
 
 module.exports = {
   setTitle,

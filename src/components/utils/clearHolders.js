@@ -1,4 +1,4 @@
-const { commonElements } = require('./index.js');
+const commonElements = require('./commonElements.js');
 
 function clearContentHolders() {
   while (commonElements.contentHolder.firstChild) {

@@ -1,24 +1,4 @@
-const {
-  buttonHome,
-  buttonSearch,
-  buttonStats,
-  buttonProfile,
-  // Albums
-  buttonAlbumsAll,
-  buttonAlbumsAdd,
-  buttonAlbumsEdit,
-  buttonAlbumsDelete,
-  // CDs
-  buttonCDsAll,
-  buttonCDsAdd,
-  buttonCDsEdit,
-  buttonCDsDelete,
-  // Tracks
-  buttonTracksAll,
-  buttonTracksAdd,
-  buttonTracksEdit,
-  buttonTracksDelete,
-} = require('../index.js');
+const commonElements = require('../utils/commonElements.js');
 
 // Functions that build all the pages
 const buildHomePage = require('../../pages/homePage.js');
@@ -62,25 +42,25 @@ function setNavEventListeners() {
 
   // All buttons in the navigation menu
   const homeButtons = [
-    buttonHome,
-    buttonSearch,
-    buttonStats,
-    buttonProfile,
+    commonElements.buttonHome,
+    commonElements.buttonSearch,
+    commonElements.buttonStats,
+    commonElements.buttonProfile,
     // Albums
-    buttonAlbumsAll,
-    buttonAlbumsAdd,
-    buttonAlbumsEdit,
-    buttonAlbumsDelete,
+    commonElements.buttonAlbumsAll,
+    commonElements.buttonAlbumsAdd,
+    commonElements.buttonAlbumsEdit,
+    commonElements.buttonAlbumsDelete,
     // CDs
-    buttonCDsAll,
-    buttonCDsAdd,
-    buttonCDsEdit,
-    buttonCDsDelete,
+    commonElements.buttonCDsAll,
+    commonElements.buttonCDsAdd,
+    commonElements.buttonCDsEdit,
+    commonElements.buttonCDsDelete,
     // Tracks
-    buttonTracksAll,
-    buttonTracksAdd,
-    buttonTracksEdit,
-    buttonTracksDelete,
+    commonElements.buttonTracksAll,
+    commonElements.buttonTracksAdd,
+    commonElements.buttonTracksEdit,
+    commonElements.buttonTracksDelete,
   ];
 
   // All corresponding build-page functions in order

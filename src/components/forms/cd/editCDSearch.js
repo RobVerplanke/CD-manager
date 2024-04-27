@@ -1,5 +1,5 @@
 const { createFormInput } = require('../../utils/index.js');
-const { getCDsHTML } = require('../../../../api/cd/index.js');
+const getCDsResult = require('../../../../api/cd/getCDsResult.js');
 
 function searchCDForm() {
   const form = document.querySelector('#form');
@@ -16,7 +16,7 @@ function searchCDForm() {
 
   submitButton.addEventListener('click', (e) => {
     e.preventDefault();
-    getCDsHTML(form.search.value);
+    getCDsResult(form.search.value);
   });
 
   form.appendChild(submitButton);

@@ -1,6 +1,7 @@
 const { getInputValue, clearContentHolders, createFormInput } = require('../../utils/index.js');
-const { getCDByID, updateCD } = require('../../../../api/cd/index.js');
-const { buildCDsAllPage } = require('../../../pages/cd/index.js');
+const getCDByID = require('../../../../api/cd/getCDByID.js');
+const updateCD = require('../../../../api/cd/updateCD.js');
+const buildCDsAllPage = require('../../../pages/cd/viewAllCDs.js');
 
 async function buildEditCDForm(selectedID) {
 

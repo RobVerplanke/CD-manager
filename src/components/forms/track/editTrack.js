@@ -1,7 +1,7 @@
-const { createFormInput } = require('../../utils/index.js');
-const { getInputValue, clearContentHolders } = require('../../utils/index.js');
-const { getTrackbyID, updateTrack } = require('../../../../api/track/index.js');
-const { buildTracksAllPage } = require('../../../pages/track/index.js');
+const { getInputValue, clearContentHolders, createFormInput } = require('../../utils/index.js');
+const getTrackbyID = require('../../../../api/track/getTrackByID.js');
+const updateTrack = require('../../../../api/track/updateTrack.js');
+const buildTracksAllPage = require('../../../pages/track/viewAllTracks.js');
 
 async function buildEditTrackForm(selectedID) {
 

@@ -1,4 +1,5 @@
-const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
+const clearContentHolders = require('../../components/utils/clearHolders.js');
+const setTitle = require('../../components/utils/setTitle.js');
 
 function buildDeletePage() {
 

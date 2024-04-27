@@ -1,5 +1,6 @@
-const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
-const { getCDsHTML } = require('../../../api/cd/index.js');
+const clearContentHolders = require('../../components/utils/clearHolders.js');
+const setTitle = require('../../components/utils/setTitle.js');
+const getCDsHTML = require('../../../api/cd/getCDsHTML.js');
 
 function buildCDsAllPage() {
 

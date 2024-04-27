@@ -19,7 +19,7 @@ const addCDToCollection = async (e) => {
     added: getCurrentDate(),
     rating: form.rating.value,
     info: form.info.value,
-    img: form.cover.value,
+    image: form.image.value,
     views: 0,
   };
 

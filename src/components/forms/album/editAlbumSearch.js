@@ -1,5 +1,5 @@
 const { createFormInput } = require('../../utils/index.js');
-const { getAlbumsResult } = require('../../../../api/album/index.js');
+const getAlbumsResult = require('../../../../api/album/getAlbumsResult.js');
 
 function searchAlbumForm() {
   const form = document.querySelector('#form');

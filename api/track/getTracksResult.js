@@ -1,6 +1,6 @@
 // Don't import from the index file, as it may cause asynchronous issues
-const { commonElements } = require('../../src/components/utils/commonElements.js');
-const { buildEditTrackForm } = require('../../src/components/forms/track/index.js');
+const commonElements = require('../../src/components/utils/commonElements.js');
+const buildEditTrackForm = require('../../src/components/forms/track/editTrack.js');
 
 async function getTracksResult(searchKeyword) {
 

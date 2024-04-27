@@ -1,5 +1,5 @@
-const { getAllCDTitles } = require('../../../api/cd/index.js');
-const { getAllAlbumTitles } = require('../../../api/album/index.js');
+const getAllCDTitles = require('../../../api/cd/getAllCDTitles.js');
+const getAllAlbumTitles = require('../../../api/album/getAllAlbumTitles.js');
 
 function buildYearOptions(element) {
   const selectElement = element;
