@@ -1,4 +1,4 @@
-async function getCDTitles() {
+async function getAllCDTitles() {
   const list = [];
   const url = 'http://localhost:3000/cds';
 
@@ -13,4 +13,4 @@ async function getCDTitles() {
   return list;
 }
 
-module.exports = getCDTitles;
+module.exports = getAllCDTitles;

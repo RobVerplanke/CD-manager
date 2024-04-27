@@ -1,5 +1,5 @@
-const { clearContentHolders, setTitle } = require('../../components/index.js');
-const { getAlbumsHTML } = require('../../../api/index.js');
+const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
+const { getAlbumsHTML } = require('../../../api/album/index.js');
 
 function buildAlbumsAllPage() {
 

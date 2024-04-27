@@ -1,15 +1,15 @@
-const { pageHolder, contentHolder } = require('./commonElements.js');
+const { commonElements } = require('./index.js');
 
 function clearContentHolders() {
-  while (contentHolder.firstChild) {
-    contentHolder.removeChild(contentHolder.firstChild);
+  while (commonElements.contentHolder.firstChild) {
+    commonElements.contentHolder.removeChild(commonElements.contentHolder.firstChild);
   }
 
   const formElement = document.createElement('form');
 
   formElement.setAttribute('id', 'form');
-  contentHolder.appendChild(formElement);
-  pageHolder.append(contentHolder);
+  commonElements.contentHolder.appendChild(formElement);
+  commonElements.pageHolder.append(commonElements.contentHolder);
 }
 
 module.exports = clearContentHolders;

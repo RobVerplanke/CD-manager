@@ -1,8 +1,8 @@
 // Don't import from the index file, as it may cause asynchronous issues
-const { pageHolder, contentHolder } = require('../../src/components/utils/commonElements.js');
-const buildEditTrackForm = require('../../src/components/forms/track/editTrack.js');
+const { commonElements } = require('../../src/components/utils/commonElements.js');
+const { buildEditTrackForm } = require('../../src/components/forms/track/index.js');
 
-async function getTracksHTML(searchKeyword) {
+async function getTracksResult(searchKeyword) {
 
   const url = 'http://localhost:3000/tracks';
   const result = await fetch(url, { timeout: 5000 });
@@ -11,8 +11,8 @@ async function getTracksHTML(searchKeyword) {
   const searchTerm = searchKeyword;
   const filteredTracks = data.filter((track) => track.title.includes(searchTerm) || track.artist.includes(searchTerm));
 
-  contentHolder.classList.remove('img-in-item');
-  contentHolder.classList.add('no-img-in-item');
+  commonElements.contentHolder.classList.remove('img-in-item');
+  commonElements.contentHolder.classList.add('no-img-in-item');
 
   let template = `
   <table class="tracks-table">
@@ -53,9 +53,9 @@ async function getTracksHTML(searchKeyword) {
 
   template += '</tbody></table>';
 
-  contentHolder.innerHTML += template;
+  commonElements.contentHolder.innerHTML += template;
 
-  pageHolder.append(contentHolder);
+  commonElements.pageHolder.append(commonElements.contentHolder);
 }
 
-module.exports = getTracksHTML;
+module.exports = getTracksResult;

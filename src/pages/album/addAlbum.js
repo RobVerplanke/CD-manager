@@ -1,4 +1,5 @@
-const { clearContentHolders, setTitle, buildAddAlbumForm } = require('../../components/index.js');
+const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
+const { buildAddAlbumForm } = require('../../components/forms/album/index.js');
 
 function buildAddAllPage() {
 

@@ -1,5 +1,5 @@
-const { createFormInput } = require('../utils.js');
-const getCDsHTML = require('../../../../api/cd/getCDs.js');
+const { createFormInput } = require('../../utils/index.js');
+const { getCDsHTML } = require('../../../../api/cd/index.js');
 
 function searchCDForm() {
   const form = document.querySelector('#form');

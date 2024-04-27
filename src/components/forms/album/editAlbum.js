@@ -1,8 +1,6 @@
-const { createFormInput } = require('../utils.js');
-const clearContentHolders = require('../../utils/clearHolders.js');
-const getInputValue = require('../../utils/getInputValue.js');
-const { getAlbumByID, updateAlbum } = require('../../../../api/index.js');
-const buildAlbumsAllPage = require('../../../pages/albums/viewAllAlbums.js');
+const { getInputValue, clearContentHolders, createFormInput } = require('../../utils/index.js');
+const { getAlbumByID, updateAlbum } = require('../../../../api/album/index.js');
+const { buildAlbumsAllPage } = require('../../../pages/album/index.js');
 
 async function buildEditAlbumForm(selectedID) {
 

@@ -1,4 +1,4 @@
-async function getAlbumTitles() {
+async function getAllAlbumTitles() {
   const list = [];
   const url = 'http://localhost:3000/albums';
 
@@ -13,4 +13,4 @@ async function getAlbumTitles() {
   return list;
 }
 
-module.exports = getAlbumTitles;
+module.exports = getAllAlbumTitles;

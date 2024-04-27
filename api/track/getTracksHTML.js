@@ -1,7 +1,5 @@
 // Don't import from the index file, as it may cause asynchronous issues
-const { pageHolder, contentHolder } = require('../../src/components/utils/commonElements.js');
-// const { buildCheckbox } = require('../../src/components/forms/utils.js');
-
+const { commonElements } = require('../../src/components/utils/commonElements.js');
 
 async function getTracksHTML() {
 
@@ -31,12 +29,12 @@ async function getTracksHTML() {
   });
   template += '</tbody></table>';
 
-  contentHolder.innerHTML += template;
+  commonElements.contentHolder.innerHTML += template;
 
-  contentHolder.classList.remove('img-in-item');
-  contentHolder.classList.add('no-img-in-item');
+  commonElements.contentHolder.classList.remove('img-in-item');
+  commonElements.contentHolder.classList.add('no-img-in-item');
 
-  pageHolder.append(contentHolder);
+  commonElements.pageHolder.append(commonElements.contentHolder);
 }
 
 module.exports = getTracksHTML;

@@ -1,5 +1,5 @@
-const { createFormInput } = require('../utils.js');
-const getAlbumsHTML = require('../../../../api/album/getAlbums.js');
+const { createFormInput } = require('../../utils/index.js');
+const { getAlbumsResult } = require('../../../../api/album/index.js');
 
 function searchAlbumForm() {
   const form = document.querySelector('#form');
@@ -16,7 +16,7 @@ function searchAlbumForm() {
 
   submitButton.addEventListener('click', (e) => {
     e.preventDefault();
-    getAlbumsHTML(form.search.value);
+    getAlbumsResult(form.search.value);
   });
 
   form.appendChild(submitButton);

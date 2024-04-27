@@ -1,10 +1,9 @@
-const currentDate = require('../../src/utils/common.js');
+const { getCurrentDate } = require('../../src/components/utils/index.js');
 
 const addTrackToCollection = async (e) => {
+  e.preventDefault();
 
   const form = document.querySelector('#form');
-
-  e.preventDefault();
 
   const track = {
     cds: form.cd.value,
@@ -15,7 +14,7 @@ const addTrackToCollection = async (e) => {
     label: form.label.value,
     style: form.style.value,
     length: form.length.value,
-    added: currentDate(),
+    added: getCurrentDate(),
     rating: form.rating.value,
     info: form.info.value,
     views: 0,

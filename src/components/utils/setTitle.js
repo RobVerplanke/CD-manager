@@ -1,4 +1,4 @@
-const { titleHolder } = require('./commonElements.js');
+const { titleHolder } = require('./index.js');
 
 // Set the title above the content section
 function setTitle(title) {

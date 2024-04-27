@@ -1,8 +1,8 @@
 // Don't import from the index file, as it may cause asynchronous issues
-const { pageHolder, contentHolder } = require('../../src/components/utils/commonElements.js');
-const buildEditCDForm = require('../../src/components/forms/cd/editCD.js');
+const { commonElements } = require('../../src/components/utils/commonElements.js');
+const { buildEditCDForm } = require('../../src/components/forms/cd/index.js');
 
-async function getCDsHTML(searchKeyword) {
+async function getCDsResult(searchKeyword) {
 
   const url = 'http://localhost:3000/cds';
   const result = await fetch(url, { timeout: 5000 });
@@ -11,8 +11,8 @@ async function getCDsHTML(searchKeyword) {
   const searchTerm = searchKeyword;
   const filteredCDs = data.filter((cd) => cd.title.includes(searchTerm) || cd.artist.includes(searchTerm));
 
-  contentHolder.classList.remove('img-in-item');
-  contentHolder.classList.add('no-img-in-item');
+  commonElements.contentHolder.classList.remove('img-in-item');
+  commonElements.contentHolder.classList.add('no-img-in-item');
 
   let template = `
   <table class="cds-table">
@@ -53,9 +53,9 @@ async function getCDsHTML(searchKeyword) {
 
   template += '</tbody></table>';
 
-  contentHolder.innerHTML += template;
+  commonElements.contentHolder.innerHTML += template;
 
-  pageHolder.append(contentHolder);
+  commonElements.pageHolder.append(commonElements.contentHolder);
 }
 
-module.exports = getCDsHTML;
+module.exports = getCDsResult;

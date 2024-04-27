@@ -1,4 +1,4 @@
-const currentDate = require('../../src/utils/common.js');
+const { getCurrentDate } = require('../../src/components/utils/index.js');
 
 const addAlbumToCollection = async (e) => {
 
@@ -15,7 +15,7 @@ const addAlbumToCollection = async (e) => {
     collabs: form.collaborators.value,
     label: form.label.value,
     genre: form.genre.value,
-    added: currentDate(),
+    added: getCurrentDate(),
     rating: form.rating.value,
     info: form.info.value,
     img: form.cover.value,

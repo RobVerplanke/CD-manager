@@ -1,8 +1,8 @@
 // Don't import from the index file, as it may cause asynchronous issues
-const { pageHolder, contentHolder } = require('../../src/components/utils/commonElements.js');
-const buildEditAlbumForm = require('../../src/components/forms/album/editAlbum.js');
+const { commonElements } = require('../../src/components/utils/commonElements.js');
+const { buildEditAlbumForm } = require('../../src/components/forms/album/index.js');
 
-async function getAlbumsHTML(searchKeyword) {
+async function getAlbumsResult(searchKeyword) {
 
   const url = 'http://localhost:3000/albums';
   const result = await fetch(url, { timeout: 5000 });
@@ -11,8 +11,8 @@ async function getAlbumsHTML(searchKeyword) {
   const searchTerm = searchKeyword;
   const filteredAlbums = data.filter((album) => album.title.includes(searchTerm) || album.artist.includes(searchTerm));
 
-  contentHolder.classList.remove('img-in-item');
-  contentHolder.classList.add('no-img-in-item');
+  commonElements.contentHolder.classList.remove('img-in-item');
+  commonElements.contentHolder.classList.add('no-img-in-item');
 
   let template = `
   <table class="albums-table">
@@ -53,9 +53,9 @@ async function getAlbumsHTML(searchKeyword) {
 
   template += '</tbody></table>';
 
-  contentHolder.innerHTML += template;
+  commonElements.contentHolder.innerHTML += template;
 
-  pageHolder.append(contentHolder);
+  commonElements.pageHolder.append(commonElements.contentHolder);
 }
 
-module.exports = getAlbumsHTML;
+module.exports = getAlbumsResult;

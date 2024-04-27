@@ -1,4 +1,5 @@
-const { clearContentHolders, setTitle, buildAddTrackForm } = require('../../components/index.js');
+const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
+const { buildAddTrackForm } = require('../../components/forms/track/index.js');
 
 function buildTracksAddPage() {
 

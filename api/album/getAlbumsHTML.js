@@ -1,5 +1,5 @@
 // Don't import from the index file, as it may cause asynchronous issues
-const { pageHolder, contentHolder } = require('../../src/components/utils/commonElements.js');
+const { commonElements } = require('../../src/components/utils/commonElements.js');
 
 async function getAlbumsHTML() {
   const url = 'http://localhost:3000/albums';
@@ -19,12 +19,12 @@ async function getAlbumsHTML() {
     `;
   });
 
-  contentHolder.innerHTML += template;
+  commonElements.contentHolder.innerHTML += template;
 
-  contentHolder.classList.remove('no-img-in-item');
-  contentHolder.classList.add('img-in-item');
+  commonElements.contentHolder.classList.remove('no-img-in-item');
+  commonElements.contentHolder.classList.add('img-in-item');
 
-  pageHolder.append(contentHolder);
+  commonElements.pageHolder.append(commonElements.contentHolder);
 }
 
 module.exports = getAlbumsHTML;

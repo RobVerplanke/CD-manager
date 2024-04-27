@@ -1,5 +1,5 @@
-const { getCDTitles } = require('../../../api/index.js');
-const { getAlbumTitles } = require('../../../api/index.js');
+const { getAllCDTitles } = require('../../../api/cd/index.js');
+const { getAllAlbumTitles } = require('../../../api/album/index.js');
 
 function buildYearOptions(element) {
   const selectElement = element;
@@ -19,7 +19,7 @@ async function buildCDOptions(element, callback) {
   defaultOption.textContent = '-';
   selectElement.append(defaultOption);
 
-  const CDsList = await getCDTitles();
+  const CDsList = await getAllCDTitles();
 
   CDsList.forEach(([title]) => {
     const newOption = document.createElement('option');
@@ -41,7 +41,7 @@ async function buildAlbumOptions(element, callback) {
   defaultOption.textContent = '-';
   selectElement.append(defaultOption);
 
-  const albumsList = await getAlbumTitles();
+  const albumsList = await getAllAlbumTitles();
 
   albumsList.forEach(([title]) => {
     const newOption = document.createElement('option');
@@ -130,6 +130,4 @@ function createFormInput(labelText, type, element, placeholder, value) {
 }
 
 
-module.exports = {
-  createFormInput,
-};
+module.exports = createFormInput;

@@ -1,4 +1,5 @@
-const { clearContentHolders, setTitle, buildAddCDForm } = require('../../components/index.js');
+const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
+const { buildAddCDForm } = require('../../components/forms/cd/index.js');
 
 function buildCDsAddPage() {
 

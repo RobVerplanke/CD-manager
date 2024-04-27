@@ -1,5 +1,5 @@
-const { createFormInput } = require('../utils.js');
-const addTrackToCollection = require('../../../../api/track/addTrack.js');
+const { createFormInput } = require('../../utils/index.js');
+const { addTrackToCollection } = require('../../../../api/track/index.js');
 
 function buildAddTrackForm() {
   const form = document.querySelector('#form');
