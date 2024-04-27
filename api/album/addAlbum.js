@@ -1,12 +1,9 @@
 const { getCurrentDate } = require('../../src/components/utils/index.js');
 
 const addAlbumToCollection = async (e) => {
-
-  const form = document.querySelector('#form');
-
   e.preventDefault();
 
-  console.log('form', form);
+  const form = document.querySelector('#form');
 
   const album = {
     title: form.title.value,

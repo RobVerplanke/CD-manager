@@ -1,5 +1,6 @@
 const { createFormInput } = require('../../utils/index.js');
 const { addCDToCollection } = require('../../../../api/cd/index.js');
+const buildCDsAllPage = require('../../../pages/cd/viewAllCDs.js');
 
 function buildAddCDForm() {
   const form = document.querySelector('#form');
@@ -22,7 +23,10 @@ function buildAddCDForm() {
   submitButton.setAttribute('id', 'add-button');
   submitButton.textContent = 'Add';
 
-  submitButton.addEventListener('click', addCDToCollection);
+  submitButton.addEventListener('click', async (e) => {
+    await addCDToCollection(e);
+    buildCDsAllPage();
+  });
 
   form.appendChild(submitButton);
 }

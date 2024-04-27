@@ -17,9 +17,9 @@ async function updateAlbum(AlbumID, updatedAlbumData) {
       body: JSON.stringify(updatedAlbum),
     });
 
-    console.log(`CD met ID ${AlbumID} is succesvol bijgewerkt.`);
+    console.log(`Album met ID ${AlbumID} is succesvol bijgewerkt.`);
   } else {
-    console.log(`CD met ID ${AlbumID} is niet gevonden.`);
+    console.log(`Album met ID ${AlbumID} is niet gevonden.`);
   }
 }
 

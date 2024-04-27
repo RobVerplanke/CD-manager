@@ -28,8 +28,8 @@ function createFormInput(labelText, type, element, placeholder, value) {
     });
   }
 
-  // In case when the edit-form is called:
-  // set the value of the input fields with the current data
+  // Preset edit-form:
+  // Use the corresponding methods to change the preset values for each type of element
   if (value) {
     switch (element) {
       case 'textarea': input.textContent = value;

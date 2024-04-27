@@ -1,5 +1,7 @@
 const { createFormInput } = require('../../utils/index.js');
 const { addAlbumToCollection } = require('../../../../api/album/index.js');
+const buildAlbumsAllPage = require('../../../pages/album/viewAllAlbums.js');
+
 
 function buildAddAlbumForm() {
   const form = document.querySelector('#form');
@@ -21,7 +23,10 @@ function buildAddAlbumForm() {
   submitButton.setAttribute('id', 'add-button');
   submitButton.textContent = 'Add';
 
-  submitButton.addEventListener('click', addAlbumToCollection);
+  submitButton.addEventListener('click', async (e) => {
+    await addAlbumToCollection(e);
+    buildAlbumsAllPage();
+  });
 
   form.appendChild(submitButton);
 }

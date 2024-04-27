@@ -1,5 +1,6 @@
 const { createFormInput } = require('../../utils/index.js');
 const { addTrackToCollection } = require('../../../../api/track/index.js');
+const buildTracksAllPage = require('../../../pages/track/viewAllTracks.js');
 
 function buildAddTrackForm() {
   const form = document.querySelector('#form');
@@ -22,7 +23,10 @@ function buildAddTrackForm() {
   submitButton.setAttribute('id', 'add-button');
   submitButton.textContent = 'Add';
 
-  submitButton.addEventListener('click', addTrackToCollection);
+  submitButton.addEventListener('click', async (e) => {
+    await addTrackToCollection(e);
+    buildTracksAllPage();
+  });
 
   form.appendChild(submitButton);
 }
