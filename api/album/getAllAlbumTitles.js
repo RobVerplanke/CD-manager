@@ -5,7 +5,6 @@ async function getAllAlbumTitles() {
   const result = await fetch(url);
   const data = await result.json();
 
-
   data.forEach((album) => {
     list.push([album.title]);
   });

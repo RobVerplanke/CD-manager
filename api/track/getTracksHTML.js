@@ -30,7 +30,6 @@ async function getTracksHTML() {
   template += '</tbody></table>';
 
   commonElements.contentHolder.innerHTML += template;
-
   commonElements.contentHolder.classList.remove('img-in-item');
   commonElements.contentHolder.classList.add('no-img-in-item');
 

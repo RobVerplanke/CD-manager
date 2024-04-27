@@ -20,7 +20,6 @@ async function getAlbumsHTML() {
   });
 
   commonElements.contentHolder.innerHTML += template;
-
   commonElements.contentHolder.classList.remove('no-img-in-item');
   commonElements.contentHolder.classList.add('img-in-item');
 

@@ -54,7 +54,6 @@ async function getAlbumsResult(searchKeyword) {
   template += '</tbody></table>';
 
   commonElements.contentHolder.innerHTML += template;
-
   commonElements.pageHolder.append(commonElements.contentHolder);
 }
 
