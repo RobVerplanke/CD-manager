@@ -26,9 +26,10 @@ function buildAddAlbumForm() {
   submitButton.textContent = 'Add';
 
   submitButton.addEventListener('click', async (e) => {
+    e.preventDefault();
 
     // Wait for the corresponding API module to add the data to the database
-    await addAlbumToCollection(e);
+    await addAlbumToCollection();
 
     // Redirect the user to the updated overview page
     buildAlbumsAllPage();

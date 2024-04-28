@@ -1,13 +1,13 @@
 const { createFormInput } = require('../../utils/index.js');
-const getCDsResult = require('../../../../api/cd/getCDsResult.js');
+const getTracksResult = require('../../../../api/track/getTracksResult.js');
 
 /**
  * Build the page that is loaded after the user clicks on the 'edit' button
- * in the sub-menu of the 'CD' option in the main navigation menu.
+ * in the sub-menu of the 'Track' option in the main navigation menu.
  * This page contains a search field and a search button.
  * Show the results of the search query on a results page.
  */
-function searchCDForm() {
+function searchTrackForm(action) {
   const form = document.querySelector('#form');
   form.classList.add('edit-form');
 
@@ -24,10 +24,9 @@ function searchCDForm() {
   // Redirect the user to a results page
   submitButton.addEventListener('click', (e) => {
     e.preventDefault();
-    getCDsResult(form.search.value);
+    getTracksResult(action, form.search.value);
   });
-
   form.appendChild(submitButton);
 }
 
-module.exports = searchCDForm;
+module.exports = searchTrackForm;

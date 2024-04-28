@@ -1,8 +1,7 @@
 const { getCurrentDate } = require('../../src/components/utils/index.js');
 
 // Add a new track to the collection
-const addTrackToCollection = async (e) => {
-  e.preventDefault();
+const addTrackToCollection = async () => {
 
   // Select the form and get all input values
   const form = document.querySelector('#form');

@@ -7,7 +7,7 @@ const getAlbumsResult = require('../../../../api/album/getAlbumsResult.js');
  * This page contains a search field and a search button.
  * Show the results of the search query on a results page.
  */
-function searchAlbumForm() {
+function searchAlbumForm(action) {
   const form = document.querySelector('#form');
   form.classList.add('edit-form');
 
@@ -24,7 +24,7 @@ function searchAlbumForm() {
   // Redirect the user to a results page
   submitButton.addEventListener('click', (e) => {
     e.preventDefault();
-    getAlbumsResult(form.search.value);
+    getAlbumsResult(action, form.search.value);
   });
 
   form.appendChild(submitButton);

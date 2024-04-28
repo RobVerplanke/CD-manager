@@ -1,9 +1,11 @@
 // Don't import from the index file, as it may cause asynchronous issues
 const commonElements = require('../../src/components/utils/commonElements.js');
 const buildEditAlbumForm = require('../../src/components/forms/album/editAlbum.js');
+const deleteItem = require('../common/deleteItem.js');
+const viewAllAlbums = require('../../src/pages/album/viewAllAlbums.js');
 
 // Build a overview page with items that contain the keyword title or artist name
-async function getAlbumsResult(searchKeyword) {
+async function getAlbumsResult(action, searchKeyword) {
 
   // Get current data
   const url = 'http://localhost:3000/albums';
@@ -39,23 +41,30 @@ async function getAlbumsResult(searchKeyword) {
         <td>${album.title}</td>
         <td>${album.artist}</td>
         <td>${album.cds.length}</td>
-        <td><a class="edit-link" data-trackID="${album.id}" href="#">edit</a<</td>
+        <td><a class="${action}-link" data-albumID="${album.id}" href="#">${action}</a<</td>
       </tr>
     `;
   });
 
   // After a edit link is clicked, redirect the user to the edit form
-  function handleEditClick(trackID) {
-    buildEditAlbumForm(trackID);
-    // Voer hier de code uit die je wilt uitvoeren wanneer op de edit-link wordt geklikt
+  async function handleClick(albumID) {
+    if (action === 'edit') buildEditAlbumForm(albumID);
+    if (action === 'delete') {
+
+      // Wait for API module to remove the album from the collection
+      await deleteItem('album', albumID);
+
+      // Redirect to updated overview page
+      viewAllAlbums();
+    }
   }
 
   // Select each edit link
   document.addEventListener('click', (e) => {
-    if (e.target && e.target.classList.contains('edit-link')) {
+    if (e.target && e.target.classList.contains(`${action}-link`)) {
       e.preventDefault();
 
-      handleEditClick(e.target.getAttribute('data-trackID'));
+      handleClick(e.target.getAttribute('data-albumID'));
     }
   });
 

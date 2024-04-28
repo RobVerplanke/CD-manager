@@ -27,9 +27,10 @@ function buildAddTrackForm() {
   submitButton.textContent = 'Add';
 
   submitButton.addEventListener('click', async (e) => {
+    e.preventDefault();
 
     // Wait for the corresponding API module to add the data to the database
-    await addTrackToCollection(e);
+    await addTrackToCollection();
 
     // Redirect the user to the updated overview page
     buildTracksAllPage();

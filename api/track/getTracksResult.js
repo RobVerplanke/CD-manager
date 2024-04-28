@@ -1,9 +1,11 @@
 // Don't import from the index file, as it may cause asynchronous issues
 const commonElements = require('../../src/components/utils/commonElements.js');
 const buildEditTrackForm = require('../../src/components/forms/track/editTrack.js');
+const deleteItem = require('../common/deleteItem.js');
+const viewAllTracks = require('../../src/pages/track/viewAllTracks.js');
 
 // Build a overview page with items that contain the keyword title or artist name
-async function getTracksResult(searchKeyword) {
+async function getTracksResult(action, searchKeyword) {
 
   // Get current data
   const url = 'http://localhost:3000/tracks';
@@ -39,22 +41,30 @@ async function getTracksResult(searchKeyword) {
         <td>${track.title}</td>
         <td>${track.artist}</td>
         <td>${track.length}</td>
-        <td><a class="edit-link" data-trackID="${track.id}" href="#">edit</a<</td>
+        <td><a class="${action}-link" data-trackID="${track.id}" href="#">${action}</a<</td>
       </tr>
     `;
   });
 
   // After a edit link is clicked, redirect the user to the edit form
-  function handleEditClick(trackID) {
-    buildEditTrackForm(trackID);
+  async function handleClick(trackID) {
+    if (action === 'edit') buildEditTrackForm(trackID);
+    if (action === 'delete') {
+
+      // Wait for API module to remove the track from the collection
+      await deleteItem('track', trackID);
+
+      // Redirect to updated overview page
+      viewAllTracks();
+    }
   }
 
   // Select each edit link
   document.addEventListener('click', (e) => {
-    if (e.target && e.target.classList.contains('edit-link')) {
+    if (e.target && e.target.classList.contains(`${action}-link`)) {
       e.preventDefault();
 
-      handleEditClick(e.target.getAttribute('data-trackID'));
+      handleClick(e.target.getAttribute('data-trackID'));
     }
   });
 

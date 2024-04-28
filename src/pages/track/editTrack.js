@@ -8,7 +8,7 @@ function buildTracksEditPage() {
 
   setTitle('Edit a track');
 
-  searchTrackForm();
+  searchTrackForm('edit');
 }
 
 module.exports = buildTracksEditPage;

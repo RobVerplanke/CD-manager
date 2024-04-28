@@ -8,8 +8,7 @@ function buildCDsEditPage() {
 
   setTitle('Edit a CD');
 
-  searchCDForm();
-
+  searchCDForm('edit');
 }
 
 module.exports = buildCDsEditPage;
