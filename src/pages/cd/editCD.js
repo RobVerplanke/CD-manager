@@ -1,5 +1,5 @@
 const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
-const { searchCDForm } = require('../../components/forms/cd/index.js');
+const searchItem = require('../../components/forms/common/searchItem.js');
 
 // Create the edit page after clearing the page from any other content
 function buildCDsEditPage() {
@@ -8,7 +8,7 @@ function buildCDsEditPage() {
 
   setTitle('Edit a CD');
 
-  searchCDForm('edit');
+  searchItem('cd', 'edit');
 }
 
 module.exports = buildCDsEditPage;

@@ -239,26 +239,6 @@ eval("const { getInputValue, clearContentHolders, createFormInput } = __webpack_
 
 /***/ }),
 
-/***/ "./src/components/forms/album/index.js":
-/*!*********************************************!*\
-  !*** ./src/components/forms/album/index.js ***!
-  \*********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const buildAddAlbumForm = __webpack_require__(/*! ./addAlbum.js */ \"./src/components/forms/album/addAlbum.js\");\nconst buildEditAlbumForm = __webpack_require__(/*! ./editAlbum.js */ \"./src/components/forms/album/editAlbum.js\");\nconst searchAlbumForm = __webpack_require__(/*! ./searchAlbum.js */ \"./src/components/forms/album/searchAlbum.js\");\n\nmodule.exports = {\n  buildAddAlbumForm,\n  buildEditAlbumForm,\n  searchAlbumForm,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/album/index.js?");
-
-/***/ }),
-
-/***/ "./src/components/forms/album/searchAlbum.js":
-/*!***************************************************!*\
-  !*** ./src/components/forms/album/searchAlbum.js ***!
-  \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const { createFormInput } = __webpack_require__(/*! ../../utils/index.js */ \"./src/components/utils/index.js\");\nconst getAlbumsResult = __webpack_require__(/*! ../../../../api/album/getAlbumsResult.js */ \"./api/album/getAlbumsResult.js\");\n\n/**\n * Build the page that is loaded after the user clicks on the 'edit' button\n * in the sub-menu of the 'Album' option in the main navigation menu.\n * This page contains a search field and a search button.\n * Show the results of the search query on a results page.\n */\nfunction searchAlbumForm(action) {\n  const form = document.querySelector('#form');\n  form.classList.add('edit-form');\n\n  // Create a searchbar at the top of the form\n  const searchField = createFormInput('Search', 'text', 'input', 'Title or artist name...');\n  form.append(searchField);\n\n  // Add a submit button to the form\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'search-button');\n  submitButton.textContent = 'Search';\n\n  // Redirect the user to a results page\n  submitButton.addEventListener('click', (e) => {\n    e.preventDefault();\n    getAlbumsResult(action, form.search.value);\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = searchAlbumForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/album/searchAlbum.js?");
-
-/***/ }),
-
 /***/ "./src/components/forms/cd/addCD.js":
 /*!******************************************!*\
   !*** ./src/components/forms/cd/addCD.js ***!
@@ -279,23 +259,13 @@ eval("const { getInputValue, clearContentHolders, createFormInput } = __webpack_
 
 /***/ }),
 
-/***/ "./src/components/forms/cd/index.js":
-/*!******************************************!*\
-  !*** ./src/components/forms/cd/index.js ***!
-  \******************************************/
+/***/ "./src/components/forms/common/searchItem.js":
+/*!***************************************************!*\
+  !*** ./src/components/forms/common/searchItem.js ***!
+  \***************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const buildAddCDForm = __webpack_require__(/*! ./addCD.js */ \"./src/components/forms/cd/addCD.js\");\nconst buildEditCDForm = __webpack_require__(/*! ./editCD.js */ \"./src/components/forms/cd/editCD.js\");\nconst searchCDForm = __webpack_require__(/*! ./searchCD.js */ \"./src/components/forms/cd/searchCD.js\");\n\nmodule.exports = {\n  buildAddCDForm,\n  buildEditCDForm,\n  searchCDForm,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/cd/index.js?");
-
-/***/ }),
-
-/***/ "./src/components/forms/cd/searchCD.js":
-/*!*********************************************!*\
-  !*** ./src/components/forms/cd/searchCD.js ***!
-  \*********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const { createFormInput } = __webpack_require__(/*! ../../utils/index.js */ \"./src/components/utils/index.js\");\nconst getCDsResult = __webpack_require__(/*! ../../../../api/cd/getCDsResult.js */ \"./api/cd/getCDsResult.js\");\n\n/**\n * Build the page that is loaded after the user clicks on the 'edit' button\n * in the sub-menu of the 'CD' option in the main navigation menu.\n * This page contains a search field and a search button.\n * Show the results of the search query on a results page.\n */\nfunction searchCDForm(action) {\n  const form = document.querySelector('#form');\n  form.classList.add('edit-form');\n\n  // Create a searchbar at the top of the form\n  const searchField = createFormInput('Search', 'text', 'input', 'Title or artist name...');\n  form.append(searchField);\n\n  // Add a submit button to the form\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'search-button');\n  submitButton.textContent = 'Search';\n\n  // Redirect the user to a results page\n  submitButton.addEventListener('click', (e) => {\n    e.preventDefault();\n    getCDsResult(action, form.search.value);\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = searchCDForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/cd/searchCD.js?");
+eval("const { createFormInput } = __webpack_require__(/*! ../../utils/index.js */ \"./src/components/utils/index.js\");\nconst getTracksResult = __webpack_require__(/*! ../../../../api/track/getTracksResult.js */ \"./api/track/getTracksResult.js\");\nconst getCDsResult = __webpack_require__(/*! ../../../../api/cd/getCDsResult.js */ \"./api/cd/getCDsResult.js\");\nconst getAlbumsResult = __webpack_require__(/*! ../../../../api/album/getAlbumsResult.js */ \"./api/album/getAlbumsResult.js\");\n\n/**\n * Build the page that is loaded after the user clicks on the 'edit' button\n * in the sub-menu of the 'Track' option in the main navigation menu.\n * This page contains a search field and a search button.\n * Show the results of the search query on a results page.\n */\nfunction searchTrackForm(type, action) {\n  const form = document.querySelector('#form');\n  form.classList.add('edit-form');\n\n  // Create a searchbar at the top of the form\n  const searchField = createFormInput('Search', 'text', 'input', 'Title or artist name...');\n  form.append(searchField);\n\n  // Add a submit button to the form\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'search-button');\n  submitButton.textContent = 'Search';\n\n  // Redirect the user to a results page\n  submitButton.addEventListener('click', (e) => {\n    e.preventDefault();\n\n    // Get the search results\n    if (type === 'album') getAlbumsResult(action, form.search.value);\n    if (type === 'cd') getCDsResult(action, form.search.value);\n    if (type === 'track') getTracksResult(action, form.search.value);\n\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = searchTrackForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/common/searchItem.js?");
 
 /***/ }),
 
@@ -325,17 +295,7 @@ eval("const { getInputValue, clearContentHolders, createFormInput } = __webpack_
   \*********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const buildAddTrackForm = __webpack_require__(/*! ./addTrack.js */ \"./src/components/forms/track/addTrack.js\");\nconst buildEditTrackForm = __webpack_require__(/*! ./editTrack.js */ \"./src/components/forms/track/editTrack.js\");\nconst searchTrackForm = __webpack_require__(/*! ./searchTrack.js */ \"./src/components/forms/track/searchTrack.js\");\n\nmodule.exports = {\n  buildAddTrackForm,\n  buildEditTrackForm,\n  searchTrackForm,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/track/index.js?");
-
-/***/ }),
-
-/***/ "./src/components/forms/track/searchTrack.js":
-/*!***************************************************!*\
-  !*** ./src/components/forms/track/searchTrack.js ***!
-  \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const { createFormInput } = __webpack_require__(/*! ../../utils/index.js */ \"./src/components/utils/index.js\");\nconst getTracksResult = __webpack_require__(/*! ../../../../api/track/getTracksResult.js */ \"./api/track/getTracksResult.js\");\n\n/**\n * Build the page that is loaded after the user clicks on the 'edit' button\n * in the sub-menu of the 'Track' option in the main navigation menu.\n * This page contains a search field and a search button.\n * Show the results of the search query on a results page.\n */\nfunction searchTrackForm(action) {\n  const form = document.querySelector('#form');\n  form.classList.add('edit-form');\n\n  // Create a searchbar at the top of the form\n  const searchField = createFormInput('Search', 'text', 'input', 'Title or artist name...');\n  form.append(searchField);\n\n  // Add a submit button to the form\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'search-button');\n  submitButton.textContent = 'Search';\n\n  // Redirect the user to a results page\n  submitButton.addEventListener('click', (e) => {\n    e.preventDefault();\n    getTracksResult(action, form.search.value);\n  });\n  form.appendChild(submitButton);\n}\n\nmodule.exports = searchTrackForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/track/searchTrack.js?");
+eval("const buildAddTrackForm = __webpack_require__(/*! ./addTrack.js */ \"./src/components/forms/track/addTrack.js\");\nconst buildEditTrackForm = __webpack_require__(/*! ./editTrack.js */ \"./src/components/forms/track/editTrack.js\");\n\nmodule.exports = {\n  buildAddTrackForm,\n  buildEditTrackForm,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/track/index.js?");
 
 /***/ }),
 
@@ -415,7 +375,7 @@ eval("// Holders\nconst pageHolder = document.querySelector('#page-holder');\nco
   \*************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const buildRatingOptions = __webpack_require__(/*! ./buildRatingOptions.js */ \"./src/components/utils/buildRatingOptions.js\");\nconst buildSelectOptions = __webpack_require__(/*! ./buildSelectOptions.js */ \"./src/components/utils/buildSelectOptions.js\");\nconst buildYearOptions = __webpack_require__(/*! ./buildYearOptions.js */ \"./src/components/utils/buildYearOptions.js\");\n\n// Creates an input element and set the attributes and values where needed\nfunction createFormInput(labelText, type, element, placeholder, value) {\n\n  // Create a new input holder, a label and a element\n  const holder = document.createElement('div');\n  const label = document.createElement('label');\n  const input = document.createElement(element);\n\n  // Set all relevant attributes and values\n  holder.classList.add('form-input-holder');\n  label.classList.add('form-label');\n  label.setAttribute('for', labelText.toLowerCase());\n  label.textContent = `${labelText}:`;\n\n  input.setAttribute('type', type);\n  input.setAttribute('id', labelText.toLowerCase());\n  input.setAttribute('name', labelText.toLowerCase());\n  input.setAttribute('placeholder', placeholder);\n\n  // Use the corresponding build function for each select-element to fill the options with data\n  if (labelText === 'Rating') buildRatingOptions(input);\n  if (labelText === 'Year') buildYearOptions(input);\n\n  // The album and CD options need to be build in a callback because it needs a api request.\n  if (labelText === 'Album' || labelText === 'Cd') {\n    buildSelectOptions(input, () => {\n      input.value = value;\n    });\n  }\n\n  // In case the edit-form is being build.\n  // All input fields are filled with the current data of the item\n  // Use the corresponding methods to change the preset values for each type of element\n  if (value) {\n    switch (element) {\n      case 'textarea': input.textContent = value;\n        break;\n      case 'select': input.value = value;\n        break;\n      default: input.setAttribute('value', value);\n        break;\n    }\n  }\n\n  // Add the input-holder, with a label and a element, to the form\n  holder.append(label, input);\n\n  return holder; // Needed?\n}\n\n\nmodule.exports = createFormInput;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/utils/createFormInput.js?");
+eval("const buildRatingOptions = __webpack_require__(/*! ./buildRatingOptions.js */ \"./src/components/utils/buildRatingOptions.js\");\nconst buildSelectOptions = __webpack_require__(/*! ./buildSelectOptions.js */ \"./src/components/utils/buildSelectOptions.js\");\nconst buildYearOptions = __webpack_require__(/*! ./buildYearOptions.js */ \"./src/components/utils/buildYearOptions.js\");\n\n// Creates an input element and set the attributes and values where needed\nfunction createFormInput(labelText, type, element, placeholder, value) {\n\n  // Create a new input holder, a label and a element\n  const holder = document.createElement('div');\n  const label = document.createElement('label');\n  const input = document.createElement(element);\n\n  // Set all relevant attributes and values\n  holder.classList.add('form-input-holder');\n  label.classList.add('form-label');\n  label.setAttribute('for', labelText.toLowerCase());\n  label.textContent = `${labelText}:`;\n\n  input.setAttribute('type', type);\n  input.setAttribute('id', labelText.toLowerCase());\n  input.setAttribute('name', labelText.toLowerCase());\n  input.setAttribute('placeholder', placeholder);\n\n  // Use the corresponding build function for each select-element to fill the options with data\n  if (labelText === 'Rating') buildRatingOptions(input);\n  if (labelText === 'Year') buildYearOptions(input);\n\n  // The album and CD options need to be build in a callback because it needs a api request.\n  if (labelText === 'Album' || labelText === 'Cd') {\n    buildSelectOptions(input, () => {\n      input.value = value;\n    });\n  }\n\n  // In case the edit-form is being build.\n  // All input fields are filled with the current data of the item\n  // Use the corresponding methods to change the preset values for each type of element\n  if (value) {\n    switch (element) {\n      case 'textarea': input.textContent = value;\n        break;\n      case 'select': input.value = value;\n        break;\n      default: input.setAttribute('value', value);\n        break;\n    }\n  }\n\n  // Add the input-holder, with a label and a element, to the form\n  holder.append(label, input);\n\n  return holder;\n}\n\n\nmodule.exports = createFormInput;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/utils/createFormInput.js?");
 
 /***/ }),
 
@@ -485,7 +445,7 @@ eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils
   \****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst { searchAlbumForm } = __webpack_require__(/*! ../../components/forms/album/index.js */ \"./src/components/forms/album/index.js\");\n\n// Create the delete page after clearing the page from any other content\nfunction buildDeletePage() {\n\n  clearContentHolders();\n\n  setTitle('Remove a album from your collection');\n\n  searchAlbumForm('delete');\n}\n\nmodule.exports = buildDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/deleteAlbum.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the delete page after clearing the page from any other content\nfunction buildDeletePage() {\n\n  clearContentHolders();\n\n  setTitle('Remove a album from your collection');\n\n  searchItem('album', 'delete');\n}\n\nmodule.exports = buildDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/deleteAlbum.js?");
 
 /***/ }),
 
@@ -495,7 +455,7 @@ eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../co
   \**************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils/clearHolders.js */ \"./src/components/utils/clearHolders.js\");\nconst setTitle = __webpack_require__(/*! ../../components/utils/setTitle.js */ \"./src/components/utils/setTitle.js\");\nconst { searchAlbumForm } = __webpack_require__(/*! ../../components/forms/album/index.js */ \"./src/components/forms/album/index.js\");\n\n// Create the edit page after clearing the page from any other content\nfunction buildEditAllPage() {\n\n  clearContentHolders();\n\n  setTitle('Edit a album');\n\n  searchAlbumForm();\n}\n\nmodule.exports = buildEditAllPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/editAlbum.js?");
+eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils/clearHolders.js */ \"./src/components/utils/clearHolders.js\");\nconst setTitle = __webpack_require__(/*! ../../components/utils/setTitle.js */ \"./src/components/utils/setTitle.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the edit page after clearing the page from any other content\nfunction buildEditAllPage() {\n\n  clearContentHolders();\n\n  setTitle('Edit a album');\n\n  searchItem('album', 'edit');\n}\n\nmodule.exports = buildEditAllPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/editAlbum.js?");
 
 /***/ }),
 
@@ -535,7 +495,7 @@ eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils
   \**********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst { searchCDForm } = __webpack_require__(/*! ../../components/forms/cd/index.js */ \"./src/components/forms/cd/index.js\");\n\n// Create the delete page after clearing the page from any other content\nfunction buildCDsDeletePage() {\n\n  clearContentHolders();\n\n  setTitle('Remove a CD from your collection');\n\n  searchCDForm('delete');\n}\n\nmodule.exports = buildCDsDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/deleteCD.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the delete page after clearing the page from any other content\nfunction buildCDsDeletePage() {\n\n  clearContentHolders();\n\n  setTitle('Remove a CD from your collection');\n\n  searchItem('cd', 'delete');\n}\n\nmodule.exports = buildCDsDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/deleteCD.js?");
 
 /***/ }),
 
@@ -545,7 +505,7 @@ eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../co
   \********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst { searchCDForm } = __webpack_require__(/*! ../../components/forms/cd/index.js */ \"./src/components/forms/cd/index.js\");\n\n// Create the edit page after clearing the page from any other content\nfunction buildCDsEditPage() {\n\n  clearContentHolders();\n\n  setTitle('Edit a CD');\n\n  searchCDForm('edit');\n}\n\nmodule.exports = buildCDsEditPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/editCD.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the edit page after clearing the page from any other content\nfunction buildCDsEditPage() {\n\n  clearContentHolders();\n\n  setTitle('Edit a CD');\n\n  searchItem('cd', 'edit');\n}\n\nmodule.exports = buildCDsEditPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/editCD.js?");
 
 /***/ }),
 
@@ -625,7 +585,7 @@ eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../co
   \****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst { searchTrackForm } = __webpack_require__(/*! ../../components/forms/track/index.js */ \"./src/components/forms/track/index.js\");\n\n// Create the tracks delete page after clearing the page from any other content\nfunction buildTracksDeletePage() {\n\n  clearContentHolders();\n\n  setTitle('Remove a track from your collection');\n\n  searchTrackForm('delete');\n}\n\nmodule.exports = buildTracksDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/deleteTrack.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the tracks delete page after clearing the page from any other content\nfunction buildTracksDeletePage() {\n\n  clearContentHolders();\n\n  setTitle('Remove a track from your collection');\n\n  searchItem('track', 'delete');\n}\n\nmodule.exports = buildTracksDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/deleteTrack.js?");
 
 /***/ }),
 
@@ -635,7 +595,7 @@ eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../co
   \**************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst { searchTrackForm } = __webpack_require__(/*! ../../components/forms/track/index.js */ \"./src/components/forms/track/index.js\");\n\n// Create the tracks edit page after clearing the page from any other content\nfunction buildTracksEditPage() {\n\n  clearContentHolders();\n\n  setTitle('Edit a track');\n\n  searchTrackForm('edit');\n}\n\nmodule.exports = buildTracksEditPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/editTrack.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the tracks edit page after clearing the page from any other content\nfunction buildTracksEditPage() {\n\n  clearContentHolders();\n\n  setTitle('Edit a track');\n\n  searchItem('track', 'edit');\n}\n\nmodule.exports = buildTracksEditPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/editTrack.js?");
 
 /***/ }),
 

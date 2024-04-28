@@ -1,5 +1,5 @@
 const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
-const { searchTrackForm } = require('../../components/forms/track/index.js');
+const searchItem = require('../../components/forms/common/searchItem.js');
 
 // Create the tracks delete page after clearing the page from any other content
 function buildTracksDeletePage() {
@@ -8,7 +8,7 @@ function buildTracksDeletePage() {
 
   setTitle('Remove a track from your collection');
 
-  searchTrackForm('delete');
+  searchItem('track', 'delete');
 }
 
 module.exports = buildTracksDeletePage;

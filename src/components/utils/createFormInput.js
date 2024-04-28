@@ -49,7 +49,7 @@ function createFormInput(labelText, type, element, placeholder, value) {
   // Add the input-holder, with a label and a element, to the form
   holder.append(label, input);
 
-  return holder; // Needed?
+  return holder;
 }
 
 
