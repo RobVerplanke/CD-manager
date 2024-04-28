@@ -1,6 +1,5 @@
 const { getInputValue, clearContentHolders, createFormInput } = require('../../utils/index.js');
-const getCDByID = require('../../../../api/cd/getCDByID.js');
-const updateCD = require('../../../../api/cd/updateCD.js');
+const { getItemById, updateItem } = require('../../../../api/common/index.js');
 const buildCDsAllPage = require('../../../pages/cd/viewAllCDs.js');
 
 // Create a input form with in which all values are pre-filled with items current data
@@ -9,7 +8,7 @@ async function buildEditCDForm(selectedID) {
   clearContentHolders();
 
   // Get the corresponding CD from the API module
-  const cd = await getCDByID(selectedID);
+  const cd = await getItemById('cd', selectedID);
 
   // Create the form and its elements
   const form = document.querySelector('#form');
@@ -58,7 +57,7 @@ async function buildEditCDForm(selectedID) {
     });
 
     // Wait for the API to set the new data
-    await updateCD(cd.id, editedCDData);
+    await updateItem('cd', cd.id, editedCDData);
 
     // Redirect the user to the updated overview page
     buildCDsAllPage();

@@ -1,6 +1,5 @@
 const { getInputValue, clearContentHolders, createFormInput } = require('../../utils/index.js');
-const getAlbumByID = require('../../../../api/album/getAlbumByID.js');
-const updateAlbum = require('../../../../api/album/updateAlbum.js');
+const { getItemById, updateItem } = require('../../../../api/common/index.js');
 const buildAlbumsAllPage = require('../../../pages/album/viewAllAlbums.js');
 
 // Create a input form with in which all values are pre-filled with items current data
@@ -9,7 +8,7 @@ async function buildEditAlbumForm(selectedID) {
   clearContentHolders();
 
   // Get the corresponding CD from the API module
-  const album = await getAlbumByID(selectedID);
+  const album = await getItemById('album', selectedID);
 
   // Create the form and its elements
   const form = document.querySelector('#form');
@@ -55,7 +54,7 @@ async function buildEditAlbumForm(selectedID) {
     });
 
     // Wait for the API to set the new data
-    await updateAlbum(album.id, editedAlbumData);
+    await updateItem('album', album.id, editedAlbumData);
 
     // Redirect the user to the updated overview page
     buildAlbumsAllPage();

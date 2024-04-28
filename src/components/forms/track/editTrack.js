@@ -1,6 +1,5 @@
 const { getInputValue, clearContentHolders, createFormInput } = require('../../utils/index.js');
-const getTrackbyID = require('../../../../api/track/getTrackByID.js');
-const updateTrack = require('../../../../api/track/updateTrack.js');
+const { getItemById, updateItem } = require('../../../../api/common/index.js');
 const buildTracksAllPage = require('../../../pages/track/viewAllTracks.js');
 
 // Create a input form with in which all values are pre-filled with items current data
@@ -9,7 +8,7 @@ async function buildEditTrackForm(selectedID) {
   clearContentHolders();
 
   // Get the corresponding track from the API module
-  const track = await getTrackbyID(selectedID);
+  const track = await getItemById('track', selectedID);
 
   // Create the form and its elements
   const form = document.querySelector('#form');
@@ -58,7 +57,7 @@ async function buildEditTrackForm(selectedID) {
     });
 
     // Wait for the API to set the new data
-    await updateTrack(track.id, editedTrackData);
+    await updateItem('track', track.id, editedTrackData);
 
     // Redirect the user to the updated overview page
     buildTracksAllPage();
