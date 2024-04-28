@@ -1,5 +1,6 @@
 const commonElements = require('./commonElements.js');
 
+// Clear all the content from the page so a new page can be build
 function clearContentHolders() {
   while (commonElements.contentHolder.firstChild) {
     commonElements.contentHolder.removeChild(commonElements.contentHolder.firstChild);

@@ -2,8 +2,10 @@ const { createFormInput } = require('../../utils/index.js');
 const { addAlbumToCollection } = require('../../../../api/album/index.js');
 const buildAlbumsAllPage = require('../../../pages/album/viewAllAlbums.js');
 
-
+// Create a new input form with all the corresponding input fields and a submit button
 function buildAddAlbumForm() {
+
+  // Create the form and its elements
   const form = document.querySelector('#form');
   form.classList.add('add-form');
 
@@ -17,14 +19,18 @@ function buildAddAlbumForm() {
   form.append(createFormInput('Rating', 'text', 'select'));
   form.append(createFormInput('Cover', 'text', 'input', 'http://image.jpg...'));
 
-  // Voeg een verzendknop toe
+  // Create a submit button
   const submitButton = document.createElement('button');
   submitButton.setAttribute('type', 'submit');
   submitButton.setAttribute('id', 'add-button');
   submitButton.textContent = 'Add';
 
   submitButton.addEventListener('click', async (e) => {
+
+    // Wait for the corresponding API module to add the data to the database
     await addAlbumToCollection(e);
+
+    // Redirect the user to the updated overview page
     buildAlbumsAllPage();
   });
 

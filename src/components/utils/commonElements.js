@@ -1,7 +1,10 @@
+// Holders
 const pageHolder = document.querySelector('#page-holder');
 const titleHolder = document.querySelector('#title-holder');
 const contentHolder = document.querySelector('#content-holder');
 const form = document.querySelector('#form');
+
+// Navigation
 const buttonHome = document.querySelector('#menu-button-home');
 const buttonSearch = document.querySelector('#menu-button-search');
 const buttonStats = document.querySelector('#menu-button-stats');
@@ -26,10 +29,12 @@ const buttonTracksEdit = document.querySelector('#drop-menu-tracks-edit');
 const buttonTracksDelete = document.querySelector('#drop-menu-tracks-delete');
 
 module.exports = {
+  // Holders
   pageHolder,
   titleHolder,
   contentHolder,
   form,
+  // Navigation
   buttonHome,
   buttonSearch,
   buttonStats,

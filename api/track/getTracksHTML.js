@@ -1,8 +1,10 @@
 // Don't import from the index file, as it may cause asynchronous issues
 const commonElements = require('../../src/components/utils/commonElements.js');
 
+// Build the overview page
 async function getTracksHTML() {
 
+  // Get current data
   const url = 'http://localhost:3000/tracks';
   const result = await fetch(url);
   const data = await result.json();
@@ -17,6 +19,7 @@ async function getTracksHTML() {
   </thead>
   <tbody>`;
 
+  // Show the cover, title and artistname for each track
   data.forEach((track) => {
     template += `
         <tr>
@@ -30,6 +33,8 @@ async function getTracksHTML() {
   template += '</tbody></table>';
 
   commonElements.contentHolder.innerHTML += template;
+
+  // The overview page doesn't contain cover images
   commonElements.contentHolder.classList.remove('img-in-item');
   commonElements.contentHolder.classList.add('no-img-in-item');
 

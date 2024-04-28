@@ -1,10 +1,13 @@
 const { getCurrentDate } = require('../../src/components/utils/index.js');
 
+// Add a new CD to the collection
 const addCDToCollection = async (e) => {
   e.preventDefault();
 
+  // Select the form and get all input values
   const form = document.querySelector('#form');
 
+  // Create new CD-object
   const cd = {
     album: form.album.value,
     title: form.title.value,
@@ -20,6 +23,7 @@ const addCDToCollection = async (e) => {
     views: 0,
   };
 
+  // Add the CD-object as string to the database
   await fetch('http://localhost:3000/cds', {
     headers: { 'Content-type': 'application/json' },
     method: 'POST',

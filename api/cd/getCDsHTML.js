@@ -1,14 +1,17 @@
 // Don't import from the index file, as it may cause asynchronous issues
 const commonElements = require('../../src/components/utils/commonElements.js');
 
+// Build the overview page
 async function getCDsHTML() {
-  const url = 'http://localhost:3000/cds';
 
+  // Get current data
+  const url = 'http://localhost:3000/cds';
   const result = await fetch(url);
   const data = await result.json();
 
   let template = '';
 
+  // Show the cover, title and artistname for each CD
   data.forEach((cd) => {
     template += `
     <ul class="items-list">
@@ -21,6 +24,8 @@ async function getCDsHTML() {
   });
 
   commonElements.contentHolder.innerHTML += template;
+
+  // The overview page does contain cover images
   commonElements.contentHolder.classList.remove('no-img-in-item');
   commonElements.contentHolder.classList.add('img-in-item');
 

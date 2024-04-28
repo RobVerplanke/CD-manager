@@ -2,7 +2,10 @@ const { createFormInput } = require('../../utils/index.js');
 const { addTrackToCollection } = require('../../../../api/track/index.js');
 const buildTracksAllPage = require('../../../pages/track/viewAllTracks.js');
 
+// Create a new input form with all the corresponding input fields and a submit button
 function buildAddTrackForm() {
+
+  // Create the form and its elements
   const form = document.querySelector('#form');
   form.classList.add('add-form');
 
@@ -17,14 +20,18 @@ function buildAddTrackForm() {
   form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...'));
   form.append(createFormInput('Rating', 'text', 'select'));
 
-  // Voeg een verzendknop toe
+  // Create a submit button
   const submitButton = document.createElement('button');
   submitButton.setAttribute('type', 'submit');
   submitButton.setAttribute('id', 'add-button');
   submitButton.textContent = 'Add';
 
   submitButton.addEventListener('click', async (e) => {
+
+    // Wait for the corresponding API module to add the data to the database
     await addTrackToCollection(e);
+
+    // Redirect the user to the updated overview page
     buildTracksAllPage();
   });
 

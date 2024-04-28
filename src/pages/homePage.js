@@ -1,6 +1,6 @@
 const { clearContentHolders, setTitle } = require('../components/utils/index.js');
 
-// Create the home page with components
+// Create the home page after clearing the page from any other content
 function buildHomePage() {
 
   clearContentHolders();

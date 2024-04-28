@@ -2,18 +2,24 @@
 const commonElements = require('../../src/components/utils/commonElements.js');
 const buildEditCDForm = require('../../src/components/forms/cd/editCD.js');
 
+// Build a overview page with items that contain the keyword title or artist name
 async function getCDsResult(searchKeyword) {
 
+  // Get current data
   const url = 'http://localhost:3000/cds';
   const result = await fetch(url, { timeout: 5000 });
   const data = await result.json();
 
+  // Select all items which has a title or artistname containing the search keyword
   const searchTerm = searchKeyword;
-  const filteredCDs = data.filter((cd) => cd.title.includes(searchTerm) || cd.artist.includes(searchTerm));
+  const filteredCDs = data.filter((cd) => cd.title.includes(searchTerm)
+  || cd.artist.includes(searchTerm));
 
+  // The result page contains no cover images
   commonElements.contentHolder.classList.remove('img-in-item');
   commonElements.contentHolder.classList.add('no-img-in-item');
 
+  // Build a table to display all the found CDs and add a edit button at the end of each row
   let template = `
   <table class="cds-table">
     <thead>
@@ -26,6 +32,7 @@ async function getCDsResult(searchKeyword) {
     </thead>
     <tbody>`;
 
+  // Build a new row for each CD
   filteredCDs.forEach((cd) => {
     template += `
       <tr>
@@ -37,16 +44,16 @@ async function getCDsResult(searchKeyword) {
     `;
   });
 
+  // After a edit link is clicked, redirect the user to the edit form
   function handleEditClick(trackID) {
     buildEditCDForm(trackID);
-    // Voer hier de code uit die je wilt uitvoeren wanneer op de edit-link wordt geklikt
   }
 
+  // Select each edit link
   document.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains('edit-link')) {
-      e.preventDefault(); // Voorkomt dat de link naar een andere pagina gaat
+      e.preventDefault();
 
-      // Hier roep je de functie aan die je wilt uitvoeren
       handleEditClick(e.target.getAttribute('data-trackID'));
     }
   });

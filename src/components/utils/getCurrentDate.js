@@ -1,3 +1,4 @@
+// Gives the current data in a prefered format
 function getCurrentDate() {
 
   let today = new Date();

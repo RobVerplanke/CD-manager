@@ -1,14 +1,16 @@
+// Edit a existing track
 async function updateTrack(trackID, updatedTrackData) {
-  // Stap 1: Haal de huidige data op
-  const url = `http://localhost:3000/tracks/${trackID}`; // Update URL met trackID
+
+  // Get current data
+  const url = `http://localhost:3000/tracks/${trackID}`; // Update URL with trackID
   const result = await fetch(url);
   const track = await result.json();
 
   if (track) {
-    // Stap 2: Vervang het item
+    // Replace item
     const updatedTrack = { ...track, ...updatedTrackData };
 
-    // Stap 3: Schrijf de bijgewerkte data terug
+    // Write the edited data back
     await fetch(url, {
       method: 'PUT',
       headers: {

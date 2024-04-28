@@ -30,7 +30,7 @@ const {
   buildTracksDeletePage,
 } = require('../../pages/track/index.js');
 
-// Iterate through each button in the navigation menu and link them to the corresponding build-function
+// Iterate through each button in the navigation and link them to the corresponding build-function
 function addButtonEventListeners(buttons, buildFunctions) {
   buttons.forEach((button, index) => {
     button.addEventListener('click', buildFunctions[index]);

@@ -1,3 +1,4 @@
+// Gives a list of rating values
 function buildRatingStars(amount) {
   let starsList = '';
 
