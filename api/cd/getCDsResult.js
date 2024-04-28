@@ -21,7 +21,7 @@ async function getCDsResult(action, searchKeyword) {
   commonElements.contentHolder.classList.remove('img-in-item');
   commonElements.contentHolder.classList.add('no-img-in-item');
 
-  // Build a table to display all the found CDs and add a edit button at the end of each row
+  // Build a table to display all the found CDs and add a edit/delete button at the end of each row
   let template = `
   <table class="cds-table">
     <thead>
@@ -46,7 +46,7 @@ async function getCDsResult(action, searchKeyword) {
     `;
   });
 
-  // After a edit link is clicked, redirect the user to the edit form
+  // After a edit/delete link is clicked, redirect the user to the corresponding form
   async function handleClick(CDID) {
     if (action === 'edit') buildEditCDForm(CDID);
     if (action === 'delete') {
@@ -59,7 +59,7 @@ async function getCDsResult(action, searchKeyword) {
     }
   }
 
-  // Select each edit link
+  // Select each edit/delete link
   document.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains(`${action}-link`)) {
       e.preventDefault();
