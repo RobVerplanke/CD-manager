@@ -1,24 +1,4 @@
-const {
-  buttonHome,
-  buttonSearch,
-  buttonStats,
-  buttonProfile,
-  // Albums
-  buttonAlbumsAll,
-  buttonAlbumsAdd,
-  buttonAlbumsEdit,
-  buttonAlbumsDelete,
-  // CDs
-  buttonCDsAll,
-  buttonCDsAdd,
-  buttonCDsEdit,
-  buttonCDsDelete,
-  // Tracks
-  buttonTracksAll,
-  buttonTracksAdd,
-  buttonTracksEdit,
-  buttonTracksDelete,
-} = require('../index.js');
+const commonElements = require('../utils/commonElements.js');
 
 // Functions that build all the pages
 const buildHomePage = require('../../pages/homePage.js');
@@ -32,7 +12,7 @@ const {
   buildAlbumsAddPage,
   buildAlbumsEditPage,
   buildAlbumsDeletePage,
-} = require('../../pages/albums/index.js');
+} = require('../../pages/album/index.js');
 
 // CDs
 const {
@@ -40,7 +20,7 @@ const {
   buildCDsAddPage,
   buildCDsEditPage,
   buildCDsDeletePage,
-} = require('../../pages/cds/index.js');
+} = require('../../pages/cd/index.js');
 
 // Tracks
 const {
@@ -48,9 +28,9 @@ const {
   buildTracksAddPage,
   buildTracksEditPage,
   buildTracksDeletePage,
-} = require('../../pages/tracks/index.js');
+} = require('../../pages/track/index.js');
 
-// Iterate through each button in the navigation menu and link them to the corresponding build-function
+// Iterate through each button in the navigation and link them to the corresponding build-function
 function addButtonEventListeners(buttons, buildFunctions) {
   buttons.forEach((button, index) => {
     button.addEventListener('click', buildFunctions[index]);
@@ -62,25 +42,25 @@ function setNavEventListeners() {
 
   // All buttons in the navigation menu
   const homeButtons = [
-    buttonHome,
-    buttonSearch,
-    buttonStats,
-    buttonProfile,
+    commonElements.buttonHome,
+    commonElements.buttonSearch,
+    commonElements.buttonStats,
+    commonElements.buttonProfile,
     // Albums
-    buttonAlbumsAll,
-    buttonAlbumsAdd,
-    buttonAlbumsEdit,
-    buttonAlbumsDelete,
+    commonElements.buttonAlbumsAll,
+    commonElements.buttonAlbumsAdd,
+    commonElements.buttonAlbumsEdit,
+    commonElements.buttonAlbumsDelete,
     // CDs
-    buttonCDsAll,
-    buttonCDsAdd,
-    buttonCDsEdit,
-    buttonCDsDelete,
+    commonElements.buttonCDsAll,
+    commonElements.buttonCDsAdd,
+    commonElements.buttonCDsEdit,
+    commonElements.buttonCDsDelete,
     // Tracks
-    buttonTracksAll,
-    buttonTracksAdd,
-    buttonTracksEdit,
-    buttonTracksDelete,
+    commonElements.buttonTracksAll,
+    commonElements.buttonTracksAdd,
+    commonElements.buttonTracksEdit,
+    commonElements.buttonTracksDelete,
   ];
 
   // All corresponding build-page functions in order

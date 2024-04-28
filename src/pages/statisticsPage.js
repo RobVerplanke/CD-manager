@@ -1,6 +1,6 @@
-const { clearContentHolders, setTitle } = require('../components/index.js');
+const { clearContentHolders, setTitle } = require('../components/utils/index.js');
 
-// Create the statistics page with individual components
+// Create the statistics page after clearing the page from any other content
 function buildStatsPage() {
 
   clearContentHolders();

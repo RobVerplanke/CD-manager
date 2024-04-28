@@ -1,14 +1,16 @@
+// Edit a existing CD
 async function updateCD(CDID, updatedCDData) {
-  // Stap 1: Haal de huidige data op
-  const url = `http://localhost:3000/cds/${CDID}`; // Update URL met trackID
+
+  // Get current data
+  const url = `http://localhost:3000/cds/${CDID}`; // Update URL with trackID
   const result = await fetch(url);
   const cd = await result.json();
 
   if (cd) {
-    // Stap 2: Vervang het item
+    // Replace item
     const updatedCD = { ...cd, ...updatedCDData };
 
-    // Stap 3: Schrijf de bijgewerkte data terug
+    // Write the edited data back
     await fetch(url, {
       method: 'PUT',
       headers: {

@@ -1,11 +1,12 @@
-const currentDate = require('../../src/utils/common.js');
+const { getCurrentDate } = require('../../src/components/utils/index.js');
 
-const addTrackToCollection = async (e) => {
+// Add a new track to the collection
+const addTrackToCollection = async () => {
 
+  // Select the form and get all input values
   const form = document.querySelector('#form');
 
-  e.preventDefault();
-
+  // Create new track-object
   const track = {
     cds: form.cd.value,
     title: form.title.value,
@@ -15,12 +16,13 @@ const addTrackToCollection = async (e) => {
     label: form.label.value,
     style: form.style.value,
     length: form.length.value,
-    added: currentDate(),
+    added: getCurrentDate(),
     rating: form.rating.value,
     info: form.info.value,
     views: 0,
   };
 
+  // Add the track-object as string to the database
   await fetch('http://localhost:3000/tracks', {
     headers: { 'Content-type': 'application/json' },
     method: 'POST',

@@ -1,6 +1,6 @@
-const { clearContentHolders, setTitle } = require('../components/index.js');
+const { clearContentHolders, setTitle } = require('../components/utils/index.js');
 
-// Create the search page with individual components
+// Create the search page after clearing the page from any other content
 function buildSearchPage() {
 
   clearContentHolders();

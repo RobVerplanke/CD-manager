@@ -1,15 +1,16 @@
-const { pageHolder, contentHolder } = require('./commonElements.js');
+const commonElements = require('./commonElements.js');
 
+// Clear all the content from the page so a new page can be build
 function clearContentHolders() {
-  while (contentHolder.firstChild) {
-    contentHolder.removeChild(contentHolder.firstChild);
+  while (commonElements.contentHolder.firstChild) {
+    commonElements.contentHolder.removeChild(commonElements.contentHolder.firstChild);
   }
 
   const formElement = document.createElement('form');
 
   formElement.setAttribute('id', 'form');
-  contentHolder.appendChild(formElement);
-  pageHolder.append(contentHolder);
+  commonElements.contentHolder.appendChild(formElement);
+  commonElements.pageHolder.append(commonElements.contentHolder);
 }
 
 module.exports = clearContentHolders;

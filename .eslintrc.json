@@ -13,13 +13,13 @@
       ],
     "rules": {
         "no-console": "off",
-        "indent": ["error", 2],
+        "indent": ["error", 2, { "SwitchCase": 1 }],
         "no-plusplus": "off",
         "padded-blocks": ["off"],
         "quotes": ["error", "single"],
         "import/extensions": ["error", "always"],
         "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }],
-        "max-len": ["error", { "code": 150 }],
+        "max-len": ["error", { "code": 100 }],
         "no-underscore-dangle": "off"
     }
 }

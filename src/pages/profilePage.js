@@ -1,6 +1,6 @@
-const { clearContentHolders, setTitle } = require('../components/index.js');
+const { clearContentHolders, setTitle } = require('../components/utils/index.js');
 
-// Create the profile page with individual components
+// Create the profile page after clearing the page from any other content
 function buildProfilePage() {
 
   clearContentHolders();

@@ -1,7 +1,11 @@
-const { createFormInput } = require('../utils.js');
-const addCDToCollection = require('../../../../api/cd/addCD.js');
+const { createFormInput } = require('../../utils/index.js');
+const { addCDToCollection } = require('../../../../api/cd/index.js');
+const buildCDsAllPage = require('../../../pages/cd/viewAllCDs.js');
 
+// Create a new input form with all the corresponding input fields and a submit button
 function buildAddCDForm() {
+
+  // Create the form and its elements
   const form = document.querySelector('#form');
   form.classList.add('add-form');
 
@@ -16,13 +20,21 @@ function buildAddCDForm() {
   form.append(createFormInput('Rating', 'text', 'select'));
   form.append(createFormInput('Image', 'text', 'input', 'http://image.jpg...'));
 
-  // Voeg een verzendknop toe
+  // Create a submit button
   const submitButton = document.createElement('button');
   submitButton.setAttribute('type', 'submit');
   submitButton.setAttribute('id', 'add-button');
   submitButton.textContent = 'Add';
 
-  submitButton.addEventListener('click', addCDToCollection);
+  submitButton.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    // Wait for the corresponding API module to add the data to the database
+    await addCDToCollection();
+
+    // Redirect the user to the updated overview page
+    buildCDsAllPage();
+  });
 
   form.appendChild(submitButton);
 }
