@@ -1,14 +1,21 @@
 const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
-const searchItem = require('../../components/forms/common/searchItem.js');
 
-// Create the delete page after clearing the page from any other content
-function buildCDsDeletePage() {
+// Create the edit page after clearing the page from any other content
+const buildCDsDeletePage = async () => {
 
-  clearContentHolders();
+  // Import the buildSearchItemForm function asynchronic
+  await import('../../components/forms/searchItem.js').then((module) => {
 
-  setTitle('Remove a CD from your collection');
+    // Call the defalut function
+    const buildSearchItemForm = module.default;
 
-  searchItem('cd', 'delete');
-}
+    // Clear all content
+    clearContentHolders();
+
+    // Build the 'edit CD' page
+    setTitle('Delete a CD');
+    buildSearchItemForm('cd', 'edit');
+  });
+};
 
 module.exports = buildCDsDeletePage;

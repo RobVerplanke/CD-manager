@@ -1,15 +1,14 @@
-const clearContentHolders = require('../../components/utils/clearHolders.js');
-const setTitle = require('../../components/utils/setTitle.js');
-const searchItem = require('../../components/forms/common/searchItem.js');
+const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
+const buildSearchItemForm = require('../../components/forms/searchItem.js');
 
 // Create the edit page after clearing the page from any other content
-function buildEditAllPage() {
+function buildAlbumsEditPage() {
 
   clearContentHolders();
 
   setTitle('Edit a album');
 
-  searchItem('album', 'edit');
+  buildSearchItemForm('album', 'edit');
 }
 
-module.exports = buildEditAllPage;
+module.exports = buildAlbumsEditPage;

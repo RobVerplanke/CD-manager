@@ -1,5 +1,5 @@
 const buildRatingOptions = require('./buildRatingOptions.js');
-const buildSelectOptions = require('./buildSelectOptions.js');
+const buildSelectOptions = require('./buildItemOptions.js');
 const buildYearOptions = require('./buildYearOptions.js');
 
 // Creates an input element and set the attributes and values where needed

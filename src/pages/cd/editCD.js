@@ -1,14 +1,21 @@
 const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
-const searchItem = require('../../components/forms/common/searchItem.js');
 
 // Create the edit page after clearing the page from any other content
-function buildCDsEditPage() {
+const buildCDsEditPage = async () => {
 
-  clearContentHolders();
+  // Import the buildSearchItemForm function asynchronic
+  await import('../../components/forms/searchItem.js').then((module) => {
 
-  setTitle('Edit a CD');
+    // Call the defalut function
+    const buildSearchItemForm = module.default;
 
-  searchItem('cd', 'edit');
-}
+    // Clear all content
+    clearContentHolders();
+
+    // Build the 'edit CD' page
+    setTitle('Edit a CD');
+    buildSearchItemForm('cd', 'edit');
+  });
+};
 
 module.exports = buildCDsEditPage;

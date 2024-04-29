@@ -9,263 +9,113 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./api/album/addAlbum.js":
-/*!*******************************!*\
-  !*** ./api/album/addAlbum.js ***!
-  \*******************************/
+/***/ "./api/addItem.js":
+/*!************************!*\
+  !*** ./api/addItem.js ***!
+  \************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { getCurrentDate } = __webpack_require__(/*! ../../src/components/utils/index.js */ \"./src/components/utils/index.js\");\n\n// Add a new album to the collection\nconst addAlbumToCollection = async () => {\n\n  // Select the form and get all input values\n  const form = document.querySelector('#form');\n\n  // Create new album-object\n  const album = {\n    title: form.title.value,\n    artist: form.artist.value,\n    year: form.year.value,\n    collabs: form.collaborators.value,\n    label: form.label.value,\n    genre: form.genre.value,\n    added: getCurrentDate(),\n    rating: form.rating.value,\n    info: form.info.value,\n    img: form.cover.value,\n    views: 0,\n  };\n\n  // Add the album-object as string to the database\n  await fetch('http://localhost:3000/albums', {\n    headers: { 'Content-type': 'application/json' },\n    method: 'POST',\n    body: JSON.stringify(album),\n  });\n};\n\nmodule.exports = addAlbumToCollection;\n\n\n//# sourceURL=webpack://cd-manager/./api/album/addAlbum.js?");
+eval("const { getCurrentDate } = __webpack_require__(/*! ../src/components/utils/index.js */ \"./src/components/utils/index.js\");\n\n// Add a new item to the collection\nconst addTrackToCollection = async (itemType) => {\n\n  // Select the form and get all input values\n  const form = document.querySelector('#form');\n\n  // Create new item-object\n  const item = {\n    title: form.title.value,\n    artist: form.artist.value,\n    collabs: form.collaborators.value,\n    label: form.label.value,\n    added: getCurrentDate(),\n    rating: form.rating.value,\n    info: form.info.value,\n    views: 0,\n  };\n\n  // Add additional input fields, that belong to the item-type, to the item-object\n  switch (itemType) {\n    case 'track':\n      item.cds = form.cd.value;\n      item.remix = form.remix.value;\n      item.style = form.style.value;\n      item.length = form.length.value;\n      break;\n\n    case 'album':\n      item.year = form.year.value;\n      item.genre = form.genre.value;\n      item.img = form.image.value;\n      break;\n\n    case 'cd':\n      item.album = form.album.value;\n      item.year = form.year.value;\n      item.genre = form.genre.value;\n      item.image = form.image.value;\n      break;\n\n    default:\n  }\n\n  // Add the item-object as string to the database\n  await fetch(`http://localhost:3000/${itemType}s`, {\n    headers: { 'Content-type': 'application/json' },\n    method: 'POST',\n    body: JSON.stringify(item),\n  });\n};\n\nmodule.exports = addTrackToCollection;\n\n\n//# sourceURL=webpack://cd-manager/./api/addItem.js?");
 
 /***/ }),
 
-/***/ "./api/album/getAlbumsHTML.js":
-/*!************************************!*\
-  !*** ./api/album/getAlbumsHTML.js ***!
-  \************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("// Don't import from the index file, as it may cause asynchronous issues\nconst commonElements = __webpack_require__(/*! ../../src/components/utils/commonElements.js */ \"./src/components/utils/commonElements.js\");\n\n// Build the overview page\nasync function getAlbumsHTML() {\n\n  // Get current data\n  const url = 'http://localhost:3000/albums';\n  const result = await fetch(url);\n  const data = await result.json();\n\n  let template = '';\n\n  // Show the cover, title and artistname for each album\n  data.forEach((album) => {\n    template += `\n    <ul class=\"items-list\">\n      <li class=\"list-img\"><img width=\"150px\" height=\"auto\" src=\"${album.image}\"></li>\n      <li class=\"list-item text-title-light\"><p>${album.title}</p></li>\n      <li class=\"list-item text-artist-light\"><p>${album.artist}</p></li>\n    </ul>\n    `;\n  });\n\n  commonElements.contentHolder.innerHTML += template;\n\n  // The overview page does contain cover images\n  commonElements.contentHolder.classList.remove('no-img-in-item');\n  commonElements.contentHolder.classList.add('img-in-item');\n\n  commonElements.pageHolder.append(commonElements.contentHolder);\n}\n\nmodule.exports = getAlbumsHTML;\n\n\n//# sourceURL=webpack://cd-manager/./api/album/getAlbumsHTML.js?");
-
-/***/ }),
-
-/***/ "./api/album/getAlbumsResult.js":
-/*!**************************************!*\
-  !*** ./api/album/getAlbumsResult.js ***!
-  \**************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("// Don't import from the index file, as it may cause asynchronous issues\nconst commonElements = __webpack_require__(/*! ../../src/components/utils/commonElements.js */ \"./src/components/utils/commonElements.js\");\nconst buildEditAlbumForm = __webpack_require__(/*! ../../src/components/forms/album/editAlbum.js */ \"./src/components/forms/album/editAlbum.js\");\nconst deleteItem = __webpack_require__(/*! ../common/deleteItem.js */ \"./api/common/deleteItem.js\");\nconst viewAllAlbums = __webpack_require__(/*! ../../src/pages/album/viewAllAlbums.js */ \"./src/pages/album/viewAllAlbums.js\");\n\n// Build a overview page with items that contain the keyword title or artist name\nasync function getAlbumsResult(action, searchKeyword) {\n\n  // Get current data\n  const url = 'http://localhost:3000/albums';\n  const result = await fetch(url, { timeout: 5000 });\n  const data = await result.json();\n\n  // Select all items which has a title or artistname containing the search keyword\n  const searchTerm = searchKeyword;\n  const filteredAlbums = data.filter((album) => album.title.includes(searchTerm)\n  || album.artist.includes(searchTerm));\n\n  // The result page contains no cover images\n  commonElements.contentHolder.classList.remove('img-in-item');\n  commonElements.contentHolder.classList.add('no-img-in-item');\n\n  // Build a table to display all found albums and add a edit/delete button at the end of each row\n  let template = `\n  <table class=\"albums-table\">\n    <thead>\n      <tr>\n        <th>Title</th>\n        <th>Artist</th>\n        <th>CDs</th>\n        <th></th>\n      </tr>\n    </thead>\n    <tbody>`;\n\n  // Build a new row for each album\n  filteredAlbums.forEach((album) => {\n    template += `\n      <tr>\n        <td>${album.title}</td>\n        <td>${album.artist}</td>\n        <td>${album.cds.length}</td>\n        <td><a class=\"${action}-link\" data-albumID=\"${album.id}\" href=\"#\">${action}</a<</td>\n      </tr>\n    `;\n  });\n\n  // After a edit/delete link is clicked, redirect the user to the corresponding form\n  async function handleClick(albumID) {\n    if (action === 'edit') buildEditAlbumForm(albumID);\n    if (action === 'delete') {\n\n      // Wait for API module to remove the album from the collection\n      await deleteItem('album', albumID);\n\n      // Redirect to updated overview page\n      viewAllAlbums();\n    }\n  }\n\n  // Select each edit/delete link\n  document.addEventListener('click', (e) => {\n    if (e.target && e.target.classList.contains(`${action}-link`)) {\n      e.preventDefault();\n\n      handleClick(e.target.getAttribute('data-albumID'));\n    }\n  });\n\n  template += '</tbody></table>';\n\n  commonElements.contentHolder.innerHTML += template;\n  commonElements.pageHolder.append(commonElements.contentHolder);\n}\n\nmodule.exports = getAlbumsResult;\n\n\n//# sourceURL=webpack://cd-manager/./api/album/getAlbumsResult.js?");
-
-/***/ }),
-
-/***/ "./api/album/getAllAlbumTitles.js":
-/*!****************************************!*\
-  !*** ./api/album/getAllAlbumTitles.js ***!
-  \****************************************/
+/***/ "./api/deleteItem.js":
+/*!***************************!*\
+  !*** ./api/deleteItem.js ***!
+  \***************************/
 /***/ ((module) => {
 
-eval("// Get the titles of all albums in the collection\nasync function getAllAlbumTitles() {\n  const list = [];\n\n  // Get current data\n  const url = 'http://localhost:3000/albums';\n  const result = await fetch(url);\n  const data = await result.json();\n\n  // Add each title to the list\n  data.forEach((album) => {\n    list.push([album.title]);\n  });\n\n  return list;\n}\n\nmodule.exports = getAllAlbumTitles;\n\n\n//# sourceURL=webpack://cd-manager/./api/album/getAllAlbumTitles.js?");
+eval("// Remove a item from the collection\nconst deleteItem = async (item, trackID) => {\n\n  try {\n    // Adjust the path to remove the corresonding item\n    const url = `http://localhost:3000/${item}s/${trackID}`;\n    const response = await fetch(url, {\n      method: 'DELETE',\n    });\n\n    if (!response.ok) {\n      throw new Error('Failed to delete item');\n    }\n\n    console.log('Item deleted successfully');\n  } catch (error) {\n    console.error('Error deleting item:', error.message);\n  }\n};\n\nmodule.exports = deleteItem;\n\n\n//# sourceURL=webpack://cd-manager/./api/deleteItem.js?");
 
 /***/ }),
 
-/***/ "./api/album/index.js":
-/*!****************************!*\
-  !*** ./api/album/index.js ***!
-  \****************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const getAlbumsHTML = __webpack_require__(/*! ./getAlbumsHTML.js */ \"./api/album/getAlbumsHTML.js\");\nconst getAllAlbumTitles = __webpack_require__(/*! ./getAllAlbumTitles.js */ \"./api/album/getAllAlbumTitles.js\");\nconst addAlbumToCollection = __webpack_require__(/*! ./addAlbum.js */ \"./api/album/addAlbum.js\");\nconst getAlbumsResult = __webpack_require__(/*! ./getAlbumsResult.js */ \"./api/album/getAlbumsResult.js\");\n\n\nmodule.exports = {\n  getAlbumsHTML,\n  getAllAlbumTitles,\n  addAlbumToCollection,\n  getAlbumsResult,\n};\n\n\n//# sourceURL=webpack://cd-manager/./api/album/index.js?");
-
-/***/ }),
-
-/***/ "./api/cd/addCD.js":
-/*!*************************!*\
-  !*** ./api/cd/addCD.js ***!
-  \*************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const { getCurrentDate } = __webpack_require__(/*! ../../src/components/utils/index.js */ \"./src/components/utils/index.js\");\n\n// Add a new CD to the collection\nconst addCDToCollection = async () => {\n\n  // Select the form and get all input values\n  const form = document.querySelector('#form');\n\n  // Create new CD-object\n  const cd = {\n    album: form.album.value,\n    title: form.title.value,\n    artist: form.artist.value,\n    year: form.year.value,\n    collabs: form.collaborators.value,\n    label: form.label.value,\n    genre: form.genre.value,\n    added: getCurrentDate(),\n    rating: form.rating.value,\n    info: form.info.value,\n    image: form.image.value,\n    views: 0,\n  };\n\n  // Add the CD-object as string to the database\n  await fetch('http://localhost:3000/cds', {\n    headers: { 'Content-type': 'application/json' },\n    method: 'POST',\n    body: JSON.stringify(cd),\n  });\n};\n\nmodule.exports = addCDToCollection;\n\n\n//# sourceURL=webpack://cd-manager/./api/cd/addCD.js?");
-
-/***/ }),
-
-/***/ "./api/cd/getAllCDTitles.js":
-/*!**********************************!*\
-  !*** ./api/cd/getAllCDTitles.js ***!
-  \**********************************/
-/***/ ((module) => {
-
-eval("// Get the titles of all CDs in the collection\nasync function getAllCDTitles() {\n  const list = [];\n\n  // Get current data\n  const url = 'http://localhost:3000/cds';\n  const result = await fetch(url);\n  const data = await result.json();\n\n  // Add each title to the list\n  data.forEach((cd) => {\n    list.push([cd.title]);\n  });\n\n  return list;\n}\n\nmodule.exports = getAllCDTitles;\n\n\n//# sourceURL=webpack://cd-manager/./api/cd/getAllCDTitles.js?");
-
-/***/ }),
-
-/***/ "./api/cd/getCDsHTML.js":
-/*!******************************!*\
-  !*** ./api/cd/getCDsHTML.js ***!
-  \******************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("// Don't import from the index file, as it may cause asynchronous issues\nconst commonElements = __webpack_require__(/*! ../../src/components/utils/commonElements.js */ \"./src/components/utils/commonElements.js\");\n\n// Build the overview page\nasync function getCDsHTML() {\n\n  // Get current data\n  const url = 'http://localhost:3000/cds';\n  const result = await fetch(url);\n  const data = await result.json();\n\n  let template = '';\n\n  // Show the cover, title and artistname for each CD\n  data.forEach((cd) => {\n    template += `\n    <ul class=\"items-list\">\n      <li class=\"list-img\"><img width=\"150px\" height=\"auto\" src=\"${cd.image}\"></li>\n      <li class=\"list-item text-album\"><p>${cd.album}</p></li>\n      <li class=\"list-item text-title-light\"><p>${cd.title}</p></li>\n      <li class=\"list-item text-artist-light\"><p>${cd.artist}</p></li>\n    </ul>\n    `;\n  });\n\n  commonElements.contentHolder.innerHTML += template;\n\n  // The overview page does contain cover images\n  commonElements.contentHolder.classList.remove('no-img-in-item');\n  commonElements.contentHolder.classList.add('img-in-item');\n\n  commonElements.pageHolder.append(commonElements.contentHolder);\n}\n\nmodule.exports = getCDsHTML;\n\n\n//# sourceURL=webpack://cd-manager/./api/cd/getCDsHTML.js?");
-
-/***/ }),
-
-/***/ "./api/cd/getCDsResult.js":
-/*!********************************!*\
-  !*** ./api/cd/getCDsResult.js ***!
-  \********************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("// Don't import from the index file, as it may cause asynchronous issues\nconst commonElements = __webpack_require__(/*! ../../src/components/utils/commonElements.js */ \"./src/components/utils/commonElements.js\");\nconst buildEditCDForm = __webpack_require__(/*! ../../src/components/forms/cd/editCD.js */ \"./src/components/forms/cd/editCD.js\");\nconst viewAllCDs = __webpack_require__(/*! ../../src/pages/cd/viewAllCDs.js */ \"./src/pages/cd/viewAllCDs.js\");\nconst deleteItem = __webpack_require__(/*! ../common/deleteItem.js */ \"./api/common/deleteItem.js\");\n\n// Build a overview page with items that contain the keyword title or artist name\nasync function getCDsResult(action, searchKeyword) {\n\n  // Get current data\n  const url = 'http://localhost:3000/cds';\n  const result = await fetch(url, { timeout: 5000 });\n  const data = await result.json();\n\n  // Select all items which has a title or artistname containing the search keyword\n  const searchTerm = searchKeyword;\n  const filteredCDs = data.filter((cd) => cd.title.includes(searchTerm)\n  || cd.artist.includes(searchTerm));\n\n  // The result page contains no cover images\n  commonElements.contentHolder.classList.remove('img-in-item');\n  commonElements.contentHolder.classList.add('no-img-in-item');\n\n  // Build a table to display all the found CDs and add a edit/delete button at the end of each row\n  let template = `\n  <table class=\"cds-table\">\n    <thead>\n      <tr>\n        <th>Title</th>\n        <th>Artist</th>\n        <th>Tracks</th>\n        <th></th>\n      </tr>\n    </thead>\n    <tbody>`;\n\n  // Build a new row for each CD\n  filteredCDs.forEach((cd) => {\n    template += `\n      <tr>\n        <td>${cd.title}</td>\n        <td>${cd.artist}</td>\n        <td>${cd.tracks.length}</td>\n        <td><a class=\"${action}-link\" data-CDID=\"${cd.id}\" href=\"#\">${action}</a<</td>\n      </tr>\n    `;\n  });\n\n  // After a edit/delete link is clicked, redirect the user to the corresponding form\n  async function handleClick(CDID) {\n    if (action === 'edit') buildEditCDForm(CDID);\n    if (action === 'delete') {\n\n      // Wait for API module to remove the CD from the collection\n      await deleteItem('cd', CDID);\n\n      // Redirect to updated overview page\n      viewAllCDs();\n    }\n  }\n\n  // Select each edit/delete link\n  document.addEventListener('click', (e) => {\n    if (e.target && e.target.classList.contains(`${action}-link`)) {\n      e.preventDefault();\n\n      handleClick(e.target.getAttribute('data-CDID'));\n    }\n  });\n\n  template += '</tbody></table>';\n\n  commonElements.contentHolder.innerHTML += template;\n  commonElements.pageHolder.append(commonElements.contentHolder);\n}\n\nmodule.exports = getCDsResult;\n\n\n//# sourceURL=webpack://cd-manager/./api/cd/getCDsResult.js?");
-
-/***/ }),
-
-/***/ "./api/cd/index.js":
-/*!*************************!*\
-  !*** ./api/cd/index.js ***!
-  \*************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const getCDsHTML = __webpack_require__(/*! ./getCDsHTML.js */ \"./api/cd/getCDsHTML.js\");\nconst getAllCDTitles = __webpack_require__(/*! ./getAllCDTitles.js */ \"./api/cd/getAllCDTitles.js\");\nconst addCDToCollection = __webpack_require__(/*! ./addCD.js */ \"./api/cd/addCD.js\");\nconst getCDsResult = __webpack_require__(/*! ./getCDsResult.js */ \"./api/cd/getCDsResult.js\");\n\nmodule.exports = {\n  getCDsHTML,\n  getAllCDTitles,\n  addCDToCollection,\n  getCDsResult,\n};\n\n\n//# sourceURL=webpack://cd-manager/./api/cd/index.js?");
-
-/***/ }),
-
-/***/ "./api/common/deleteItem.js":
-/*!**********************************!*\
-  !*** ./api/common/deleteItem.js ***!
-  \**********************************/
-/***/ ((module) => {
-
-eval("// Remove a item from the collection\nconst deleteItem = async (item, trackID) => {\n\n  try {\n    // Adjust the path to remove the corresonding item\n    const url = `http://localhost:3000/${item}s/${trackID}`;\n    const response = await fetch(url, {\n      method: 'DELETE',\n    });\n\n    if (!response.ok) {\n      throw new Error('Failed to delete item');\n    }\n\n    console.log('Item deleted successfully');\n  } catch (error) {\n    console.error('Error deleting item:', error.message);\n  }\n};\n\nmodule.exports = deleteItem;\n\n\n//# sourceURL=webpack://cd-manager/./api/common/deleteItem.js?");
-
-/***/ }),
-
-/***/ "./api/common/getItemById.js":
-/*!***********************************!*\
-  !*** ./api/common/getItemById.js ***!
-  \***********************************/
-/***/ ((module) => {
-
-eval("// Returns the corresponding CD of the given ID\nasync function getItemByID(itemType, ID) {\n\n  // Get current data\n  const url = `http://localhost:3000/${itemType}s`;\n  const result = await fetch(url, { timeout: 5000 });\n  const data = await result.json();\n\n  // Select item based on the same ID\n  return data.find((item) => item.id === ID);\n}\n\nmodule.exports = getItemByID;\n\n\n//# sourceURL=webpack://cd-manager/./api/common/getItemById.js?");
-
-/***/ }),
-
-/***/ "./api/common/index.js":
+/***/ "./api/getAllTitles.js":
 /*!*****************************!*\
-  !*** ./api/common/index.js ***!
+  !*** ./api/getAllTitles.js ***!
+  \*****************************/
+/***/ ((module) => {
+
+eval("// Get the titles of all items in the collection\nasync function getAllTitles(itemType) {\n  const list = [];\n\n  // Get current data\n  const url = `http://localhost:3000/${itemType}s`;\n  const result = await fetch(url);\n  const data = await result.json();\n\n  // Add each title to the list\n  data.forEach((item) => {\n    list.push([item.title]);\n  });\n\n  return list;\n}\n\nmodule.exports = getAllTitles;\n\n\n//# sourceURL=webpack://cd-manager/./api/getAllTitles.js?");
+
+/***/ }),
+
+/***/ "./api/getItemById.js":
+/*!****************************!*\
+  !*** ./api/getItemById.js ***!
+  \****************************/
+/***/ ((module) => {
+
+eval("// Returns the corresponding CD of the given ID\nasync function getItemByID(itemType, ID) {\n\n  // Get current data\n  const url = `http://localhost:3000/${itemType}s`;\n  const result = await fetch(url, { timeout: 5000 });\n  const data = await result.json();\n\n  // Select item based on the same ID\n  return data.find((item) => item.id === ID);\n}\n\nmodule.exports = getItemByID;\n\n\n//# sourceURL=webpack://cd-manager/./api/getItemById.js?");
+
+/***/ }),
+
+/***/ "./api/getItemsHTML.js":
+/*!*****************************!*\
+  !*** ./api/getItemsHTML.js ***!
   \*****************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const getItemById = __webpack_require__(/*! ./getItemById.js */ \"./api/common/getItemById.js\");\nconst deleteItem = __webpack_require__(/*! ./deleteItem.js */ \"./api/common/deleteItem.js\");\nconst updateItem = __webpack_require__(/*! ./updateItem.js */ \"./api/common/updateItem.js\");\n\nmodule.exports = {\n  getItemById,\n  deleteItem,\n  updateItem,\n};\n\n\n//# sourceURL=webpack://cd-manager/./api/common/index.js?");
+eval("// Don't import from the index file, as it may cause asynchronous issues\nconst commonElements = __webpack_require__(/*! ../src/components/utils/commonElements.js */ \"./src/components/utils/commonElements.js\");\n\n// Build the overview page\nasync function getItemsHTML(itemType) {\n\n  // Get current data\n  const url = `http://localhost:3000/${itemType}s`;\n  const result = await fetch(url);\n  const data = await result.json();\n\n  let template = '';\n\n  // Build overview pages\n  switch (itemType) {\n    case 'cd':\n\n      // Build a list with a cover image, album name (if present), title and artistname for each CD\n      data.forEach((cd) => {\n        template += `\n        <ul class=\"items-list\">\n          <li class=\"list-img\"><img width=\"150px\" height=\"auto\" src=\"${cd.image}\"></li>\n          <li class=\"list-item text-album\"><p>${cd.album}</p></li>\n          <li class=\"list-item text-title-light\"><p>${cd.title}</p></li>\n          <li class=\"list-item text-artist-light\"><p>${cd.artist}</p></li>\n        </ul>\n        `;\n      });\n      break;\n\n    case 'album':\n\n      // Build a list with a cover image, title and artistname for each album\n      data.forEach((album) => {\n        template += `\n          <ul class=\"items-list\">\n            <li class=\"list-img\"><img width=\"150px\" height=\"auto\" src=\"${album.image}\"></li>\n            <li class=\"list-item text-title-light\"><p>${album.title}</p></li>\n            <li class=\"list-item text-artist-light\"><p>${album.artist}</p></li>\n          </ul>\n          `;\n      });\n      break;\n\n    case 'track':\n\n      // Build a table for the tracks overview page\n      template = `\n      <table class=\"tracks-table\">\n        <thead>\n          <tr>\n            <th>Title</th>\n            <th>Artist</th>\n            <th>Length</th>\n          </tr>\n        </thead>\n        <tbody>`;\n\n      // Show the title and artistname and length for each track\n      data.forEach((track) => {\n        template += `\n              <tr>\n                <td>${track.title}</td>\n                <td>${track.artist}</td>\n                <td>${track.length}</td>\n              </tr>\n          `;\n      });\n      template += '</tbody></table>';\n\n      break;\n    default:\n  }\n\n  commonElements.contentHolder.innerHTML += template;\n\n  // The overview page does contain cover images\n  commonElements.contentHolder.classList.remove('no-img-in-item');\n  commonElements.contentHolder.classList.add('img-in-item');\n\n  // Add built list/table to the page\n  commonElements.pageHolder.append(commonElements.contentHolder);\n}\n\nmodule.exports = getItemsHTML;\n\n\n//# sourceURL=webpack://cd-manager/./api/getItemsHTML.js?");
 
 /***/ }),
 
-/***/ "./api/common/updateItem.js":
-/*!**********************************!*\
-  !*** ./api/common/updateItem.js ***!
-  \**********************************/
+/***/ "./api/getSearchResult.js":
+/*!********************************!*\
+  !*** ./api/getSearchResult.js ***!
+  \********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("// Don't import from the index file, as it may cause asynchronous issues\nconst commonElements = __webpack_require__(/*! ../src/components/utils/commonElements.js */ \"./src/components/utils/commonElements.js\");\nconst buildEditItemForm = __webpack_require__(/*! ../src/components/forms/editItem.js */ \"./src/components/forms/editItem.js\");\nconst deleteItem = __webpack_require__(/*! ./deleteItem.js */ \"./api/deleteItem.js\");\nconst { buildAlbumsAllPage } = __webpack_require__(/*! ../src/pages/album/index.js */ \"./src/pages/album/index.js\");\nconst { buildCDsAllPage } = __webpack_require__(/*! ../src/pages/cd/index.js */ \"./src/pages/cd/index.js\");\nconst { buildTracksAllPage } = __webpack_require__(/*! ../src/pages/track/index.js */ \"./src/pages/track/index.js\");\n\n// Build a overview page with items that contain the keyword title or artist name\nasync function getSearchResult(itemType, action, searchKeyword) {\n\n  // Get current data\n  const url = `http://localhost:3000/${itemType}s`;\n  const result = await fetch(url, { timeout: 5000 });\n  const data = await result.json();\n\n  // Select all items which has a title or artistname containing the search keyword\n  const searchTerm = searchKeyword;\n  const filteredItems = data.filter((item) => item.title.includes(searchTerm)\n  || item.artist.includes(searchTerm));\n\n  // The result page contains no cover images\n  commonElements.contentHolder.classList.remove('img-in-item');\n  commonElements.contentHolder.classList.add('no-img-in-item');\n\n  // Build a table to display all found items and add a edit/delete button at the end of each row\n  let template = `\n  <table class=\"cds-table\">\n    <thead>\n      <tr>\n        <th>Title</th>\n        <th>Artist</th>`;\n\n  // Set head-title for third column\n  if (itemType === 'album') template += '<th>CDs</th>';\n  if (itemType === 'cd') template += '<th>Tracks</th>';\n  if (itemType === 'track') template += '<th>Length</th>';\n\n  template += `\n        <th>${action}</th>\n      </tr>\n    </thead>\n    <tbody>`;\n\n  // Build a new row for each item\n  filteredItems.forEach((item) => {\n    template += `\n      <tr>\n        <td>${item.title}</td>\n        <td>${item.artist}</td>`;\n\n    // Set content of third column\n    if (itemType === 'album') template += `<td>${item.cds.length}</td>`;\n    if (itemType === 'cd') template += `<td>${item.tracks.length}</td>`;\n    if (itemType === 'track') template += `<td>${item.length}</td>`;\n\n    // Set attributes\n    template += `\n          <td><a class=\"${action}-link\" data-itemID=\"${item.id}\" href=\"#\">${action}</a></td>\n      </tr>\n    `;\n  });\n\n  // After a edit/delete link is clicked, redirect the user to the corresponding form\n  async function handleClick(itemID) {\n\n    if (action === 'edit') {\n      // Redirect to edit form\n      if (itemType === 'album') buildEditItemForm(itemType, itemID);\n    }\n\n    if (action === 'delete') {\n      // Wait for API module to remove item\n      await deleteItem(itemType, itemID);\n\n      // Redirect to updated overview page\n      if (itemType === 'album') buildAlbumsAllPage();\n      if (itemType === 'cd') buildCDsAllPage();\n      if (itemType === 'track') buildTracksAllPage();\n    }\n  }\n\n  // Select each edit/delete link\n  document.addEventListener('click', (e) => {\n    if (e.target && e.target.classList.contains(`${action}-link`)) {\n      e.preventDefault();\n\n      handleClick(e.target.getAttribute('data-itemID'));\n    }\n  });\n\n  template += '</tbody></table>';\n\n  // Add built table to the page\n  commonElements.contentHolder.innerHTML += template;\n  commonElements.pageHolder.append(commonElements.contentHolder);\n}\n\nmodule.exports = getSearchResult;\n\n\n//# sourceURL=webpack://cd-manager/./api/getSearchResult.js?");
+
+/***/ }),
+
+/***/ "./api/updateItem.js":
+/*!***************************!*\
+  !*** ./api/updateItem.js ***!
+  \***************************/
 /***/ ((module) => {
 
-eval("// Edit a existing CD\nasync function updateCD(itemType, CDID, updatedItemData) {\n\n  // Get current data\n  const url = `http://localhost:3000/${itemType}s/${CDID}`; // Update URL with trackID\n  const result = await fetch(url);\n  const item = await result.json();\n\n  if (item) {\n    // Replace item\n    const updatedItem = { ...item, ...updatedItemData };\n\n    // Write the edited data back\n    await fetch(url, {\n      method: 'PUT',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify(updatedItem),\n    });\n\n    console.log(`${itemType} met ID ${CDID} is succesvol bijgewerkt.`);\n  } else {\n    console.log(`${itemType} met ID ${CDID} is niet gevonden.`);\n  }\n}\n\nmodule.exports = updateCD;\n\n\n//# sourceURL=webpack://cd-manager/./api/common/updateItem.js?");
+eval("// Edit a existing CD\nasync function updateCD(itemType, CDID, updatedItemData) {\n\n  // Get current data\n  const url = `http://localhost:3000/${itemType}s/${CDID}`; // Update URL with trackID\n  const result = await fetch(url);\n  const item = await result.json();\n\n  if (item) {\n    // Replace item\n    const updatedItem = { ...item, ...updatedItemData };\n\n    // Write the edited data back\n    await fetch(url, {\n      method: 'PUT',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify(updatedItem),\n    });\n\n    console.log(`${itemType} met ID ${CDID} is succesvol bijgewerkt.`);\n  } else {\n    console.log(`${itemType} met ID ${CDID} is niet gevonden.`);\n  }\n}\n\nmodule.exports = updateCD;\n\n\n//# sourceURL=webpack://cd-manager/./api/updateItem.js?");
 
 /***/ }),
 
-/***/ "./api/track/addTrack.js":
-/*!*******************************!*\
-  !*** ./api/track/addTrack.js ***!
-  \*******************************/
+/***/ "./src/components/forms/addItem.js":
+/*!*****************************************!*\
+  !*** ./src/components/forms/addItem.js ***!
+  \*****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { getCurrentDate } = __webpack_require__(/*! ../../src/components/utils/index.js */ \"./src/components/utils/index.js\");\n\n// Add a new track to the collection\nconst addTrackToCollection = async () => {\n\n  // Select the form and get all input values\n  const form = document.querySelector('#form');\n\n  // Create new track-object\n  const track = {\n    cds: form.cd.value,\n    title: form.title.value,\n    artist: form.artist.value,\n    remix: form.remix.value,\n    collabs: form.collaborators.value,\n    label: form.label.value,\n    style: form.style.value,\n    length: form.length.value,\n    added: getCurrentDate(),\n    rating: form.rating.value,\n    info: form.info.value,\n    views: 0,\n  };\n\n  // Add the track-object as string to the database\n  await fetch('http://localhost:3000/tracks', {\n    headers: { 'Content-type': 'application/json' },\n    method: 'POST',\n    body: JSON.stringify(track),\n  });\n};\n\nmodule.exports = addTrackToCollection;\n\n\n//# sourceURL=webpack://cd-manager/./api/track/addTrack.js?");
+eval("const { createFormInput } = __webpack_require__(/*! ../utils/index.js */ \"./src/components/utils/index.js\");\nconst addItem = __webpack_require__(/*! ../../../api/addItem.js */ \"./api/addItem.js\");\nconst buildTracksAllPage = __webpack_require__(/*! ../../pages/track/viewAllTracks.js */ \"./src/pages/track/viewAllTracks.js\");\nconst buildCDsAllPage = __webpack_require__(/*! ../../pages/cd/viewAllCDs.js */ \"./src/pages/cd/viewAllCDs.js\");\nconst { buildAlbumsAllPage } = __webpack_require__(/*! ../../pages/album/index.js */ \"./src/pages/album/index.js\");\n\n// Create a new input form with all the corresponding input fields and a submit button\nfunction buildAddItemForm(itemType) {\n\n  // Create the form and its elements\n  const form = document.querySelector('#form');\n  form.classList.add('add-form');\n\n  // Add specific needed elements to the form, depending on the item type\n  if (itemType === 'cd') form.append(createFormInput('Album', 'text', 'select', '#'));\n  if (itemType === 'track') form.append(createFormInput('Cd', 'text', 'select', '#'));\n\n  // Format: (Labelname and element-id, input-type, element-type, placeholder text, current value)\n  form.append(createFormInput('Title', 'text', 'input', 'Title of track...'));\n  form.append(createFormInput('Artist', 'text', 'input', 'Name of artist...'));\n  form.append(createFormInput('Collaborators', 'text', 'input', 'Artists...'));\n  form.append(createFormInput('Label', 'text', 'input', 'Enter label here...'));\n\n  if (itemType === 'album' || itemType === 'cd') {\n    form.append(createFormInput('Year', 'number', 'select', '#'));\n    form.append(createFormInput('Genre', 'text', 'input', 'Rock, Classical...'));\n    form.append(createFormInput('Image', 'text', 'input', 'http://image.jpg...'));\n  }\n\n  if (itemType === 'track') {\n    form.append(createFormInput('Remix', 'text', 'input', 'Mixed by...'));\n    form.append(createFormInput('Style', 'text', 'input', 'Ambient, Blues rock...'));\n    form.append(createFormInput('Length', 'text', 'input', '3:45...'));\n  }\n\n  form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...'));\n  form.append(createFormInput('Rating', 'text', 'select', '#'));\n\n  // Create a submit button\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'add-button');\n  submitButton.textContent = 'Add';\n\n  submitButton.addEventListener('click', async (e) => {\n    e.preventDefault();\n\n    // Wait for the API module to add the data to the database\n    await addItem(itemType);\n\n    // Redirect the user to the corresponding updated overview page\n    if (itemType === 'album') buildAlbumsAllPage();\n    if (itemType === 'cd') buildCDsAllPage();\n    if (itemType === 'track') buildTracksAllPage();\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = buildAddItemForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/addItem.js?");
 
 /***/ }),
 
-/***/ "./api/track/getTracksHTML.js":
-/*!************************************!*\
-  !*** ./api/track/getTracksHTML.js ***!
-  \************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("// Don't import from the index file, as it may cause asynchronous issues\nconst commonElements = __webpack_require__(/*! ../../src/components/utils/commonElements.js */ \"./src/components/utils/commonElements.js\");\n\n// Build the overview page\nasync function getTracksHTML() {\n\n  // Get current data\n  const url = 'http://localhost:3000/tracks';\n  const result = await fetch(url);\n  const data = await result.json();\n\n  let template = `<table class=\"tracks-table\">\n  <thead>\n    <tr>\n      <th>Title</th>\n      <th>Artist</th>\n      <th>Length</th>\n    </tr>\n  </thead>\n  <tbody>`;\n\n  // Show the cover, title and artistname for each track\n  data.forEach((track) => {\n    template += `\n        <tr>\n          <td>${track.title}</td>\n          <td>${track.artist}</td>\n          <td>${track.length}</td>\n        </tr>\n    `;\n\n  });\n  template += '</tbody></table>';\n\n  commonElements.contentHolder.innerHTML += template;\n\n  // The overview page doesn't contain cover images\n  commonElements.contentHolder.classList.remove('img-in-item');\n  commonElements.contentHolder.classList.add('no-img-in-item');\n\n  commonElements.pageHolder.append(commonElements.contentHolder);\n}\n\nmodule.exports = getTracksHTML;\n\n\n//# sourceURL=webpack://cd-manager/./api/track/getTracksHTML.js?");
-
-/***/ }),
-
-/***/ "./api/track/getTracksResult.js":
-/*!**************************************!*\
-  !*** ./api/track/getTracksResult.js ***!
-  \**************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("// Don't import from the index file, as it may cause asynchronous issues\nconst commonElements = __webpack_require__(/*! ../../src/components/utils/commonElements.js */ \"./src/components/utils/commonElements.js\");\nconst buildEditTrackForm = __webpack_require__(/*! ../../src/components/forms/track/editTrack.js */ \"./src/components/forms/track/editTrack.js\");\nconst deleteItem = __webpack_require__(/*! ../common/deleteItem.js */ \"./api/common/deleteItem.js\");\nconst viewAllTracks = __webpack_require__(/*! ../../src/pages/track/viewAllTracks.js */ \"./src/pages/track/viewAllTracks.js\");\n\n// Build a overview page with items that contain the keyword title or artist name\nasync function getTracksResult(action, searchKeyword) {\n\n  // Get current data\n  const url = 'http://localhost:3000/tracks';\n  const result = await fetch(url, { timeout: 5000 });\n  const data = await result.json();\n\n  // Select all items which has a title or artistname containing the search keyword\n  const searchTerm = searchKeyword;\n  const filteredTracks = data.filter((track) => track.title.includes(searchTerm)\n  || track.artist.includes(searchTerm));\n\n  // The result page contains no cover images\n  commonElements.contentHolder.classList.remove('img-in-item');\n  commonElements.contentHolder.classList.add('no-img-in-item');\n\n  // Build a table to display all found tracks and add a edit/delete button at the end of each row\n  let template = `\n  <table class=\"tracks-table\">\n    <thead>\n      <tr>\n        <th>Title</th>\n        <th>Artist</th>\n        <th>Length</th>\n        <th></th>\n      </tr>\n    </thead>\n    <tbody>`;\n\n  // Build a new row for each track\n  filteredTracks.forEach((track) => {\n    template += `\n      <tr>\n        <td>${track.title}</td>\n        <td>${track.artist}</td>\n        <td>${track.length}</td>\n        <td><a class=\"${action}-link\" data-trackID=\"${track.id}\" href=\"#\">${action}</a<</td>\n      </tr>\n    `;\n  });\n\n  // After a edit/delete link is clicked, redirect the user to the corresponding form\n  async function handleClick(trackID) {\n    if (action === 'edit') buildEditTrackForm(trackID);\n    if (action === 'delete') {\n\n      // Wait for API module to remove the track from the collection\n      await deleteItem('track', trackID);\n\n      // Redirect to updated overview page\n      viewAllTracks();\n    }\n  }\n\n  // Select each edit/delete link\n  document.addEventListener('click', (e) => {\n    if (e.target && e.target.classList.contains(`${action}-link`)) {\n      e.preventDefault();\n\n      handleClick(e.target.getAttribute('data-trackID'));\n    }\n  });\n\n  template += '</tbody></table>';\n\n  commonElements.contentHolder.innerHTML += template;\n  commonElements.pageHolder.append(commonElements.contentHolder);\n}\n\nmodule.exports = getTracksResult;\n\n\n//# sourceURL=webpack://cd-manager/./api/track/getTracksResult.js?");
-
-/***/ }),
-
-/***/ "./api/track/index.js":
-/*!****************************!*\
-  !*** ./api/track/index.js ***!
-  \****************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const getTracksHTML = __webpack_require__(/*! ./getTracksHTML.js */ \"./api/track/getTracksHTML.js\");\nconst getTracksResult = __webpack_require__(/*! ./getTracksResult.js */ \"./api/track/getTracksResult.js\");\nconst addTrackToCollection = __webpack_require__(/*! ./addTrack.js */ \"./api/track/addTrack.js\");\n\nmodule.exports = {\n  getTracksHTML,\n  getTracksResult,\n  addTrackToCollection,\n};\n\n\n//# sourceURL=webpack://cd-manager/./api/track/index.js?");
-
-/***/ }),
-
-/***/ "./src/components/forms/album/addAlbum.js":
-/*!************************************************!*\
-  !*** ./src/components/forms/album/addAlbum.js ***!
-  \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const { createFormInput } = __webpack_require__(/*! ../../utils/index.js */ \"./src/components/utils/index.js\");\nconst { addAlbumToCollection } = __webpack_require__(/*! ../../../../api/album/index.js */ \"./api/album/index.js\");\nconst buildAlbumsAllPage = __webpack_require__(/*! ../../../pages/album/viewAllAlbums.js */ \"./src/pages/album/viewAllAlbums.js\");\n\n// Create a new input form with all the corresponding input fields and a submit button\nfunction buildAddAlbumForm() {\n\n  // Create the form and its elements\n  const form = document.querySelector('#form');\n  form.classList.add('add-form');\n\n  form.append(createFormInput('Title', 'text', 'input', 'Title of album...'));\n  form.append(createFormInput('Artist', 'text', 'input', 'Name of artist...'));\n  form.append(createFormInput('Collaborators', 'text', 'input', 'Artist 2, Artist 3, ...'));\n  form.append(createFormInput('Label', 'text', 'input', 'Enter label here...'));\n  form.append(createFormInput('Genre', 'text', 'input', 'Rock, Classical, Electronic, ...'));\n  form.append(createFormInput('Year', 'number', 'select'));\n  form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...'));\n  form.append(createFormInput('Rating', 'text', 'select'));\n  form.append(createFormInput('Cover', 'text', 'input', 'http://image.jpg...'));\n\n  // Create a submit button\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'add-button');\n  submitButton.textContent = 'Add';\n\n  submitButton.addEventListener('click', async (e) => {\n    e.preventDefault();\n\n    // Wait for the corresponding API module to add the data to the database\n    await addAlbumToCollection();\n\n    // Redirect the user to the updated overview page\n    buildAlbumsAllPage();\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = buildAddAlbumForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/album/addAlbum.js?");
-
-/***/ }),
-
-/***/ "./src/components/forms/album/editAlbum.js":
-/*!*************************************************!*\
-  !*** ./src/components/forms/album/editAlbum.js ***!
-  \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const { getInputValue, clearContentHolders, createFormInput } = __webpack_require__(/*! ../../utils/index.js */ \"./src/components/utils/index.js\");\nconst { getItemById, updateItem } = __webpack_require__(/*! ../../../../api/common/index.js */ \"./api/common/index.js\");\nconst buildAlbumsAllPage = __webpack_require__(/*! ../../../pages/album/viewAllAlbums.js */ \"./src/pages/album/viewAllAlbums.js\");\n\n// Create a input form with in which all values are pre-filled with items current data\nasync function buildEditAlbumForm(selectedID) {\n\n  clearContentHolders();\n\n  // Get the corresponding CD from the API module\n  const album = await getItemById('album', selectedID);\n\n  // Create the form and its elements\n  const form = document.querySelector('#form');\n  form.classList.add('add-form');\n\n  form.append(createFormInput('Title', 'text', 'input', 'Title of album...', album.title));\n  form.append(createFormInput('Artist', 'text', 'input', 'Name of artist...', album.artist));\n  form.append(createFormInput('Collabs', 'text', 'input', 'Artiss...', album.collabs));\n  form.append(createFormInput('Label', 'text', 'input', 'Enter label here...', album.label));\n  form.append(createFormInput('Genre', 'text', 'input', 'Rock, Classical...', album.genre));\n  form.append(createFormInput('Year', 'number', 'select', '#', album.year));\n  form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...', album.info));\n  form.append(createFormInput('Rating', 'text', 'select', '#', album.rating));\n  form.append(createFormInput('Image', 'text', 'input', 'http://image.jpg...', album.image));\n\n  // Add a submitbutton to the form\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'edit-button');\n  submitButton.textContent = 'Edit';\n\n  // Create the submit button and set its behaviour\n  submitButton.addEventListener('click', async (e) => {\n    e.preventDefault();\n\n    // Create a list of all album properties\n    const editedAlbumData = {};\n    const fields = [\n      'title',\n      'artist',\n      'collabs',\n      'label',\n      'genre',\n      'year',\n      'info',\n      'rating',\n      'image',\n    ];\n\n    // Get the current data from the corresponding property\n    fields.forEach((field) => {\n      editedAlbumData[field] = getInputValue(field);\n    });\n\n    // Wait for the API to set the new data\n    await updateItem('album', album.id, editedAlbumData);\n\n    // Redirect the user to the updated overview page\n    buildAlbumsAllPage();\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = buildEditAlbumForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/album/editAlbum.js?");
-
-/***/ }),
-
-/***/ "./src/components/forms/cd/addCD.js":
+/***/ "./src/components/forms/editItem.js":
 /*!******************************************!*\
-  !*** ./src/components/forms/cd/addCD.js ***!
+  !*** ./src/components/forms/editItem.js ***!
   \******************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { createFormInput } = __webpack_require__(/*! ../../utils/index.js */ \"./src/components/utils/index.js\");\nconst { addCDToCollection } = __webpack_require__(/*! ../../../../api/cd/index.js */ \"./api/cd/index.js\");\nconst buildCDsAllPage = __webpack_require__(/*! ../../../pages/cd/viewAllCDs.js */ \"./src/pages/cd/viewAllCDs.js\");\n\n// Create a new input form with all the corresponding input fields and a submit button\nfunction buildAddCDForm() {\n\n  // Create the form and its elements\n  const form = document.querySelector('#form');\n  form.classList.add('add-form');\n\n  form.append(createFormInput('Album', 'text', 'select'));\n  form.append(createFormInput('Title', 'text', 'input', 'Title of CD...'));\n  form.append(createFormInput('Artist', 'text', 'input', 'Name of artist...'));\n  form.append(createFormInput('Collaborators', 'text', 'input', 'Artist 2, Artist 3, ...'));\n  form.append(createFormInput('Label', 'text', 'input', 'Enter label here...'));\n  form.append(createFormInput('Genre', 'text', 'input', 'Rock, Classical, Electronic, ...'));\n  form.append(createFormInput('Year', 'number', 'select'));\n  form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...'));\n  form.append(createFormInput('Rating', 'text', 'select'));\n  form.append(createFormInput('Image', 'text', 'input', 'http://image.jpg...'));\n\n  // Create a submit button\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'add-button');\n  submitButton.textContent = 'Add';\n\n  submitButton.addEventListener('click', async (e) => {\n    e.preventDefault();\n\n    // Wait for the corresponding API module to add the data to the database\n    await addCDToCollection();\n\n    // Redirect the user to the updated overview page\n    buildCDsAllPage();\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = buildAddCDForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/cd/addCD.js?");
+eval("const { getInputValue, clearContentHolders, createFormInput } = __webpack_require__(/*! ../utils/index.js */ \"./src/components/utils/index.js\");\nconst getItemById = __webpack_require__(/*! ../../../api/getItemById.js */ \"./api/getItemById.js\");\nconst updateItem = __webpack_require__(/*! ../../../api/updateItem.js */ \"./api/updateItem.js\");\nconst buildTracksAllPage = __webpack_require__(/*! ../../pages/track/viewAllTracks.js */ \"./src/pages/track/viewAllTracks.js\");\nconst buildAlbumsAllPage = __webpack_require__(/*! ../../pages/album/viewAllAlbums.js */ \"./src/pages/album/viewAllAlbums.js\");\nconst buildCDsAllPage = __webpack_require__(/*! ../../pages/cd/viewAllCDs.js */ \"./src/pages/cd/viewAllCDs.js\");\n\n// Create a input form with in which all values are pre-filled with items current data\nasync function buildEditItemForm(itemType, selectedID) {\n\n  clearContentHolders();\n\n  // Get the corresponding item from the API module\n  const item = await getItemById(itemType, selectedID);\n\n  // Create the form and its elements\n  const form = document.querySelector('#form');\n  form.classList.add('add-form');\n\n  // Add specific needed elements to the form, depending on the item type\n  if (itemType === 'cd') form.append(createFormInput('Album', 'text', 'select', '#', item.album));\n  if (itemType === 'track') form.append(createFormInput('Cd', 'text', 'select', '#', item.cd));\n\n  // Format: (Labelname and element-id, input-type, element-type, placeholder text, current value)\n  form.append(createFormInput('Title', 'text', 'input', 'Title of track...', item.title));\n  form.append(createFormInput('Artist', 'text', 'input', 'Name of artist...', item.artist));\n  form.append(createFormInput('Collaborators', 'text', 'input', 'Artists...', item.collaborators));\n  form.append(createFormInput('Label', 'text', 'input', 'Enter label here...', item.label));\n\n  if (itemType === 'album' || itemType === 'cd') {\n    form.append(createFormInput('Year', 'number', 'select', '#', item.year));\n    form.append(createFormInput('Genre', 'text', 'input', 'Rock, Classical...', item.genre));\n    form.append(createFormInput('Image', 'text', 'input', 'http://image.jpg...', item.image));\n  }\n\n  if (itemType === 'track') {\n    form.append(createFormInput('Remix', 'text', 'input', 'Mixed by...', item.remix));\n    form.append(createFormInput('Style', 'text', 'input', 'Ambient, Blues rock...', item.style));\n    form.append(createFormInput('Length', 'text', 'input', '3:45...', item.length));\n  }\n\n  form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...', item.info));\n  form.append(createFormInput('Rating', 'text', 'select', '#', item.rating));\n\n  // Add a submitbutton to the form\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'edit-button');\n  submitButton.textContent = 'Edit';\n\n  // Create the submit button and set its behaviour\n  submitButton.addEventListener('click', async (e) => {\n    e.preventDefault();\n\n    // Create a list of all item properties\n    const editedItemData = {};\n    const fields = [\n      'title',\n      'artist',\n      'collaborators',\n      'label',\n      'info',\n      'rating',\n    ];\n\n    if (itemType === 'album') fields.push('year', 'genre', 'image');\n    if (itemType === 'cd') fields.push('year', 'genre', 'image', 'album');\n    if (itemType === 'track') fields.push('cd', 'remix', 'style', 'length');\n\n    // Get the current data from the corresponding property\n    fields.forEach((field) => {\n      editedItemData[field] = getInputValue(field);\n    });\n\n    // Wait for the API to set the new data\n    await updateItem(itemType, item.id, editedItemData);\n\n    // Redirect the user to the corresponding updated overview page\n    if (itemType === 'album') buildAlbumsAllPage();\n    if (itemType === 'cd') buildCDsAllPage();\n    if (itemType === 'track') buildTracksAllPage();\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = buildEditItemForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/editItem.js?");
 
 /***/ }),
 
-/***/ "./src/components/forms/cd/editCD.js":
-/*!*******************************************!*\
-  !*** ./src/components/forms/cd/editCD.js ***!
-  \*******************************************/
+/***/ "./src/components/forms/index.js":
+/*!***************************************!*\
+  !*** ./src/components/forms/index.js ***!
+  \***************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { getInputValue, clearContentHolders, createFormInput } = __webpack_require__(/*! ../../utils/index.js */ \"./src/components/utils/index.js\");\nconst { getItemById, updateItem } = __webpack_require__(/*! ../../../../api/common/index.js */ \"./api/common/index.js\");\nconst buildCDsAllPage = __webpack_require__(/*! ../../../pages/cd/viewAllCDs.js */ \"./src/pages/cd/viewAllCDs.js\");\n\n// Create a input form with in which all values are pre-filled with items current data\nasync function buildEditCDForm(selectedID) {\n\n  clearContentHolders();\n\n  // Get the corresponding CD from the API module\n  const cd = await getItemById('cd', selectedID);\n\n  // Create the form and its elements\n  const form = document.querySelector('#form');\n  form.classList.add('add-form');\n\n  // Format: (Labelname and element-id, input-type, element-type, placeholder text, current value)\n  form.append(createFormInput('Album', 'text', 'select', '#', cd.album));\n  form.append(createFormInput('Title', 'text', 'input', 'Title of CD...', cd.title));\n  form.append(createFormInput('Artist', 'text', 'input', 'Name of artist...', cd.artist));\n  form.append(createFormInput('Collabs', 'text', 'input', 'Artist 2, Artist 3, ...', cd.collabs));\n  form.append(createFormInput('Label', 'text', 'input', 'Enter label here...', cd.label));\n  form.append(createFormInput('Genre', 'text', 'input', 'Rock, Classical...', cd.genre));\n  form.append(createFormInput('Year', 'number', 'select', '#', cd.year));\n  form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...', cd.info));\n  form.append(createFormInput('Rating', 'text', 'select', '#', cd.rating));\n  form.append(createFormInput('Image', 'text', 'input', 'http://image.jpg...', cd.image));\n\n  // Add a submitbutton to the form\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'edit-button');\n  submitButton.textContent = 'Edit';\n\n  // Create the submit button and set its behaviour\n  submitButton.addEventListener('click', async (e) => {\n    e.preventDefault();\n\n    // Create a list of all CD properties\n    const editedCDData = {};\n    const fields = [\n      'album',\n      'title',\n      'artist',\n      'collabs',\n      'label',\n      'genre',\n      'year',\n      'info',\n      'rating',\n      'image',\n    ];\n\n    // Get the current data from the corresponding property\n    fields.forEach((field) => {\n      editedCDData[field] = getInputValue(field);\n    });\n\n    // Wait for the API to set the new data\n    await updateItem('cd', cd.id, editedCDData);\n\n    // Redirect the user to the updated overview page\n    buildCDsAllPage();\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = buildEditCDForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/cd/editCD.js?");
+eval("const buildAddItemForm = __webpack_require__(/*! ./addItem.js */ \"./src/components/forms/addItem.js\");\nconst buildEditItemForm = __webpack_require__(/*! ./editItem.js */ \"./src/components/forms/editItem.js\");\nconst buildSearchItemForm = __webpack_require__(/*! ./searchItem.js */ \"./src/components/forms/searchItem.js\");\n\nmodule.exports = {\n  buildAddItemForm,\n  buildEditItemForm,\n  buildSearchItemForm,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/index.js?");
 
 /***/ }),
 
-/***/ "./src/components/forms/common/searchItem.js":
-/*!***************************************************!*\
-  !*** ./src/components/forms/common/searchItem.js ***!
-  \***************************************************/
+/***/ "./src/components/forms/searchItem.js":
+/*!********************************************!*\
+  !*** ./src/components/forms/searchItem.js ***!
+  \********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { createFormInput } = __webpack_require__(/*! ../../utils/index.js */ \"./src/components/utils/index.js\");\nconst getTracksResult = __webpack_require__(/*! ../../../../api/track/getTracksResult.js */ \"./api/track/getTracksResult.js\");\nconst getCDsResult = __webpack_require__(/*! ../../../../api/cd/getCDsResult.js */ \"./api/cd/getCDsResult.js\");\nconst getAlbumsResult = __webpack_require__(/*! ../../../../api/album/getAlbumsResult.js */ \"./api/album/getAlbumsResult.js\");\n\n/**\n * Build the page that is loaded after the user clicks on the 'edit' button\n * in the sub-menu of the 'Track' option in the main navigation menu.\n * This page contains a search field and a search button.\n * Show the results of the search query on a results page.\n */\nfunction searchTrackForm(type, action) {\n  const form = document.querySelector('#form');\n  form.classList.add('edit-form');\n\n  // Create a searchbar at the top of the form\n  const searchField = createFormInput('Search', 'text', 'input', 'Title or artist name...');\n  form.append(searchField);\n\n  // Add a submit button to the form\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'search-button');\n  submitButton.textContent = 'Search';\n\n  // Redirect the user to a results page\n  submitButton.addEventListener('click', (e) => {\n    e.preventDefault();\n\n    // Get the search results\n    if (type === 'album') getAlbumsResult(action, form.search.value);\n    if (type === 'cd') getCDsResult(action, form.search.value);\n    if (type === 'track') getTracksResult(action, form.search.value);\n\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = searchTrackForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/common/searchItem.js?");
-
-/***/ }),
-
-/***/ "./src/components/forms/track/addTrack.js":
-/*!************************************************!*\
-  !*** ./src/components/forms/track/addTrack.js ***!
-  \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const { createFormInput } = __webpack_require__(/*! ../../utils/index.js */ \"./src/components/utils/index.js\");\nconst { addTrackToCollection } = __webpack_require__(/*! ../../../../api/track/index.js */ \"./api/track/index.js\");\nconst buildTracksAllPage = __webpack_require__(/*! ../../../pages/track/viewAllTracks.js */ \"./src/pages/track/viewAllTracks.js\");\n\n// Create a new input form with all the corresponding input fields and a submit button\nfunction buildAddTrackForm() {\n\n  // Create the form and its elements\n  const form = document.querySelector('#form');\n  form.classList.add('add-form');\n\n  form.append(createFormInput('Cd', 'text', 'select'));\n  form.append(createFormInput('Title', 'text', 'input', 'Title of track...'));\n  form.append(createFormInput('Artist', 'text', 'input', 'Name of artist...'));\n  form.append(createFormInput('Remix', 'text', 'input', 'Mixed by...'));\n  form.append(createFormInput('Collaborators', 'text', 'input', 'Artist 2, Artist 3, ...'));\n  form.append(createFormInput('Label', 'text', 'input', 'Enter label here...'));\n  form.append(createFormInput('Style', 'text', 'input', 'Ambient, Blues rock, Trance, ...'));\n  form.append(createFormInput('Length', 'text', 'input', '3:45...'));\n  form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...'));\n  form.append(createFormInput('Rating', 'text', 'select'));\n\n  // Create a submit button\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'add-button');\n  submitButton.textContent = 'Add';\n\n  submitButton.addEventListener('click', async (e) => {\n    e.preventDefault();\n\n    // Wait for the corresponding API module to add the data to the database\n    await addTrackToCollection();\n\n    // Redirect the user to the updated overview page\n    buildTracksAllPage();\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = buildAddTrackForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/track/addTrack.js?");
-
-/***/ }),
-
-/***/ "./src/components/forms/track/editTrack.js":
-/*!*************************************************!*\
-  !*** ./src/components/forms/track/editTrack.js ***!
-  \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const { getInputValue, clearContentHolders, createFormInput } = __webpack_require__(/*! ../../utils/index.js */ \"./src/components/utils/index.js\");\nconst { getItemById, updateItem } = __webpack_require__(/*! ../../../../api/common/index.js */ \"./api/common/index.js\");\nconst buildTracksAllPage = __webpack_require__(/*! ../../../pages/track/viewAllTracks.js */ \"./src/pages/track/viewAllTracks.js\");\n\n// Create a input form with in which all values are pre-filled with items current data\nasync function buildEditTrackForm(selectedID) {\n\n  clearContentHolders();\n\n  // Get the corresponding track from the API module\n  const track = await getItemById('track', selectedID);\n\n  // Create the form and its elements\n  const form = document.querySelector('#form');\n  form.classList.add('add-form');\n\n  // Format: (Labelname and element-id, input-type, element-type, placeholder text, current value)\n  form.append(createFormInput('Cd', 'text', 'select', '#', track.cd));\n  form.append(createFormInput('Title', 'text', 'input', 'Title of track...', track.title));\n  form.append(createFormInput('Artist', 'text', 'input', 'Name of artist...', track.artist));\n  form.append(createFormInput('Remix', 'text', 'input', 'Mixed by...', track.remix));\n  form.append(createFormInput('Collaborators', 'text', 'input', 'Artists...', track.collaborators));\n  form.append(createFormInput('Label', 'text', 'input', 'Enter label here...', track.label));\n  form.append(createFormInput('Style', 'text', 'input', 'Ambient, Blues rock...', track.style));\n  form.append(createFormInput('Length', 'text', 'input', '3:45...', track.length));\n  form.append(createFormInput('Info', 'text', 'textarea', 'Extra info here...', track.info));\n  form.append(createFormInput('Rating', 'text', 'select', '#', track.rating));\n\n  // Add a submitbutton to the form\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'edit-button');\n  submitButton.textContent = 'Edit';\n\n  // Create the submit button and set its behaviour\n  submitButton.addEventListener('click', async (e) => {\n    e.preventDefault();\n\n    // Create a list of all track properties\n    const editedTrackData = {};\n    const fields = [\n      'cd',\n      'title',\n      'artist',\n      'remix',\n      'collaborators',\n      'label',\n      'style',\n      'length',\n      'info',\n      'rating',\n    ];\n\n    // Get the current data from the corresponding property\n    fields.forEach((field) => {\n      editedTrackData[field] = getInputValue(field);\n    });\n\n    // Wait for the API to set the new data\n    await updateItem('track', track.id, editedTrackData);\n\n    // Redirect the user to the updated overview page\n    buildTracksAllPage();\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = buildEditTrackForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/track/editTrack.js?");
-
-/***/ }),
-
-/***/ "./src/components/forms/track/index.js":
-/*!*********************************************!*\
-  !*** ./src/components/forms/track/index.js ***!
-  \*********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const buildAddTrackForm = __webpack_require__(/*! ./addTrack.js */ \"./src/components/forms/track/addTrack.js\");\nconst buildEditTrackForm = __webpack_require__(/*! ./editTrack.js */ \"./src/components/forms/track/editTrack.js\");\n\nmodule.exports = {\n  buildAddTrackForm,\n  buildEditTrackForm,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/track/index.js?");
+eval("const { createFormInput } = __webpack_require__(/*! ../utils/index.js */ \"./src/components/utils/index.js\");\nconst getSearchResult = __webpack_require__(/*! ../../../api/getSearchResult.js */ \"./api/getSearchResult.js\");\n\n/**\n * Build the page that is loaded after the user clicks on the 'edit' button\n * in the sub-menu of the 'Track' option in the main navigation menu.\n * This page contains a search field and a search button.\n * Show the results of the search query on a results page.\n */\nfunction buildSearchItemForm(itemType, action) {\n  const form = document.querySelector('#form');\n  form.classList.add('edit-form');\n\n  // Create a searchbar at the top of the form\n  const searchField = createFormInput('Search', 'text', 'input', 'Title or artist name...');\n  form.append(searchField);\n\n  // Add a submit button to the form\n  const submitButton = document.createElement('button');\n  submitButton.setAttribute('type', 'submit');\n  submitButton.setAttribute('id', 'search-button');\n  submitButton.textContent = 'Search';\n\n  // Redirect the user to a results page\n  submitButton.addEventListener('click', (e) => {\n    e.preventDefault();\n\n    // Get the search results\n    getSearchResult(itemType, action, form.search.value);\n  });\n\n  form.appendChild(submitButton);\n}\n\nmodule.exports = buildSearchItemForm;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/forms/searchItem.js?");
 
 /***/ }),
 
@@ -276,6 +126,16 @@ eval("const buildAddTrackForm = __webpack_require__(/*! ./addTrack.js */ \"./src
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 eval("const commonElements = __webpack_require__(/*! ../utils/commonElements.js */ \"./src/components/utils/commonElements.js\");\n\n// Functions that build all the pages\nconst buildHomePage = __webpack_require__(/*! ../../pages/homePage.js */ \"./src/pages/homePage.js\");\nconst buildSearchPage = __webpack_require__(/*! ../../pages/searchPage.js */ \"./src/pages/searchPage.js\");\nconst buildStatsPage = __webpack_require__(/*! ../../pages/statisticsPage.js */ \"./src/pages/statisticsPage.js\");\nconst buildProfilePage = __webpack_require__(/*! ../../pages/profilePage.js */ \"./src/pages/profilePage.js\");\n\n// Albums\nconst {\n  buildAlbumsAllPage,\n  buildAlbumsAddPage,\n  buildAlbumsEditPage,\n  buildAlbumsDeletePage,\n} = __webpack_require__(/*! ../../pages/album/index.js */ \"./src/pages/album/index.js\");\n\n// CDs\nconst {\n  buildCDsAllPage,\n  buildCDsAddPage,\n  buildCDsEditPage,\n  buildCDsDeletePage,\n} = __webpack_require__(/*! ../../pages/cd/index.js */ \"./src/pages/cd/index.js\");\n\n// Tracks\nconst {\n  buildTracksAllPage,\n  buildTracksAddPage,\n  buildTracksEditPage,\n  buildTracksDeletePage,\n} = __webpack_require__(/*! ../../pages/track/index.js */ \"./src/pages/track/index.js\");\n\n// Iterate through each button in the navigation and link them to the corresponding build-function\nfunction addButtonEventListeners(buttons, buildFunctions) {\n  buttons.forEach((button, index) => {\n    button.addEventListener('click', buildFunctions[index]);\n  });\n}\n\n// Collect all buttons and build-functions to add eventlisteners on\nfunction setNavEventListeners() {\n\n  // All buttons in the navigation menu\n  const homeButtons = [\n    commonElements.buttonHome,\n    commonElements.buttonSearch,\n    commonElements.buttonStats,\n    commonElements.buttonProfile,\n    // Albums\n    commonElements.buttonAlbumsAll,\n    commonElements.buttonAlbumsAdd,\n    commonElements.buttonAlbumsEdit,\n    commonElements.buttonAlbumsDelete,\n    // CDs\n    commonElements.buttonCDsAll,\n    commonElements.buttonCDsAdd,\n    commonElements.buttonCDsEdit,\n    commonElements.buttonCDsDelete,\n    // Tracks\n    commonElements.buttonTracksAll,\n    commonElements.buttonTracksAdd,\n    commonElements.buttonTracksEdit,\n    commonElements.buttonTracksDelete,\n  ];\n\n  // All corresponding build-page functions in order\n  const buildFunctions = [\n    buildHomePage,\n    buildSearchPage,\n    buildStatsPage,\n    buildProfilePage,\n    // Albums\n    buildAlbumsAllPage,\n    buildAlbumsAddPage,\n    buildAlbumsEditPage,\n    buildAlbumsDeletePage,\n    // CDs\n    buildCDsAllPage,\n    buildCDsAddPage,\n    buildCDsEditPage,\n    buildCDsDeletePage,\n    // Tracks\n    buildTracksAllPage,\n    buildTracksAddPage,\n    buildTracksEditPage,\n    buildTracksDeletePage,\n  ];\n\n  // Use both lists to add the event listeners\n  addButtonEventListeners(homeButtons, buildFunctions);\n}\n\nmodule.exports = setNavEventListeners;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/nav/navBar.js?");
+
+/***/ }),
+
+/***/ "./src/components/utils/buildItemOptions.js":
+/*!**************************************************!*\
+  !*** ./src/components/utils/buildItemOptions.js ***!
+  \**************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const getAllTitles = __webpack_require__(/*! ../../../api/getAllTitles.js */ \"./api/getAllTitles.js\");\n\n// Create options for the 'Album' and 'CD' selection elements.\n// The 'Album' options contain the titles of all albums in the collection so when a CD is added\n// or edited, the user can select an album of which this CD is part.\nasync function buildSelectOptions(element, callback) {\n  let titlesList = [];\n  const selectElement = element;\n\n  // Create and add a neutral default option\n  const defaultOption = document.createElement('option');\n  defaultOption.textContent = '-';\n  selectElement.append(defaultOption);\n\n  // Call the corresponding API function to get a list of all existing titles\n  if (element.id === 'album') titlesList = await getAllTitles('album');\n  if (element.id === 'cd') titlesList = await getAllTitles('cd');\n\n  // Each title needs to becomes a selectable option\n  titlesList.forEach(([title]) => {\n    const newOption = document.createElement('option');\n\n    newOption.setAttribute('value', title);\n    newOption.textContent = title;\n    selectElement.append(newOption);\n  });\n\n  // After all options are loaded, set the corresponding option as value\n  if (callback) callback();\n}\n\nmodule.exports = buildSelectOptions;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/utils/buildItemOptions.js?");
 
 /***/ }),
 
@@ -296,16 +156,6 @@ eval("const buildRatingStars = __webpack_require__(/*! ./buildRatingStars.js */ 
 /***/ ((module) => {
 
 eval("// Gives a list of rating values\nfunction buildRatingStars(amount) {\n  let starsList = '';\n\n  for (let i = 0; i < amount; i++) {\n    // starsList += '⭐';\n    starsList = i;\n  }\n  return starsList;\n}\n\nmodule.exports = buildRatingStars;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/utils/buildRatingStars.js?");
-
-/***/ }),
-
-/***/ "./src/components/utils/buildSelectOptions.js":
-/*!****************************************************!*\
-  !*** ./src/components/utils/buildSelectOptions.js ***!
-  \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const getAllCDTitles = __webpack_require__(/*! ../../../api/cd/getAllCDTitles.js */ \"./api/cd/getAllCDTitles.js\");\nconst getAllAlbumTitles = __webpack_require__(/*! ../../../api/album/getAllAlbumTitles.js */ \"./api/album/getAllAlbumTitles.js\");\n\n// Create options for the 'Album' and 'CD' selection elements.\n// The 'Album' options contain the titles of all albums in the collection so when a CD is added\n// or edited, the user can select an album of which this CD is part.\nasync function buildSelectOptions(element, callback) {\n  let titlesList = [];\n  const selectElement = element;\n\n  // Create and add a neutral default option\n  const defaultOption = document.createElement('option');\n  defaultOption.textContent = '-';\n  selectElement.append(defaultOption);\n\n  // Call the corresponding API function to get a list of all existing titles\n  if (element.id === 'album') titlesList = await getAllAlbumTitles();\n  if (element.id === 'cd') titlesList = await getAllCDTitles();\n\n  // Each title needs to becomes a selectable option\n  titlesList.forEach(([title]) => {\n    const newOption = document.createElement('option');\n\n    newOption.setAttribute('value', title);\n    newOption.textContent = title;\n    selectElement.append(newOption);\n  });\n\n  // After all options are loaded, set the corresponding option as value\n  if (callback) callback();\n}\n\nmodule.exports = buildSelectOptions;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/utils/buildSelectOptions.js?");
 
 /***/ }),
 
@@ -345,7 +195,7 @@ eval("// Holders\nconst pageHolder = document.querySelector('#page-holder');\nco
   \*************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const buildRatingOptions = __webpack_require__(/*! ./buildRatingOptions.js */ \"./src/components/utils/buildRatingOptions.js\");\nconst buildSelectOptions = __webpack_require__(/*! ./buildSelectOptions.js */ \"./src/components/utils/buildSelectOptions.js\");\nconst buildYearOptions = __webpack_require__(/*! ./buildYearOptions.js */ \"./src/components/utils/buildYearOptions.js\");\n\n// Creates an input element and set the attributes and values where needed\nfunction createFormInput(labelText, type, element, placeholder, value) {\n\n  // Create a new input holder, a label and a element\n  const holder = document.createElement('div');\n  const label = document.createElement('label');\n  const input = document.createElement(element);\n\n  // Set all relevant attributes and values\n  holder.classList.add('form-input-holder');\n  label.classList.add('form-label');\n  label.setAttribute('for', labelText.toLowerCase());\n  label.textContent = `${labelText}:`;\n\n  input.setAttribute('type', type);\n  input.setAttribute('id', labelText.toLowerCase());\n  input.setAttribute('name', labelText.toLowerCase());\n  input.setAttribute('placeholder', placeholder);\n\n  // Use the corresponding build function for each select-element to fill the options with data\n  if (labelText === 'Rating') buildRatingOptions(input);\n  if (labelText === 'Year') buildYearOptions(input);\n\n  // The album and CD options need to be build in a callback because it needs a api request.\n  if (labelText === 'Album' || labelText === 'Cd') {\n    buildSelectOptions(input, () => {\n      input.value = value;\n    });\n  }\n\n  // In case the edit-form is being build.\n  // All input fields are filled with the current data of the item\n  // Use the corresponding methods to change the preset values for each type of element\n  if (value) {\n    switch (element) {\n      case 'textarea': input.textContent = value;\n        break;\n      case 'select': input.value = value;\n        break;\n      default: input.setAttribute('value', value);\n        break;\n    }\n  }\n\n  // Add the input-holder, with a label and a element, to the form\n  holder.append(label, input);\n\n  return holder;\n}\n\n\nmodule.exports = createFormInput;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/utils/createFormInput.js?");
+eval("const buildRatingOptions = __webpack_require__(/*! ./buildRatingOptions.js */ \"./src/components/utils/buildRatingOptions.js\");\nconst buildSelectOptions = __webpack_require__(/*! ./buildItemOptions.js */ \"./src/components/utils/buildItemOptions.js\");\nconst buildYearOptions = __webpack_require__(/*! ./buildYearOptions.js */ \"./src/components/utils/buildYearOptions.js\");\n\n// Creates an input element and set the attributes and values where needed\nfunction createFormInput(labelText, type, element, placeholder, value) {\n\n  // Create a new input holder, a label and a element\n  const holder = document.createElement('div');\n  const label = document.createElement('label');\n  const input = document.createElement(element);\n\n  // Set all relevant attributes and values\n  holder.classList.add('form-input-holder');\n  label.classList.add('form-label');\n  label.setAttribute('for', labelText.toLowerCase());\n  label.textContent = `${labelText}:`;\n\n  input.setAttribute('type', type);\n  input.setAttribute('id', labelText.toLowerCase());\n  input.setAttribute('name', labelText.toLowerCase());\n  input.setAttribute('placeholder', placeholder);\n\n  // Use the corresponding build function for each select-element to fill the options with data\n  if (labelText === 'Rating') buildRatingOptions(input);\n  if (labelText === 'Year') buildYearOptions(input);\n\n  // The album and CD options need to be build in a callback because it needs a api request.\n  if (labelText === 'Album' || labelText === 'Cd') {\n    buildSelectOptions(input, () => {\n      input.value = value;\n    });\n  }\n\n  // In case the edit-form is being build.\n  // All input fields are filled with the current data of the item\n  // Use the corresponding methods to change the preset values for each type of element\n  if (value) {\n    switch (element) {\n      case 'textarea': input.textContent = value;\n        break;\n      case 'select': input.value = value;\n        break;\n      default: input.setAttribute('value', value);\n        break;\n    }\n  }\n\n  // Add the input-holder, with a label and a element, to the form\n  holder.append(label, input);\n\n  return holder;\n}\n\n\nmodule.exports = createFormInput;\n\n\n//# sourceURL=webpack://cd-manager/./src/components/utils/createFormInput.js?");
 
 /***/ }),
 
@@ -375,7 +225,7 @@ eval("// Returns the value of a given input-element\nfunction getInputValue(inpu
   \***************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const setTitle = __webpack_require__(/*! ./setTitle.js */ \"./src/components/utils/setTitle.js\");\nconst clearContentHolders = __webpack_require__(/*! ./clearHolders.js */ \"./src/components/utils/clearHolders.js\");\nconst getInputValue = __webpack_require__(/*! ./getInputValue.js */ \"./src/components/utils/getInputValue.js\");\nconst createFormInput = __webpack_require__(/*! ./createFormInput.js */ \"./src/components/utils/createFormInput.js\");\nconst getCurrentDate = __webpack_require__(/*! ./getCurrentDate.js */ \"./src/components/utils/getCurrentDate.js\");\nconst buildRatingStars = __webpack_require__(/*! ./buildRatingStars.js */ \"./src/components/utils/buildRatingStars.js\");\nconst buildRatingOptions = __webpack_require__(/*! ./buildRatingOptions.js */ \"./src/components/utils/buildRatingOptions.js\");\nconst buildYearOptions = __webpack_require__(/*! ./buildYearOptions.js */ \"./src/components/utils/buildYearOptions.js\");\nconst buildSelectOptions = __webpack_require__(/*! ./buildSelectOptions.js */ \"./src/components/utils/buildSelectOptions.js\");\n\n// Get all needed elements in the DOM, no functions\nconst { commonElements } = __webpack_require__(/*! ./commonElements.js */ \"./src/components/utils/commonElements.js\");\n\nmodule.exports = {\n  setTitle,\n  clearContentHolders,\n  getInputValue,\n  createFormInput,\n  getCurrentDate,\n  buildRatingStars,\n  buildRatingOptions,\n  buildYearOptions,\n  buildSelectOptions,\n  commonElements,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/components/utils/index.js?");
+eval("const setTitle = __webpack_require__(/*! ./setTitle.js */ \"./src/components/utils/setTitle.js\");\nconst clearContentHolders = __webpack_require__(/*! ./clearHolders.js */ \"./src/components/utils/clearHolders.js\");\nconst getInputValue = __webpack_require__(/*! ./getInputValue.js */ \"./src/components/utils/getInputValue.js\");\nconst createFormInput = __webpack_require__(/*! ./createFormInput.js */ \"./src/components/utils/createFormInput.js\");\nconst getCurrentDate = __webpack_require__(/*! ./getCurrentDate.js */ \"./src/components/utils/getCurrentDate.js\");\nconst buildRatingStars = __webpack_require__(/*! ./buildRatingStars.js */ \"./src/components/utils/buildRatingStars.js\");\nconst buildRatingOptions = __webpack_require__(/*! ./buildRatingOptions.js */ \"./src/components/utils/buildRatingOptions.js\");\nconst buildYearOptions = __webpack_require__(/*! ./buildYearOptions.js */ \"./src/components/utils/buildYearOptions.js\");\nconst buildItemOptions = __webpack_require__(/*! ./buildItemOptions.js */ \"./src/components/utils/buildItemOptions.js\");\n\n// Get all needed elements in the DOM, no functions\nconst { commonElements } = __webpack_require__(/*! ./commonElements.js */ \"./src/components/utils/commonElements.js\");\n\nmodule.exports = {\n  setTitle,\n  clearContentHolders,\n  getInputValue,\n  createFormInput,\n  getCurrentDate,\n  buildRatingStars,\n  buildRatingOptions,\n  buildYearOptions,\n  buildItemOptions,\n  commonElements,\n};\n\n\n//# sourceURL=webpack://cd-manager/./src/components/utils/index.js?");
 
 /***/ }),
 
@@ -405,7 +255,7 @@ eval("// const Controller = require('./controller/Controller.js');\n// const Use
   \*************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils/clearHolders.js */ \"./src/components/utils/clearHolders.js\");\nconst setTitle = __webpack_require__(/*! ../../components/utils/setTitle.js */ \"./src/components/utils/setTitle.js\");\nconst buildAddAlbumForm = __webpack_require__(/*! ../../components/forms/album/addAlbum.js */ \"./src/components/forms/album/addAlbum.js\");\n\n// Create the add page after clearing the page from any other content\nfunction buildAddAllPage() {\n\n  clearContentHolders();\n\n  setTitle('Add a new album to your collection');\n\n  buildAddAlbumForm();\n}\n\nmodule.exports = buildAddAllPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/addAlbum.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst buildAddItemForm = __webpack_require__(/*! ../../components/forms/addItem.js */ \"./src/components/forms/addItem.js\");\n\n// Create the add page after clearing the page from any other content\nfunction buildAlbumsAddPage() {\n\n  clearContentHolders();\n\n  setTitle('Add a new album to your collection');\n\n  buildAddItemForm('album');\n}\n\nmodule.exports = buildAlbumsAddPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/addAlbum.js?");
 
 /***/ }),
 
@@ -415,7 +265,7 @@ eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils
   \****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the delete page after clearing the page from any other content\nfunction buildDeletePage() {\n\n  clearContentHolders();\n\n  setTitle('Remove a album from your collection');\n\n  searchItem('album', 'delete');\n}\n\nmodule.exports = buildDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/deleteAlbum.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst buildSearchItemForm = __webpack_require__(/*! ../../components/forms/searchItem.js */ \"./src/components/forms/searchItem.js\");\n\n// Create the delete page after clearing the page from any other content\nfunction buildAlbumsDeletePage() {\n\n  clearContentHolders();\n\n  setTitle('Remove a album from your collection');\n\n  buildSearchItemForm('album', 'delete');\n}\n\nmodule.exports = buildAlbumsDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/deleteAlbum.js?");
 
 /***/ }),
 
@@ -425,7 +275,7 @@ eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../co
   \**************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils/clearHolders.js */ \"./src/components/utils/clearHolders.js\");\nconst setTitle = __webpack_require__(/*! ../../components/utils/setTitle.js */ \"./src/components/utils/setTitle.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the edit page after clearing the page from any other content\nfunction buildEditAllPage() {\n\n  clearContentHolders();\n\n  setTitle('Edit a album');\n\n  searchItem('album', 'edit');\n}\n\nmodule.exports = buildEditAllPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/editAlbum.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst buildSearchItemForm = __webpack_require__(/*! ../../components/forms/searchItem.js */ \"./src/components/forms/searchItem.js\");\n\n// Create the edit page after clearing the page from any other content\nfunction buildAlbumsEditPage() {\n\n  clearContentHolders();\n\n  setTitle('Edit a album');\n\n  buildSearchItemForm('album', 'edit');\n}\n\nmodule.exports = buildAlbumsEditPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/editAlbum.js?");
 
 /***/ }),
 
@@ -445,7 +295,7 @@ eval("const buildAlbumsAllPage = __webpack_require__(/*! ./viewAllAlbums.js */ \
   \******************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils/clearHolders.js */ \"./src/components/utils/clearHolders.js\");\nconst setTitle = __webpack_require__(/*! ../../components/utils/setTitle.js */ \"./src/components/utils/setTitle.js\");\nconst getAlbumsHTML = __webpack_require__(/*! ../../../api/album/getAlbumsHTML.js */ \"./api/album/getAlbumsHTML.js\");\n\n// Create the overview page after clearing the page from any other content\nfunction buildAlbumsAllPage() {\n\n  clearContentHolders();\n\n  setTitle('Overview of all albums in your collection');\n\n  getAlbumsHTML();\n}\n\nmodule.exports = buildAlbumsAllPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/viewAllAlbums.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst getItemsHTML = __webpack_require__(/*! ../../../api/getItemsHTML.js */ \"./api/getItemsHTML.js\");\n\n// Create the overview page after clearing the page from any other content\nfunction buildAlbumsAllPage() {\n\n  clearContentHolders();\n\n  setTitle('Overview of all albums in your collection');\n\n  getItemsHTML('album');\n}\n\nmodule.exports = buildAlbumsAllPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/album/viewAllAlbums.js?");
 
 /***/ }),
 
@@ -455,7 +305,7 @@ eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils
   \*******************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils/clearHolders.js */ \"./src/components/utils/clearHolders.js\");\nconst setTitle = __webpack_require__(/*! ../../components/utils/setTitle.js */ \"./src/components/utils/setTitle.js\");\nconst buildAddCDForm = __webpack_require__(/*! ../../components/forms/cd/addCD.js */ \"./src/components/forms/cd/addCD.js\");\n\n// Create the add page after clearing the page from any other content\nfunction buildCDsAddPage() {\n\n  clearContentHolders();\n\n  setTitle('Add a new CD to your collection');\n\n  buildAddCDForm();\n}\n\nmodule.exports = buildCDsAddPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/addCD.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst { buildAddItemForm } = __webpack_require__(/*! ../../components/forms/index.js */ \"./src/components/forms/index.js\");\n\n// Create the add page after clearing the page from any other content\nfunction buildCDsAddPage() {\n\n  clearContentHolders();\n\n  setTitle('Add a new CD to your collection');\n\n  buildAddItemForm('cd');\n}\n\nmodule.exports = buildCDsAddPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/addCD.js?");
 
 /***/ }),
 
@@ -465,7 +315,7 @@ eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils
   \**********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the delete page after clearing the page from any other content\nfunction buildCDsDeletePage() {\n\n  clearContentHolders();\n\n  setTitle('Remove a CD from your collection');\n\n  searchItem('cd', 'delete');\n}\n\nmodule.exports = buildCDsDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/deleteCD.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\n\n// Create the edit page after clearing the page from any other content\nconst buildCDsDeletePage = async () => {\n\n  // Import the buildSearchItemForm function asynchronic\n  await Promise.resolve(/*! import() */).then(__webpack_require__.t.bind(__webpack_require__, /*! ../../components/forms/searchItem.js */ \"./src/components/forms/searchItem.js\", 23)).then((module) => {\n\n    // Call the defalut function\n    const buildSearchItemForm = module.default;\n\n    // Clear all content\n    clearContentHolders();\n\n    // Build the 'edit CD' page\n    setTitle('Delete a CD');\n    buildSearchItemForm('cd', 'edit');\n  });\n};\n\nmodule.exports = buildCDsDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/deleteCD.js?");
 
 /***/ }),
 
@@ -475,7 +325,7 @@ eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../co
   \********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the edit page after clearing the page from any other content\nfunction buildCDsEditPage() {\n\n  clearContentHolders();\n\n  setTitle('Edit a CD');\n\n  searchItem('cd', 'edit');\n}\n\nmodule.exports = buildCDsEditPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/editCD.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\n\n// Create the edit page after clearing the page from any other content\nconst buildCDsEditPage = async () => {\n\n  // Import the buildSearchItemForm function asynchronic\n  await Promise.resolve(/*! import() */).then(__webpack_require__.t.bind(__webpack_require__, /*! ../../components/forms/searchItem.js */ \"./src/components/forms/searchItem.js\", 23)).then((module) => {\n\n    // Call the defalut function\n    const buildSearchItemForm = module.default;\n\n    // Clear all content\n    clearContentHolders();\n\n    // Build the 'edit CD' page\n    setTitle('Edit a CD');\n    buildSearchItemForm('cd', 'edit');\n  });\n};\n\nmodule.exports = buildCDsEditPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/editCD.js?");
 
 /***/ }),
 
@@ -495,7 +345,7 @@ eval("const buildCDsAllPage = __webpack_require__(/*! ./viewAllCDs.js */ \"./src
   \************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const clearContentHolders = __webpack_require__(/*! ../../components/utils/clearHolders.js */ \"./src/components/utils/clearHolders.js\");\nconst setTitle = __webpack_require__(/*! ../../components/utils/setTitle.js */ \"./src/components/utils/setTitle.js\");\nconst getCDsHTML = __webpack_require__(/*! ../../../api/cd/getCDsHTML.js */ \"./api/cd/getCDsHTML.js\");\n\n// Create the overview page after clearing the page from any other content\nfunction buildCDsAllPage() {\n\n  clearContentHolders();\n\n  setTitle('Overview of all CDs in your collection');\n\n  getCDsHTML();\n}\n\nmodule.exports = buildCDsAllPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/viewAllCDs.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst getItemsHTML = __webpack_require__(/*! ../../../api/getItemsHTML.js */ \"./api/getItemsHTML.js\");\n\n// Create the overview page after clearing the page from any other content\nfunction buildCDsAllPage() {\n\n  clearContentHolders();\n\n  setTitle('Overview of all CDs in your collection');\n\n  getItemsHTML('cd');\n}\n\nmodule.exports = buildCDsAllPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/cd/viewAllCDs.js?");
 
 /***/ }),
 
@@ -545,7 +395,7 @@ eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../compo
   \*************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst { buildAddTrackForm } = __webpack_require__(/*! ../../components/forms/track/index.js */ \"./src/components/forms/track/index.js\");\n\n// Create the tracks add page after clearing the page from any other content\nfunction buildTracksAddPage() {\n\n  clearContentHolders();\n\n  setTitle('Add a new track to your collection');\n\n  buildAddTrackForm();\n}\n\nmodule.exports = buildTracksAddPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/addTrack.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst buildAddItemForm = __webpack_require__(/*! ../../components/forms/addItem.js */ \"./src/components/forms/addItem.js\");\n\n// Create the tracks add page after clearing the page from any other content\nfunction buildTracksAddPage() {\n\n  clearContentHolders();\n\n  setTitle('Add a new track to your collection');\n\n  buildAddItemForm('track');\n}\n\nmodule.exports = buildTracksAddPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/addTrack.js?");
 
 /***/ }),
 
@@ -555,7 +405,7 @@ eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../co
   \****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the tracks delete page after clearing the page from any other content\nfunction buildTracksDeletePage() {\n\n  clearContentHolders();\n\n  setTitle('Remove a track from your collection');\n\n  searchItem('track', 'delete');\n}\n\nmodule.exports = buildTracksDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/deleteTrack.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\n\n// Create the edit page after clearing the page from any other content\nconst buildTracksDeletePage = async () => {\n\n  // Import the buildSearchItemForm function asynchronic\n  await Promise.resolve(/*! import() */).then(__webpack_require__.t.bind(__webpack_require__, /*! ../../components/forms/searchItem.js */ \"./src/components/forms/searchItem.js\", 23)).then((module) => {\n\n    // Call the defalut function\n    const buildSearchItemForm = module.default;\n\n    // Clear all content\n    clearContentHolders();\n\n    // Build the 'edit CD' page\n    setTitle('Delete a track');\n    buildSearchItemForm('track', 'edit');\n  });\n};\n\nmodule.exports = buildTracksDeletePage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/deleteTrack.js?");
 
 /***/ }),
 
@@ -565,7 +415,7 @@ eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../co
   \**************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst searchItem = __webpack_require__(/*! ../../components/forms/common/searchItem.js */ \"./src/components/forms/common/searchItem.js\");\n\n// Create the tracks edit page after clearing the page from any other content\nfunction buildTracksEditPage() {\n\n  clearContentHolders();\n\n  setTitle('Edit a track');\n\n  searchItem('track', 'edit');\n}\n\nmodule.exports = buildTracksEditPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/editTrack.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\n\n// Create the tracks edit page after clearing the page from any other content\nconst buildTracksEditPage = async () => {\n\n  // Import the buildSearchItemForm function asynchronic\n  await Promise.resolve(/*! import() */).then(__webpack_require__.t.bind(__webpack_require__, /*! ../../components/forms/searchItem.js */ \"./src/components/forms/searchItem.js\", 23)).then((module) => {\n\n    // Call the defalut function\n    const buildSearchItemForm = module.default;\n\n    // Clear all content\n    clearContentHolders();\n\n    // Build the 'edit CD' page\n    setTitle('Edit a track');\n    buildSearchItemForm('track', 'edit');\n  });\n};\n\nmodule.exports = buildTracksEditPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/editTrack.js?");
 
 /***/ }),
 
@@ -585,7 +435,7 @@ eval("const buildTracksAllPage = __webpack_require__(/*! ./viewAllTracks.js */ \
   \******************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst getTracksHTML = __webpack_require__(/*! ../../../api/track/getTracksHTML.js */ \"./api/track/getTracksHTML.js\");\n\n// Create the tracks overview page after clearing the page from any other content\nfunction buildTracksAllPage() {\n\n  clearContentHolders();\n\n  setTitle('Overview of all tracks in your collection');\n\n  getTracksHTML();\n}\n\nmodule.exports = buildTracksAllPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/viewAllTracks.js?");
+eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../components/utils/index.js */ \"./src/components/utils/index.js\");\nconst getItemsHTML = __webpack_require__(/*! ../../../api/getItemsHTML.js */ \"./api/getItemsHTML.js\");\n\n// Create the tracks overview page after clearing the page from any other content\nfunction buildTracksAllPage() {\n\n  clearContentHolders();\n\n  setTitle('Overview of all tracks in your collection');\n\n  getItemsHTML('track');\n}\n\nmodule.exports = buildTracksAllPage;\n\n\n//# sourceURL=webpack://cd-manager/./src/pages/track/viewAllTracks.js?");
 
 /***/ })
 
@@ -614,6 +464,65 @@ eval("const { clearContentHolders, setTitle } = __webpack_require__(/*! ../../co
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/create fake namespace object */
+/******/ 	(() => {
+/******/ 		var getProto = Object.getPrototypeOf ? (obj) => (Object.getPrototypeOf(obj)) : (obj) => (obj.__proto__);
+/******/ 		var leafPrototypes;
+/******/ 		// create a fake namespace object
+/******/ 		// mode & 1: value is a module id, require it
+/******/ 		// mode & 2: merge all properties of value into the ns
+/******/ 		// mode & 4: return value when already ns object
+/******/ 		// mode & 16: return value when it's Promise-like
+/******/ 		// mode & 8|1: behave like require
+/******/ 		__webpack_require__.t = function(value, mode) {
+/******/ 			if(mode & 1) value = this(value);
+/******/ 			if(mode & 8) return value;
+/******/ 			if(typeof value === 'object' && value) {
+/******/ 				if((mode & 4) && value.__esModule) return value;
+/******/ 				if((mode & 16) && typeof value.then === 'function') return value;
+/******/ 			}
+/******/ 			var ns = Object.create(null);
+/******/ 			__webpack_require__.r(ns);
+/******/ 			var def = {};
+/******/ 			leafPrototypes = leafPrototypes || [null, getProto({}), getProto([]), getProto(getProto)];
+/******/ 			for(var current = mode & 2 && value; typeof current == 'object' && !~leafPrototypes.indexOf(current); current = getProto(current)) {
+/******/ 				Object.getOwnPropertyNames(current).forEach((key) => (def[key] = () => (value[key])));
+/******/ 			}
+/******/ 			def['default'] = () => (value);
+/******/ 			__webpack_require__.d(ns, def);
+/******/ 			return ns;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 /******/ 	
