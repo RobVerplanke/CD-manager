@@ -17,20 +17,6 @@
       "info": "Track 1.01: Incorrectly listed as \"M. Mayer - Love Is Stronger Than Pride\"\nTrack 1.12: Incorrectly listed as the \"Original Mix\"",
       "image": "https://i.discogs.com/fzY1IxFHTL18aAFlXr-ql3Flmv_wdzIU_lShZ2NUa_k/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1NDgx/NC0xMjM5ODk3NTY0/LmpwZWc.jpeg",
       "views": 0
-    },
-    {
-      "id": "9d93",
-      "title": "s",
-      "artist": "",
-      "year": "",
-      "collabs": "",
-      "label": "",
-      "genre": "",
-      "added": "04-27-2024",
-      "rating": "-",
-      "info": "",
-      "img": "",
-      "views": 0
     }
   ],
   "cds": [
@@ -96,36 +82,6 @@
       "info": "ssss",
       "image": "https://i.discogs.com/fzY1IxFHTL18aAFlXr-ql3Flmv_wdzIU_lShZ2NUa_k/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTE1NDgx/NC0xMjM5ODk3NTY0/LmpwZWc.jpeg",
       "views": 0
-    },
-    {
-      "id": "eba1",
-      "album": "",
-      "title": "x",
-      "artist": "",
-      "year": "",
-      "collabs": "",
-      "label": "",
-      "genre": "",
-      "added": "04-27-2024",
-      "rating": "-",
-      "info": "",
-      "image": "",
-      "views": 0
-    },
-    {
-      "id": "9b06",
-      "album": "",
-      "title": "zxc",
-      "artist": "zzxc",
-      "year": "2012",
-      "collabs": "zzxczxc",
-      "label": "zz",
-      "genre": "ccccc",
-      "added": "04-27-2024",
-      "rating": "4",
-      "info": "zxc",
-      "image": "zzzzzz",
-      "views": 0
     }
   ],
   "tracks": [
@@ -139,11 +95,11 @@
       "remix": "Remix",
       "length": "2",
       "rating": "4",
-      "info": "eeeeeeeeextra",
+      "info": "",
       "added": "16-02-24",
       "views": 0,
-      "collaborators": "Collabs",
-      "label": "labellllll"
+      "collaborators": "",
+      "label": ""
     },
     {
       "id": "5",
@@ -243,22 +199,6 @@
       "info": "",
       "added": "16-02-24",
       "views": 0
-    },
-    {
-      "id": "11",
-      "cd": "",
-      "title": "Nyana",
-      "artist": "Tiësto",
-      "collabs": "",
-      "style": "Trance",
-      "remix": "hhhhhhhhhhhhhhhhhh",
-      "length": "0:25",
-      "rating": "2",
-      "info": "qqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
-      "added": "16-02-24",
-      "views": 0,
-      "collaborators": "ffffffffffffffffff",
-      "label": "ssssssssssssssss"
     },
     {
       "id": "12",

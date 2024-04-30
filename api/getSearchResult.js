@@ -64,10 +64,8 @@ async function getSearchResult(itemType, action, searchKeyword) {
   // After a edit/delete link is clicked, redirect the user to the corresponding form
   async function handleClick(itemID) {
 
-    if (action === 'edit') {
-      // Redirect to edit form
-      if (itemType === 'album') buildEditItemForm(itemType, itemID);
-    }
+    // Redirect to edit form
+    if (action === 'edit') buildEditItemForm(itemType, itemID);
 
     if (action === 'delete') {
       // Wait for API module to remove item
