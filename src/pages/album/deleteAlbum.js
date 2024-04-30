@@ -1,14 +1,14 @@
 const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
-const { searchAlbumForm } = require('../../components/forms/album/index.js');
+const buildSearchItemForm = require('../../components/forms/searchItem.js');
 
 // Create the delete page after clearing the page from any other content
-function buildDeletePage() {
+function buildAlbumsDeletePage() {
 
   clearContentHolders();
 
   setTitle('Remove a album from your collection');
 
-  searchAlbumForm('delete');
+  buildSearchItemForm('album', 'delete');
 }
 
-module.exports = buildDeletePage;
+module.exports = buildAlbumsDeletePage;

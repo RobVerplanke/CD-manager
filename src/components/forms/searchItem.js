@@ -1,5 +1,5 @@
-const { createFormInput } = require('../../utils/index.js');
-const getTracksResult = require('../../../../api/track/getTracksResult.js');
+const { createFormInput } = require('../utils/index.js');
+const getSearchResult = require('../../../api/getSearchResult.js');
 
 /**
  * Build the page that is loaded after the user clicks on the 'edit' button
@@ -7,7 +7,7 @@ const getTracksResult = require('../../../../api/track/getTracksResult.js');
  * This page contains a search field and a search button.
  * Show the results of the search query on a results page.
  */
-function searchTrackForm(action) {
+function buildSearchItemForm(itemType, action) {
   const form = document.querySelector('#form');
   form.classList.add('edit-form');
 
@@ -24,9 +24,12 @@ function searchTrackForm(action) {
   // Redirect the user to a results page
   submitButton.addEventListener('click', (e) => {
     e.preventDefault();
-    getTracksResult(action, form.search.value);
+
+    // Get the search results
+    getSearchResult(itemType, action, form.search.value);
   });
+
   form.appendChild(submitButton);
 }
 
-module.exports = searchTrackForm;
+module.exports = buildSearchItemForm;

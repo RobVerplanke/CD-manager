@@ -1,5 +1,5 @@
 const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
-const { buildAddTrackForm } = require('../../components/forms/track/index.js');
+const buildAddItemForm = require('../../components/forms/addItem.js');
 
 // Create the tracks add page after clearing the page from any other content
 function buildTracksAddPage() {
@@ -8,7 +8,7 @@ function buildTracksAddPage() {
 
   setTitle('Add a new track to your collection');
 
-  buildAddTrackForm();
+  buildAddItemForm('track');
 }
 
 module.exports = buildTracksAddPage;

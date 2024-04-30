@@ -1,6 +1,5 @@
-const clearContentHolders = require('../../components/utils/clearHolders.js');
-const setTitle = require('../../components/utils/setTitle.js');
-const getCDsHTML = require('../../../api/cd/getCDsHTML.js');
+const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
+const getItemsHTML = require('../../../api/getItemsHTML.js');
 
 // Create the overview page after clearing the page from any other content
 function buildCDsAllPage() {
@@ -9,7 +8,7 @@ function buildCDsAllPage() {
 
   setTitle('Overview of all CDs in your collection');
 
-  getCDsHTML();
+  getItemsHTML('cd');
 }
 
 module.exports = buildCDsAllPage;

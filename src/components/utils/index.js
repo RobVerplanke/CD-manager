@@ -6,7 +6,7 @@ const getCurrentDate = require('./getCurrentDate.js');
 const buildRatingStars = require('./buildRatingStars.js');
 const buildRatingOptions = require('./buildRatingOptions.js');
 const buildYearOptions = require('./buildYearOptions.js');
-const buildSelectOptions = require('./buildSelectOptions.js');
+const buildItemOptions = require('./buildItemOptions.js');
 
 // Get all needed elements in the DOM, no functions
 const { commonElements } = require('./commonElements.js');
@@ -20,6 +20,6 @@ module.exports = {
   buildRatingStars,
   buildRatingOptions,
   buildYearOptions,
-  buildSelectOptions,
+  buildItemOptions,
   commonElements,
 };

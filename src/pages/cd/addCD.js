@@ -1,6 +1,5 @@
-const clearContentHolders = require('../../components/utils/clearHolders.js');
-const setTitle = require('../../components/utils/setTitle.js');
-const buildAddCDForm = require('../../components/forms/cd/addCD.js');
+const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
+const { buildAddItemForm } = require('../../components/forms/index.js');
 
 // Create the add page after clearing the page from any other content
 function buildCDsAddPage() {
@@ -9,7 +8,7 @@ function buildCDsAddPage() {
 
   setTitle('Add a new CD to your collection');
 
-  buildAddCDForm();
+  buildAddItemForm('cd');
 }
 
 module.exports = buildCDsAddPage;

@@ -1,5 +1,4 @@
-const getAllCDTitles = require('../../../api/cd/getAllCDTitles.js');
-const getAllAlbumTitles = require('../../../api/album/getAllAlbumTitles.js');
+const getAllTitles = require('../../../api/getAllTitles.js');
 
 // Create options for the 'Album' and 'CD' selection elements.
 // The 'Album' options contain the titles of all albums in the collection so when a CD is added
@@ -14,8 +13,8 @@ async function buildSelectOptions(element, callback) {
   selectElement.append(defaultOption);
 
   // Call the corresponding API function to get a list of all existing titles
-  if (element.id === 'album') titlesList = await getAllAlbumTitles();
-  if (element.id === 'cd') titlesList = await getAllCDTitles();
+  if (element.id === 'album') titlesList = await getAllTitles('album');
+  if (element.id === 'cd') titlesList = await getAllTitles('cd');
 
   // Each title needs to becomes a selectable option
   titlesList.forEach(([title]) => {

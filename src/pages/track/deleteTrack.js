@@ -1,14 +1,21 @@
 const { clearContentHolders, setTitle } = require('../../components/utils/index.js');
-const { searchTrackForm } = require('../../components/forms/track/index.js');
 
-// Create the tracks delete page after clearing the page from any other content
-function buildTracksDeletePage() {
+// Create the edit page after clearing the page from any other content
+const buildTracksDeletePage = async () => {
 
-  clearContentHolders();
+  // Import the buildSearchItemForm function asynchronic
+  await import('../../components/forms/searchItem.js').then((module) => {
 
-  setTitle('Remove a track from your collection');
+    // Call the defalut function
+    const buildSearchItemForm = module.default;
 
-  searchTrackForm('delete');
-}
+    // Clear all content
+    clearContentHolders();
+
+    // Build the 'edit CD' page
+    setTitle('Delete a track');
+    buildSearchItemForm('track', 'edit');
+  });
+};
 
 module.exports = buildTracksDeletePage;
